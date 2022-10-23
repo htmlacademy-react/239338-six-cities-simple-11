@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов (простой)»
 
-* Студент: [Артем Картавцев](https://up.htmlacademy.ru/react/11/user/239338).
-* Наставник: `Неизвестно`.
+* Студент: [Артем Картавцев](https://htmlacademy.ru/profile/arkartavtsev).
+* Наставник: [Надежда Комарицкая](https://htmlacademy.ru/profile/id644051).
 
 ---
 
