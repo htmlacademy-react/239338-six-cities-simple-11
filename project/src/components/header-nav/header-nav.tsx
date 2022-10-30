@@ -3,7 +3,7 @@ type HeaderNavProps = {
 }
 
 
-const Header = (props: HeaderNavProps): JSX.Element => {
+const HeaderNav = (props: HeaderNavProps): JSX.Element => {
   const { isLogged } = props;
 
   return (
@@ -40,4 +40,4 @@ const Header = (props: HeaderNavProps): JSX.Element => {
 };
 
 
-export default Header;
+export default HeaderNav;
