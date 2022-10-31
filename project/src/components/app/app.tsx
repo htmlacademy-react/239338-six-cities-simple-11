@@ -1,6 +1,7 @@
 import MainScreen from '../../pages/main-screen/main-screen';
 // import PropertyScreen from '../../pages/property-screen/property-screen';
 // import LoginScreen from '../../pages/login-screen/login-screen';
+// import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 
 
 type AppProps = {
@@ -24,6 +25,8 @@ const App = (props: AppProps): JSX.Element => {
       /> */}
 
       {/* <LoginScreen /> */}
+
+      {/* <NotFoundScreen/> */}
     </>
   );
 };
