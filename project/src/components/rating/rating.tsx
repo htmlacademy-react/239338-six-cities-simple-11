@@ -23,9 +23,9 @@ const Rating = (props: RatingProps): JSX.Element => {
       </div>
 
       {
-        hasValueOutput ? (
+        hasValueOutput && (
           <span className={ `${ parentClass }__rating-value rating__value` }>{ value }</span>
-        ) : ''
+        )
       }
     </div>
   );

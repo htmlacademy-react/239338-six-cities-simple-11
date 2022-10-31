@@ -142,9 +142,9 @@ const PropertyScreen = (props: PropertyProps): JSX.Element => {
                 </ul>
 
                 {
-                  isLogged ? (
+                  isLogged && (
                     <ReviewsForm/>
-                  ) : ''
+                  )
                 }
               </section>
             </div>

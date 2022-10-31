@@ -22,11 +22,11 @@ const Header = (props: HeaderProps): JSX.Element => {
           </div>
 
           {
-            hasNav ? (
+            hasNav && (
               <HeaderNav
                 isLogged= { isLogged }
               />
-            ) : ''
+            )
           }
         </div>
       </div>

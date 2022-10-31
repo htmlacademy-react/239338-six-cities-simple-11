@@ -124,7 +124,7 @@ const MainScreen = (props: MainScreenProps): JSX.Element => {
 
             <div className="cities__right-section">
               {
-                isEmpty ? '' : (
+                isEmpty || (
                   <section className="cities__map map"></section>
                 )
               }
