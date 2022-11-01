@@ -1,7 +1,11 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import { AppRoute } from '../../const';
+
 import MainScreen from '../../pages/main-screen/main-screen';
-// import PropertyScreen from '../../pages/property-screen/property-screen';
-// import LoginScreen from '../../pages/login-screen/login-screen';
-// import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
+import PropertyScreen from '../../pages/property-screen/property-screen';
+import LoginScreen from '../../pages/login-screen/login-screen';
+import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 
 
 type AppProps = {
@@ -14,20 +18,46 @@ const App = (props: AppProps): JSX.Element => {
   const { isLogged, resultsCount } = props;
 
   return (
-    <>
-      <MainScreen
-        isLogged= { isLogged }
-        resultsCount= { resultsCount }
-      />
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path={ AppRoute.Root }
+        >
+          <Route
+            index
+            element={
+              <MainScreen
+                isLogged= { isLogged }
+                resultsCount= { resultsCount }
+              />
+            }
+          />
 
-      {/* <PropertyScreen
-        isLogged= { isLogged }
-      /> */}
+          <Route
+            path={ AppRoute.Room }
+            element={
+              <PropertyScreen
+                isLogged= { isLogged }
+              />
+            }
+          />
 
-      {/* <LoginScreen /> */}
+          <Route
+            path={ AppRoute.Login }
+            element={
+              <LoginScreen />
+            }
+          />
 
-      {/* <NotFoundScreen/> */}
-    </>
+          <Route
+            path="*"
+            element={
+              <NotFoundScreen />
+            }
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 

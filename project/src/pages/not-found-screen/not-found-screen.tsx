@@ -1,3 +1,7 @@
+import { Link } from 'react-router-dom';
+
+import { AppRoute } from '../../const';
+
 import Header from '../../components/header/header';
 
 
@@ -27,9 +31,9 @@ const NotFoundScreen = (): JSX.Element => (
             }}
         >
           <div className="locations__item">
-            <a className="locations__item-link" href="#">
+            <Link className="locations__item-link" to={ AppRoute.Root }>
               <span>Back to Main</span>
-            </a>
+            </Link>
           </div>
         </section>
       </div>
