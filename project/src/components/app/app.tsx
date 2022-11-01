@@ -22,40 +22,36 @@ const App = (props: AppProps): JSX.Element => {
       <Routes>
         <Route
           path={ AppRoute.Root }
-        >
-          <Route
-            index
-            element={
-              <Main
-                isLogged= { isLogged }
-                resultsCount= { resultsCount }
-              />
-            }
-          />
+          element={
+            <Main
+              isLogged= { isLogged }
+              resultsCount= { resultsCount }
+            />
+          }
+        />
 
-          <Route
-            path={ AppRoute.Room }
-            element={
-              <Room
-                isLogged= { isLogged }
-              />
-            }
-          />
+        <Route
+          path={ AppRoute.Room }
+          element={
+            <Room
+              isLogged= { isLogged }
+            />
+          }
+        />
 
-          <Route
-            path={ AppRoute.Login }
-            element={
-              <Login/>
-            }
-          />
+        <Route
+          path={ AppRoute.Login }
+          element={
+            <Login/>
+          }
+        />
 
-          <Route
-            path="*"
-            element={
-              <NotFound/>
-            }
-          />
-        </Route>
+        <Route
+          path="*"
+          element={
+            <NotFound/>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

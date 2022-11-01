@@ -1,7 +1,7 @@
 export enum AppRoute {
   Root = '/',
-  Login = 'login',
-  Room = 'offer/:id'
+  Login = '/login',
+  Room = '/offer/:id'
 }
 
 export const Cities = [
