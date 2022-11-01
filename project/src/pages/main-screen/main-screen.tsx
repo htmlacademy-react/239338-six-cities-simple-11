@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { AppRoute } from '../../const';
+import { AppRoute, Cities } from '../../const';
 
 import Header from '../../components/header/header';
 import PlaceCard from '../../components/place-card/place-card';
@@ -29,41 +29,15 @@ const MainScreen = (props: MainScreenProps): JSX.Element => {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item tabs__item--active" to={`${ AppRoute.Root }?paris`}>
-                  <span>Paris</span>
-                </Link>
-              </li>
-
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={`${ AppRoute.Root }?cologne`}>
-                  <span>Cologne</span>
-                </Link>
-              </li>
-
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={`${ AppRoute.Root }?brussels`}>
-                  <span>Brussels</span>
-                </Link>
-              </li>
-
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={`${ AppRoute.Root }?amsterdam`}>
-                  <span>Amsterdam</span>
-                </Link>
-              </li>
-
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={`${ AppRoute.Root }?hamburg`}>
-                  <span>Hamburg</span>
-                </Link>
-              </li>
-
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={`${ AppRoute.Root }?dusseldorf`}>
-                  <span>Dusseldorf</span>
-                </Link>
-              </li>
+              {
+                Cities.map((city, index) => (
+                  <li key={ city.id } className="locations__item">
+                    <Link className={ `locations__item-link tabs__item ${ index === 0 ? 'tabs__item--active' : '' }` } to={`${ AppRoute.Root }?${ city.id }`}>
+                      <span>{ city.name }</span>
+                    </Link>
+                  </li>
+                ))
+              }
             </ul>
           </section>
         </div>
