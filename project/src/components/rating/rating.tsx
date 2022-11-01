@@ -14,7 +14,7 @@ const Rating = (props: RatingProps): JSX.Element => {
       <div className={ `${ parentClass }__stars rating__stars` }>
         <span style=
           {{
-            width: `${ value / MAX_VALUE * 100 }%`
+            width: `${ Math.round(value) / MAX_VALUE * 100 }%`
           }}
         >
         </span>

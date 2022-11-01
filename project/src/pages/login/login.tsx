@@ -1,7 +1,11 @@
+import { Link } from 'react-router-dom';
+
+import { AppRoute, Cities } from '../../const';
+
 import Header from '../../components/header/header';
 
 
-const LoginScreen = (): JSX.Element => (
+const Login = (): JSX.Element => (
   <div className="page page--gray page--login">
     <Header
       isLogged= { false }
@@ -30,9 +34,9 @@ const LoginScreen = (): JSX.Element => (
 
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <a className="locations__item-link" href="#">
-              <span>Amsterdam</span>
-            </a>
+            <Link className="locations__item-link" to={`${ AppRoute.Root }?${ Cities[0].id }`}>
+              <span>{ Cities[0].name }</span>
+            </Link>
           </div>
         </section>
       </div>
@@ -41,4 +45,4 @@ const LoginScreen = (): JSX.Element => (
 );
 
 
-export default LoginScreen;
+export default Login;

@@ -1,14 +1,18 @@
+import { Link } from 'react-router-dom';
+
+import { AppRoute, Cities } from '../../const';
+
 import Header from '../../components/header/header';
 import PlaceCard from '../../components/place-card/place-card';
 
 
-type MainScreenProps = {
+type MainProps = {
   isLogged: boolean;
   resultsCount: number;
 }
 
 
-const MainScreen = (props: MainScreenProps): JSX.Element => {
+const Main = (props: MainProps): JSX.Element => {
   const { isLogged, resultsCount } = props;
   const isEmpty = resultsCount === 0;
 
@@ -25,41 +29,15 @@ const MainScreen = (props: MainScreenProps): JSX.Element => {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
+              {
+                Cities.map((city, index) => (
+                  <li key={ city.id } className="locations__item">
+                    <Link className={ `locations__item-link tabs__item ${ index === 0 ? 'tabs__item--active' : '' }` } to={`${ AppRoute.Root }?${ city.id }`}>
+                      <span>{ city.name }</span>
+                    </Link>
+                  </li>
+                ))
+              }
             </ul>
           </section>
         </div>
@@ -137,4 +115,4 @@ const MainScreen = (props: MainScreenProps): JSX.Element => {
 };
 
 
-export default MainScreen;
+export default Main;

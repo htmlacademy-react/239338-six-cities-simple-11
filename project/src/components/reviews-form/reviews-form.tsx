@@ -1,3 +1,6 @@
+import React from 'react';
+
+
 const ReviewsForm = (): JSX.Element => (
   <form className="reviews__form form" action="#" method="post">
     <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -15,7 +18,7 @@ const ReviewsForm = (): JSX.Element => (
           const ratingID = `${ ratingValue }-stars`;
 
           return (
-            <>
+            <React.Fragment key={ ratingID }>
               <input id={ ratingID } className="form__rating-input visually-hidden" name="rating" value={ ratingValue } type="radio"/>
 
               <label htmlFor={ ratingID } className="reviews__rating-label form__rating-label" title={ rating }>
@@ -23,7 +26,7 @@ const ReviewsForm = (): JSX.Element => (
                   <use xlinkHref="#icon-star"></use>
                 </svg>
               </label>
-            </>
+            </React.Fragment>
           );
         })
       }
