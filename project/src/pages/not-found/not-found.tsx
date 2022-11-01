@@ -5,7 +5,7 @@ import { AppRoute } from '../../const';
 import Header from '../../components/header/header';
 
 
-const NotFoundScreen = (): JSX.Element => (
+const NotFound = (): JSX.Element => (
   <div className="page page--gray page--login">
     <Header
       isLogged= { false }
@@ -42,4 +42,4 @@ const NotFoundScreen = (): JSX.Element => (
 );
 
 
-export default NotFoundScreen;
+export default NotFound;

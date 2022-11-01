@@ -6,13 +6,13 @@ import Header from '../../components/header/header';
 import PlaceCard from '../../components/place-card/place-card';
 
 
-type MainScreenProps = {
+type MainProps = {
   isLogged: boolean;
   resultsCount: number;
 }
 
 
-const MainScreen = (props: MainScreenProps): JSX.Element => {
+const Main = (props: MainProps): JSX.Element => {
   const { isLogged, resultsCount } = props;
   const isEmpty = resultsCount === 0;
 
@@ -115,4 +115,4 @@ const MainScreen = (props: MainScreenProps): JSX.Element => {
 };
 
 
-export default MainScreen;
+export default Main;

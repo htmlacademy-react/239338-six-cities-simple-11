@@ -5,7 +5,7 @@ import { AppRoute, Cities } from '../../const';
 import Header from '../../components/header/header';
 
 
-const LoginScreen = (): JSX.Element => (
+const Login = (): JSX.Element => (
   <div className="page page--gray page--login">
     <Header
       isLogged= { false }
@@ -45,4 +45,4 @@ const LoginScreen = (): JSX.Element => (
 );
 
 
-export default LoginScreen;
+export default Login;

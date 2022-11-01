@@ -2,10 +2,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { AppRoute } from '../../const';
 
-import MainScreen from '../../pages/main-screen/main-screen';
-import PropertyScreen from '../../pages/property-screen/property-screen';
-import LoginScreen from '../../pages/login-screen/login-screen';
-import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
+import Main from '../../pages/main/main';
+import Room from '../../pages/room/room';
+import Login from '../../pages/login/login';
+import NotFound from '../../pages/not-found/not-found';
 
 
 type AppProps = {
@@ -26,7 +26,7 @@ const App = (props: AppProps): JSX.Element => {
           <Route
             index
             element={
-              <MainScreen
+              <Main
                 isLogged= { isLogged }
                 resultsCount= { resultsCount }
               />
@@ -36,7 +36,7 @@ const App = (props: AppProps): JSX.Element => {
           <Route
             path={ AppRoute.Room }
             element={
-              <PropertyScreen
+              <Room
                 isLogged= { isLogged }
               />
             }
@@ -45,14 +45,14 @@ const App = (props: AppProps): JSX.Element => {
           <Route
             path={ AppRoute.Login }
             element={
-              <LoginScreen />
+              <Login/>
             }
           />
 
           <Route
             path="*"
             element={
-              <NotFoundScreen />
+              <NotFound/>
             }
           />
         </Route>

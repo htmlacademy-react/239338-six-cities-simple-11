@@ -4,12 +4,12 @@ import ReviewsForm from '../../components/reviews-form/reviews-form';
 import PlaceCard from '../../components/place-card/place-card';
 
 
-type PropertyProps = {
+type RoomProps = {
   isLogged: boolean;
 }
 
 
-const PropertyScreen = (props: PropertyProps): JSX.Element => {
+const Room = (props: RoomProps): JSX.Element => {
   const { isLogged } = props;
 
   return (
@@ -176,4 +176,4 @@ const PropertyScreen = (props: PropertyProps): JSX.Element => {
 };
 
 
-export default PropertyScreen;
+export default Room;
