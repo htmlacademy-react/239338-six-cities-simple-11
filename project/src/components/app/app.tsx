@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { AppRoute } from '../../const';
+import { Offers } from '../../types/offers';
 
 import Main from '../../pages/main/main';
 import Room from '../../pages/room/room';
@@ -10,12 +11,12 @@ import NotFound from '../../pages/not-found/not-found';
 
 type AppProps = {
   isLogged: boolean;
-  resultsCount: number;
+  offers: Offers;
 }
 
 
 const App = (props: AppProps): JSX.Element => {
-  const { isLogged, resultsCount } = props;
+  const { isLogged, offers } = props;
 
   return (
     <BrowserRouter>
@@ -25,7 +26,7 @@ const App = (props: AppProps): JSX.Element => {
           element={
             <Main
               isLogged= { isLogged }
-              resultsCount= { resultsCount }
+              offers= { offers }
             />
           }
         />
@@ -35,6 +36,7 @@ const App = (props: AppProps): JSX.Element => {
           element={
             <Room
               isLogged= { isLogged }
+              offers= { offers }
             />
           }
         />
