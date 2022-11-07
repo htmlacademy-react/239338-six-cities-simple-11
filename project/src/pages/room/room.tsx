@@ -1,7 +1,9 @@
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-import { Offers, Offer } from '../../types/offers';
+import { Offers } from '../../types/offers';
 import { pluralize } from '../../utils';
+
+import NotFound from '../not-found/not-found';
 
 import Header from '../../components/header/header';
 import Rating from '../../components/rating/rating';
@@ -21,8 +23,12 @@ const Room = (props: RoomProps): JSX.Element => {
   const params = useParams();
   const currentOfferID = Number(params.id);
 
-  const currentOffer = offers.find((offer) => offer.id === currentOfferID) as Offer;
+  const currentOffer = offers.find((offer) => offer.id === currentOfferID);
   const offersNearby = offers.filter((offer) => offer.id !== currentOfferID);
+
+  if (!currentOffer) {
+    return <NotFound/>;
+  }
 
   const {
     title,
