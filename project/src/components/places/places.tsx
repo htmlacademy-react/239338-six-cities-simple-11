@@ -5,20 +5,19 @@ import PlaceCard from '../place-card/place-card';
 
 
 type PlacesProps = {
-  city: string;
+  currentCityName: string;
   offers: Offers;
 }
 
 
 const Places = (props: PlacesProps): JSX.Element => {
-  const { city, offers } = props;
-  const offersCount = offers.length;
+  const { currentCityName, offers } = props;
 
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
 
-      <b className="places__found">{ pluralize(offersCount, 'place') } to stay in { city }</b>
+      <b className="places__found">{ pluralize(offers.length, 'place') } to stay in { currentCityName }</b>
 
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by </span>
