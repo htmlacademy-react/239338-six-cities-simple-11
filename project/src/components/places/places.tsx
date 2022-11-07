@@ -1,56 +1,67 @@
+import { useState } from 'react';
+
 import { Offers } from '../../types/offers';
 import { pluralize } from '../../utils';
 
 import PlaceCard from '../place-card/place-card';
+import Map from '../map/map';
 
 
 type PlacesProps = {
   currentCityName: string;
   offers: Offers;
-  setSelectedPlaceID: (selectedPlaceID: number | undefined) => void;
 }
 
 
 const Places = (props: PlacesProps): JSX.Element => {
-  const { currentCityName, offers, setSelectedPlaceID } = props;
+  const { currentCityName, offers } = props;
+  const [ selectedPlaceID, setSelectedPlaceID ]: [ number | undefined, (selectedPlaceID: number | undefined) => void ] = useState();
 
   return (
-    <section className="cities__places places">
-      <h2 className="visually-hidden">Places</h2>
+    <>
+      <section className="cities__places places">
+        <h2 className="visually-hidden">Places</h2>
 
-      <b className="places__found">{ pluralize(offers.length, 'place') } to stay in { currentCityName }</b>
+        <b className="places__found">{ pluralize(offers.length, 'place') } to stay in { currentCityName }</b>
 
-      <form className="places__sorting" action="#" method="get">
-        <span className="places__sorting-caption">Sort by </span>
+        <form className="places__sorting" action="#" method="get">
+          <span className="places__sorting-caption">Sort by </span>
 
-        <span className="places__sorting-type" tabIndex={ 0 }>
-          Popular
-          <svg className="places__sorting-arrow" width="7" height="4">
-            <use xlinkHref="#icon-arrow-select"></use>
-          </svg>
-        </span>
+          <span className="places__sorting-type" tabIndex={ 0 }>
+            Popular
+            <svg className="places__sorting-arrow" width="7" height="4">
+              <use xlinkHref="#icon-arrow-select"></use>
+            </svg>
+          </span>
 
-        <ul className="places__options places__options--custom places__options--opened">
-          <li className="places__option places__option--active" tabIndex={ 0 }>Popular</li>
-          <li className="places__option" tabIndex={ 0 }>Price: low to high</li>
-          <li className="places__option" tabIndex={ 0 }>Price: high to low</li>
-          <li className="places__option" tabIndex={ 0 }>Top rated first</li>
-        </ul>
-      </form>
+          <ul className="places__options places__options--custom places__options--opened">
+            <li className="places__option places__option--active" tabIndex={ 0 }>Popular</li>
+            <li className="places__option" tabIndex={ 0 }>Price: low to high</li>
+            <li className="places__option" tabIndex={ 0 }>Price: high to low</li>
+            <li className="places__option" tabIndex={ 0 }>Top rated first</li>
+          </ul>
+        </form>
 
-      <div className="cities__places-list places__list tabs__content">
-        {
-          offers.map((offer) => (
-            <PlaceCard
-              key= { offer.id }
-              parentClass= 'cities'
-              place= { offer }
-              setSelectedPlaceID= { setSelectedPlaceID }
-            />
-          ))
-        }
+        <div className="cities__places-list places__list tabs__content">
+          {
+            offers.map((offer) => (
+              <PlaceCard
+                key= { offer.id }
+                parentClass= 'cities'
+                place= { offer }
+                setSelectedPlaceID= { setSelectedPlaceID }
+              />
+            ))
+          }
+        </div>
+      </section>
+
+      <div className="cities__right-section">
+        <Map
+          selectedPlaceID= { selectedPlaceID }
+        />
       </div>
-    </section>
+    </>
   );
 };
 

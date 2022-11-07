@@ -4,7 +4,8 @@ import { AppRoute, cities } from '../../const';
 import { Offers } from '../../types/offers';
 
 import Header from '../../components/header/header';
-import Cities from '../../components/cities/cities';
+import NoPlaces from '../../components/no-places/no-places';
+import Places from '../../components/places/places';
 
 
 type MainProps = {
@@ -16,6 +17,8 @@ type MainProps = {
 const Main = (props: MainProps): JSX.Element => {
   const { isLogged, offers } = props;
 
+  const isEmpty = offers.length === 0;
+
   return (
     <div className="page page--gray page--main">
       <Header
@@ -23,7 +26,7 @@ const Main = (props: MainProps): JSX.Element => {
         isMain
       />
 
-      <main className={`page__main page__main--index ${ offers.length === 0 ? 'page__main--index-empty' : '' }`}>
+      <main className={`page__main page__main--index ${ isEmpty ? 'page__main--index-empty' : '' }`}>
         <h1 className="visually-hidden">Cities</h1>
 
         <div className="tabs">
@@ -42,10 +45,22 @@ const Main = (props: MainProps): JSX.Element => {
           </section>
         </div>
 
-        <Cities
-          currentCityName={ cities[0].name }
-          offers= { offers }
-        />
+        <div className="cities">
+          <div className={`cities__places-container ${ isEmpty ? 'cities__places-container--empty' : '' } container`}>
+            {
+              isEmpty ? (
+                <NoPlaces
+                  currentCityName= { cities[0].name }
+                />
+              ) : (
+                <Places
+                  currentCityName= { cities[0].name }
+                  offers= { offers }
+                />
+              )
+            }
+          </div>
+        </div>
       </main>
     </div>
   );
