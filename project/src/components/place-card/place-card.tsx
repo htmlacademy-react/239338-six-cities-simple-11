@@ -9,15 +9,24 @@ import Rating from '../../components/rating/rating';
 type PlaceCardProps = {
   parentClass: string;
   place: Offer;
+  setSelectedPlaceID?: (selectedPlaceID: number | undefined) => void;
 }
 
 
 const PlaceCard = (props: PlaceCardProps): JSX.Element => {
-  const { parentClass, place } = props;
+  const { parentClass, place, setSelectedPlaceID = () => null } = props;
   const { id, isPremium, previewImage, price, rating, title, type } = place;
 
   return (
-    <article className={ `${ parentClass }__card place-card` }>
+    <article
+      className={ `${ parentClass }__card place-card`}
+      onMouseEnter={() => {
+        setSelectedPlaceID(id);
+      }}
+      onMouseLeave={() => {
+        setSelectedPlaceID(undefined);
+      }}
+    >
       {
         isPremium && (
           <div className="place-card__mark">

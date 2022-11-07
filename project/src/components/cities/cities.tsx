@@ -1,7 +1,10 @@
+import { useState } from 'react';
+
 import { Offers } from '../../types/offers';
 
 import NoPlaces from '../../components/no-places/no-places';
 import Places from '../../components/places/places';
+import Map from '../map/map';
 
 
 type CitiesProps = {
@@ -12,6 +15,7 @@ type CitiesProps = {
 
 const Cities = (props: CitiesProps): JSX.Element => {
   const { currentCityName, offers } = props;
+  const [ selectedPlaceID, setSelectedPlaceID ]: [ number | undefined, (selectedPlaceID: number | undefined) => void ] = useState();
 
   const isEmpty = offers.length === 0;
 
@@ -27,12 +31,19 @@ const Cities = (props: CitiesProps): JSX.Element => {
             <Places
               currentCityName= { currentCityName }
               offers= { offers }
+              setSelectedPlaceID= { setSelectedPlaceID }
             />
           )
         }
 
         <div className="cities__right-section">
-          { isEmpty || <section className="cities__map map"></section> }
+          {
+            isEmpty || (
+              <Map
+                selectedPlaceID= { selectedPlaceID }
+              />
+            )
+          }
         </div>
       </div>
     </div>

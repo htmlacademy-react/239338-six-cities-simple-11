@@ -7,11 +7,12 @@ import PlaceCard from '../place-card/place-card';
 type PlacesProps = {
   currentCityName: string;
   offers: Offers;
+  setSelectedPlaceID: (selectedPlaceID: number | undefined) => void;
 }
 
 
 const Places = (props: PlacesProps): JSX.Element => {
-  const { currentCityName, offers } = props;
+  const { currentCityName, offers, setSelectedPlaceID } = props;
 
   return (
     <section className="cities__places places">
@@ -44,6 +45,7 @@ const Places = (props: PlacesProps): JSX.Element => {
               key= { offer.id }
               parentClass= 'cities'
               place= { offer }
+              setSelectedPlaceID= { setSelectedPlaceID }
             />
           ))
         }
