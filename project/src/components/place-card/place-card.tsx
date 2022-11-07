@@ -17,15 +17,19 @@ const PlaceCard = (props: PlaceCardProps): JSX.Element => {
   const { parentClass, place, setSelectedPlaceID = () => null } = props;
   const { id, isPremium, previewImage, price, rating, title, type } = place;
 
+  const handlePlaceCardMouseEnter = () => {
+    setSelectedPlaceID(id);
+  };
+
+  const handlePlaceCardMouseLeave = () => {
+    setSelectedPlaceID(undefined);
+  };
+
   return (
     <article
       className={ `${ parentClass }__card place-card`}
-      onMouseEnter={() => {
-        setSelectedPlaceID(id);
-      }}
-      onMouseLeave={() => {
-        setSelectedPlaceID(undefined);
-      }}
+      onMouseEnter={ handlePlaceCardMouseEnter }
+      onMouseLeave={ handlePlaceCardMouseLeave }
     >
       {
         isPremium && (
