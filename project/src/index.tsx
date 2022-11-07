@@ -7,8 +7,7 @@ import App from './components/app/app';
 
 
 const Setting = {
-  IsLogged: true,
-  ResultsCount: 5,
+  IsLogged: true
 } as const;
 
 const root = ReactDOM.createRoot(
