@@ -15,7 +15,7 @@ type PlacesProps = {
 
 const Places = (props: PlacesProps): JSX.Element => {
   const { currentCityName, offers } = props;
-  const [ selectedPlaceID, setSelectedPlaceID ]: [ number | undefined, (selectedPlaceID: number | undefined) => void ] = useState();
+  const [ selectedPlaceID, setSelectedPlaceID ] = useState<number | undefined>(undefined);
 
   return (
     <>

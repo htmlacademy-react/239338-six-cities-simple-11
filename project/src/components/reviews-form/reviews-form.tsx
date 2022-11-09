@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, Fragment } from 'react';
 
 import { pluralize } from '../../utils';
 
@@ -46,7 +46,7 @@ const ReviewsForm = (): JSX.Element => {
             const ratingID = `${ ratingValue }-stars`;
 
             return (
-              <React.Fragment key={ ratingID }>
+              <Fragment key={ ratingID }>
                 <input
                   id={ ratingID }
                   className="form__rating-input visually-hidden"
@@ -62,7 +62,7 @@ const ReviewsForm = (): JSX.Element => {
                     <use xlinkHref="#icon-star"></use>
                   </svg>
                 </label>
-              </React.Fragment>
+              </Fragment>
             );
           })
         }
