@@ -4,7 +4,7 @@ export enum AppRoute {
   Room = '/offer/:id'
 }
 
-export const Cities = [
+export const cities = [
   {
     id: 'paris',
     name: 'Paris'

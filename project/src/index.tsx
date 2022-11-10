@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
+import { offers } from './mocks/offers';
+
 import App from './components/app/app';
 
 
 const Setting = {
-  IsLogged: true,
-  ResultsCount: 5,
+  IsLogged: true
 } as const;
 
 const root = ReactDOM.createRoot(
@@ -17,8 +18,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App
-      resultsCount= { Setting.ResultsCount }
       isLogged= { Setting.IsLogged }
+      offers= { offers }
     />
   </React.StrictMode>,
 );

@@ -1,32 +1,54 @@
 import { Link } from 'react-router-dom';
 
+import { AppRoute } from '../../const';
+import { Offer } from '../../types/offers';
+
 import Rating from '../../components/rating/rating';
 
 
 type PlaceCardProps = {
   parentClass: string;
+  place: Offer;
+  setSelectedPlaceID?: (selectedPlaceID: number | undefined) => void;
 }
 
 
 const PlaceCard = (props: PlaceCardProps): JSX.Element => {
-  const { parentClass } = props;
+  const { parentClass, place, setSelectedPlaceID = () => null } = props;
+  const { id, isPremium, previewImage, price, rating, title, type } = place;
+
+  const handlePlaceCardMouseEnter = () => {
+    setSelectedPlaceID(id);
+  };
+
+  const handlePlaceCardMouseLeave = () => {
+    setSelectedPlaceID(undefined);
+  };
 
   return (
-    <article className={ `${ parentClass }__card place-card` }>
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+    <article
+      className={ `${ parentClass }__card place-card`}
+      onMouseEnter={ handlePlaceCardMouseEnter }
+      onMouseLeave={ handlePlaceCardMouseLeave }
+    >
+      {
+        isPremium && (
+          <div className="place-card__mark">
+            <span>Premium</span>
+          </div>
+        )
+      }
 
       <div className={ `${ parentClass }__image-wrapper place-card__image-wrapper` }>
-        <Link to="offer/1">
-          <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place"/>
+        <Link to={ `${ AppRoute.Root }offer/${ id }` }>
+          <img className="place-card__image" src={ previewImage } width="260" height="200" alt="Place"/>
         </Link>
       </div>
 
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;120</b>
+            <b className="place-card__price-value">&euro;{ price }</b>
 
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
@@ -34,16 +56,14 @@ const PlaceCard = (props: PlaceCardProps): JSX.Element => {
 
         <Rating
           parentClass= 'place-card'
-          value= { 4 }
+          value= { rating }
         />
 
         <h2 className="place-card__name">
-          <Link to="offer/1">
-            Beautiful &amp; luxurious apartment at great location
-          </Link>
+          <Link to={ `${ AppRoute.Root }offer/${ id }` }>{ title }</Link>
         </h2>
 
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{ type }</p>
       </div>
     </article>
   );
