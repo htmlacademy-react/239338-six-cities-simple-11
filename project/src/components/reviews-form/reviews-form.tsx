@@ -9,6 +9,11 @@ type FormData = {
 }
 
 
+const enum FieldName {
+  Rating = 'rating',
+  Comment = 'comment'
+}
+
 const ratings = [
   'perfect',
   'good',
@@ -20,19 +25,19 @@ const ratings = [
 const MIN_COMMENT_LENGTH = 50;
 
 
-const isFormInvalid = (formData: FormData) => !formData.rating || formData.comment.trim().length < MIN_COMMENT_LENGTH;
+const isFormInvalid = (formData: FormData) => !formData[FieldName.Rating] || formData[FieldName.Comment].trim().length < MIN_COMMENT_LENGTH;
 
 
 const ReviewsForm = (): JSX.Element => {
   const [formData, setFormData] = useState({
-    rating: 0,
-    comment: ''
+    [FieldName.Rating]: 0,
+    [FieldName.Comment]: ''
   });
 
   const handleFormElementChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = evt.target;
 
-    setFormData({...formData, [name]: isNaN(Number(value)) ? value : Number(value) });
+    setFormData({...formData, [name]: evt.target.name === FieldName.Rating ? Number(value) : value });
   };
 
   return (
@@ -50,10 +55,10 @@ const ReviewsForm = (): JSX.Element => {
                 <input
                   id={ ratingID }
                   className="form__rating-input visually-hidden"
-                  name="rating"
+                  name={ FieldName.Rating }
                   type="radio"
                   value={ ratingValue }
-                  checked={ ratingValue === formData.rating }
+                  checked={ ratingValue === formData[FieldName.Rating] }
                   onChange={ handleFormElementChange }
                 />
 
@@ -71,9 +76,9 @@ const ReviewsForm = (): JSX.Element => {
       <textarea
         id="review"
         className="reviews__textarea form__textarea"
-        name="comment"
+        name={ FieldName.Comment }
         placeholder="Tell how was your stay, what you like and what can be improved"
-        value={ formData.comment }
+        value={ formData[FieldName.Comment] }
         onChange={ handleFormElementChange }
       />
 
