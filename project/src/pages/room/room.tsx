@@ -7,7 +7,7 @@ import NotFound from '../not-found/not-found';
 
 import Header from '../../components/header/header';
 import Rating from '../../components/rating/rating';
-import ReviewsForm from '../../components/reviews-form/reviews-form';
+import Reviews from '../../components/reviews/reviews';
 import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
 
@@ -138,44 +138,11 @@ const Room = (props: RoomProps): JSX.Element => {
                 }
               </div>
 
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">
-                  Reviews &middot; <span className="reviews__amount">{ reviews.length }</span>
-                </h2>
-
-                {
-                  reviews.length !== 0 && (
-                    <ul className="reviews__list">
-                      {
-                        reviews.map((review) => (
-                          <li key={`${ review.author.name }-${ review.date }`} className="reviews__item">
-                            <div className="reviews__user user">
-                              <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                                <img className="reviews__avatar user__avatar" src={ review.author.avatarUrl } width="54" height="54" alt={ review.author.name }/>
-                              </div>
-
-                              <span className="reviews__user-name">{ review.author.name }</span>
-                            </div>
-
-                            <div className="reviews__info">
-                              <Rating
-                                parentClass= 'reviews'
-                                value= { review.rating }
-                              />
-
-                              <p className="reviews__text">{ review.comment }</p>
-
-                              <time className="reviews__time" dateTime="2019-04-24">{ review.date }</time>
-                            </div>
-                          </li>
-                        ))
-                      }
-                    </ul>
-                  )
-                }
-
-                { isLogged && <ReviewsForm/> }
-              </section>
+              <Reviews
+                reviews={ reviews }
+                isLogged={ isLogged }
+                parentClass='property'
+              />
             </div>
           </div>
 
