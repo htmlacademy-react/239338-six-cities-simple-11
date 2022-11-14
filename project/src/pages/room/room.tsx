@@ -7,6 +7,7 @@ import NotFound from '../not-found/not-found';
 
 import Header from '../../components/header/header';
 import Rating from '../../components/rating/rating';
+import User from '../../components/user/user';
 import Reviews from '../../components/reviews/reviews';
 import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
@@ -117,17 +118,11 @@ const Room = (props: RoomProps): JSX.Element => {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
 
-                <div className="property__host-user user">
-                  <div className={ `property__avatar-wrapper ${ host.isPro ? 'property__avatar-wrapper--pro' : '' } user__avatar-wrapper` }>
-                    <img className="property__avatar user__avatar" src={ host.avatarUrl } width="74" height="74" alt={ host.name }/>
-                  </div>
-
-                  <span className="property__user-name">{ host.name }</span>
-
-                  {
-                    host.isPro && <span className="property__user-status">Pro</span>
-                  }
-                </div>
+                <User
+                  user={ host }
+                  parentClass='property'
+                  classPrefix='host'
+                />
 
                 {
                   description && (
