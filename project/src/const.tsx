@@ -7,26 +7,56 @@ export enum AppRoute {
 export const cities = [
   {
     id: 'paris',
-    name: 'Paris'
+    name: 'Paris',
+    location: {
+      latitude: 52.38,
+      longitude: 4.895,
+      zoom: 12
+    }
   },
   {
     id: 'cologne',
-    name: 'Cologne'
+    name: 'Cologne',
+    location: {
+      latitude: 52.38,
+      longitude: 4.895,
+      zoom: 12
+    }
   },
   {
     id: 'brussels',
-    name: 'Brussels'
+    name: 'Brussels',
+    location: {
+      latitude: 52.38,
+      longitude: 4.895,
+      zoom: 12
+    }
   },
   {
     id: 'amsterdam',
-    name: 'Amsterdam'
+    name: 'Amsterdam',
+    location: {
+      latitude: 52.38,
+      longitude: 4.895,
+      zoom: 12
+    }
   },
   {
     id: 'hamburg',
-    name: 'Hamburg'
+    name: 'Hamburg',
+    location: {
+      latitude: 52.38,
+      longitude: 4.895,
+      zoom: 12
+    }
   },
   {
     id: 'dusseldorf',
-    name: 'Dusseldorf'
+    name: 'Dusseldorf',
+    location: {
+      latitude: 52.38,
+      longitude: 4.895,
+      zoom: 12
+    }
   }
 ];

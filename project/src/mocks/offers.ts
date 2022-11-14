@@ -18,6 +18,19 @@ export const offers: Offers = [
       avatarUrl: 'https://i.pravatar.cc/74',
       isPro: true
     },
+    city: {
+      location: {
+        latitude: 52.38,
+        longitude: 4.895,
+        zoom: 12
+      },
+      name: 'Amsterdam'
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 1
+    },
     images: [
       'img/room.jpg',
       'img/apartment-01.jpg',
@@ -67,6 +80,19 @@ export const offers: Offers = [
       name: 'John',
       avatarUrl: 'https://i.pravatar.cc/74',
       isPro: false
+    },
+    city: {
+      location: {
+        latitude: 52.38,
+        longitude: 4.895,
+        zoom: 12
+      },
+      name: 'Amsterdam'
+    },
+    location: {
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 1
     },
     images: [
       'img/apartment-01.jpg',
@@ -120,6 +146,19 @@ export const offers: Offers = [
       avatarUrl: 'https://i.pravatar.cc/74',
       isPro: true
     },
+    city: {
+      location: {
+        latitude: 52.38,
+        longitude: 4.895,
+        zoom: 12
+      },
+      name: 'Amsterdam'
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 1
+    },
     images: [
       'img/apartment-01.jpg',
       'img/apartment-02.jpg',
@@ -155,6 +194,19 @@ export const offers: Offers = [
       name: 'Max',
       avatarUrl: 'https://i.pravatar.cc/74',
       isPro: false
+    },
+    city: {
+      location: {
+        latitude: 52.38,
+        longitude: 4.895,
+        zoom: 12
+      },
+      name: 'Amsterdam'
+    },
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 1
     },
     images: [
       'img/room.jpg',

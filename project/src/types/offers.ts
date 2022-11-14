@@ -1,4 +1,6 @@
 import { Person } from './person';
+import { City } from './city';
+import { Location } from './location';
 import { Review } from './review';
 
 export type Offer = {
@@ -13,6 +15,8 @@ export type Offer = {
   isPremium: boolean;
   previewImage: string;
   host: Person;
+  city: City;
+  location: Location;
   images: string[];
   goods: string[];
   reviews: Review[];

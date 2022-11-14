@@ -8,6 +8,7 @@ import NotFound from '../not-found/not-found';
 import Header from '../../components/header/header';
 import Rating from '../../components/rating/rating';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
+import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
 
 
@@ -40,6 +41,7 @@ const Room = (props: RoomProps): JSX.Element => {
     rating,
     isPremium,
     host,
+    city,
     images,
     goods,
     reviews
@@ -177,7 +179,11 @@ const Room = (props: RoomProps): JSX.Element => {
             </div>
           </div>
 
-          <section className="property__map map"></section>
+          <Map
+            location={ city.location }
+            offers={ offersNearby }
+            parentClass='property'
+          />
         </section>
 
         {

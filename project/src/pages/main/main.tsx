@@ -35,7 +35,7 @@ const Main = (props: MainProps): JSX.Element => {
               {
                 cities.map((city, index) => (
                   <li key={ city.id } className="locations__item">
-                    <Link className={ `locations__item-link tabs__item ${ index === 0 ? 'tabs__item--active' : '' }` } to={`${ AppRoute.Root }?${ city.id }`}>
+                    <Link className={ `locations__item-link tabs__item ${ index === 3 ? 'tabs__item--active' : '' }` } to={`${ AppRoute.Root }?${ city.id }`}>
                       <span>{ city.name }</span>
                     </Link>
                   </li>
@@ -50,11 +50,11 @@ const Main = (props: MainProps): JSX.Element => {
             {
               isEmpty ? (
                 <NoPlaces
-                  currentCityName= { cities[0].name }
+                  currentCityName= { cities[3].name }
                 />
               ) : (
                 <Places
-                  currentCityName= { cities[0].name }
+                  currentCity= { cities[3] }
                   offers= { offers }
                 />
               )
