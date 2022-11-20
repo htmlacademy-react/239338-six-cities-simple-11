@@ -7,7 +7,9 @@ import NotFound from '../not-found/not-found';
 
 import Header from '../../components/header/header';
 import Rating from '../../components/rating/rating';
-import ReviewsForm from '../../components/reviews-form/reviews-form';
+import User from '../../components/user/user';
+import Reviews from '../../components/reviews/reviews';
+import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
 
 
@@ -40,6 +42,7 @@ const Room = (props: RoomProps): JSX.Element => {
     rating,
     isPremium,
     host,
+    city,
     images,
     goods,
     reviews
@@ -115,17 +118,11 @@ const Room = (props: RoomProps): JSX.Element => {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
 
-                <div className="property__host-user user">
-                  <div className={ `property__avatar-wrapper ${ host.isPro ? 'property__avatar-wrapper--pro' : '' } user__avatar-wrapper` }>
-                    <img className="property__avatar user__avatar" src={ host.avatarUrl } width="74" height="74" alt={ host.name }/>
-                  </div>
-
-                  <span className="property__user-name">{ host.name }</span>
-
-                  {
-                    host.isPro && <span className="property__user-status">Pro</span>
-                  }
-                </div>
+                <User
+                  user={ host }
+                  parentClass='property'
+                  classPrefix='host'
+                />
 
                 {
                   description && (
@@ -136,48 +133,19 @@ const Room = (props: RoomProps): JSX.Element => {
                 }
               </div>
 
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">
-                  Reviews &middot; <span className="reviews__amount">{ reviews.length }</span>
-                </h2>
-
-                {
-                  reviews.length !== 0 && (
-                    <ul className="reviews__list">
-                      {
-                        reviews.map((review) => (
-                          <li key={`${ review.author.name }-${ review.date }`} className="reviews__item">
-                            <div className="reviews__user user">
-                              <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                                <img className="reviews__avatar user__avatar" src={ review.author.avatarUrl } width="54" height="54" alt={ review.author.name }/>
-                              </div>
-
-                              <span className="reviews__user-name">{ review.author.name }</span>
-                            </div>
-
-                            <div className="reviews__info">
-                              <Rating
-                                parentClass= 'reviews'
-                                value= { review.rating }
-                              />
-
-                              <p className="reviews__text">{ review.comment }</p>
-
-                              <time className="reviews__time" dateTime="2019-04-24">{ review.date }</time>
-                            </div>
-                          </li>
-                        ))
-                      }
-                    </ul>
-                  )
-                }
-
-                { isLogged && <ReviewsForm/> }
-              </section>
+              <Reviews
+                reviews={ reviews }
+                isLogged={ isLogged }
+                parentClass='property'
+              />
             </div>
           </div>
 
-          <section className="property__map map"></section>
+          <Map
+            location={ city.location }
+            offers={ offersNearby }
+            parentClass='property'
+          />
         </section>
 
         {

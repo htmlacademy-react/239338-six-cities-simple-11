@@ -18,6 +18,19 @@ export const offers: Offers = [
       avatarUrl: 'https://i.pravatar.cc/74',
       isPro: true
     },
+    city: {
+      location: {
+        latitude: 52.38,
+        longitude: 4.895,
+        zoom: 12
+      },
+      name: 'Amsterdam'
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 1
+    },
     images: [
       'img/room.jpg',
       'img/apartment-01.jpg',
@@ -40,14 +53,15 @@ export const offers: Offers = [
     ],
     reviews: [
       {
-        author: {
+        id: 1,
+        user: {
           name: 'Max',
           avatarUrl: 'https://i.pravatar.cc/54?rnd=1',
           isPro: false
         },
         rating: 4.5,
         comment: 'Maecenas eu sem turpis. In faucibus, diam pellentesque cursus volutpat, lectus felis euismod diam, ut tincidunt ligula risus suscipit est. Nam at mi tempor, posuere neque vulputate, vehicula arcu. Sed euismod vitae tortor sodales luctus.',
-        date: 'April 2019'
+        date: '2022-10-16T13:58:46.495Z'
       }
     ]
   },
@@ -68,6 +82,19 @@ export const offers: Offers = [
       avatarUrl: 'https://i.pravatar.cc/74',
       isPro: false
     },
+    city: {
+      location: {
+        latitude: 52.38,
+        longitude: 4.895,
+        zoom: 12
+      },
+      name: 'Amsterdam'
+    },
+    location: {
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 1
+    },
     images: [
       'img/apartment-01.jpg',
       'img/apartment-03.jpg',
@@ -82,24 +109,26 @@ export const offers: Offers = [
     ],
     reviews: [
       {
-        author: {
+        id: 1,
+        user: {
           name: 'Kate',
           avatarUrl: 'https://i.pravatar.cc/54?rnd=1',
           isPro: false
         },
         rating: 4.2,
         comment: 'Nam viverra nunc sit amet erat facilisis, vitae malesuada enim tincidunt. Aliquam luctus vehicula vehicula. In sit amet lectus tristique, convallis odio ac, semper nulla. Phasellus interdum mi vel ultrices tincidunt.',
-        date: 'May 2020'
+        date: '2022-10-16T13:58:46.495Z'
       },
       {
-        author: {
+        id: 2,
+        user: {
           name: 'Ben',
           avatarUrl: 'https://i.pravatar.cc/54?rnd=2',
           isPro: false
         },
         rating: 2.6,
         comment: 'Praesent ut nisl egestas, hendrerit diam eget, egestas tellus. Suspendisse dapibus mattis quam, in commodo nisl scelerisque sit amet. Phasellus in hendrerit quam. Integer fermentum arcu dolor, vitae condimentum nibh pharetra efficitur.',
-        date: 'February 2019'
+        date: '2022-10-16T13:58:46.495Z'
       }
     ]
   },
@@ -120,6 +149,19 @@ export const offers: Offers = [
       avatarUrl: 'https://i.pravatar.cc/74',
       isPro: true
     },
+    city: {
+      location: {
+        latitude: 52.38,
+        longitude: 4.895,
+        zoom: 12
+      },
+      name: 'Amsterdam'
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 1
+    },
     images: [
       'img/apartment-01.jpg',
       'img/apartment-02.jpg',
@@ -128,14 +170,15 @@ export const offers: Offers = [
     goods: [],
     reviews: [
       {
-        author: {
+        id: 1,
+        user: {
           name: 'Max',
           avatarUrl: 'https://i.pravatar.cc/54?rnd=1',
           isPro: false
         },
         rating: 4,
         comment: 'Mauris vitae risus lorem. Donec rutrum pretium cursus. In vitae elementum neque, eu eleifend justo. Praesent molestie, ante et consectetur elementum, lectus leo tempus nisl, non rutrum tortor neque ut tortor. In dictum ipsum ultrices tempus vulputate.',
-        date: 'March 2021'
+        date: '2022-10-16T13:58:46.495Z'
       }
     ]
   },
@@ -155,6 +198,19 @@ export const offers: Offers = [
       name: 'Max',
       avatarUrl: 'https://i.pravatar.cc/74',
       isPro: false
+    },
+    city: {
+      location: {
+        latitude: 52.38,
+        longitude: 4.895,
+        zoom: 12
+      },
+      name: 'Amsterdam'
+    },
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 1
     },
     images: [
       'img/room.jpg',
