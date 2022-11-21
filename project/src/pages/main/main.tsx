@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 
 import { AppRoute, cities } from '../../const';
-import { Offers } from '../../types/offers';
+
+import { useAppSelector } from '../../hooks/use-app-selector';
 
 import Header from '../../components/header/header';
 import NoPlaces from '../../components/no-places/no-places';
@@ -10,12 +11,14 @@ import Places from '../../components/places/places';
 
 type MainProps = {
   isLogged: boolean;
-  offers: Offers;
 }
 
 
 const Main = (props: MainProps): JSX.Element => {
-  const { isLogged, offers } = props;
+  const { isLogged } = props;
+
+  const currentCity = useAppSelector((state) => state.currentCity);
+  const offers = useAppSelector((state) => state.offers).filter((offer) => offer.city.name === currentCity);
 
   const isEmpty = offers.length === 0;
 
@@ -34,9 +37,9 @@ const Main = (props: MainProps): JSX.Element => {
             <ul className="locations__list tabs__list">
               {
                 cities.map((city, index) => (
-                  <li key={ city.id } className="locations__item">
-                    <Link className={ `locations__item-link tabs__item ${ index === 3 ? 'tabs__item--active' : '' }` } to={`${ AppRoute.Root }?${ city.id }`}>
-                      <span>{ city.name }</span>
+                  <li key={ city } className="locations__item">
+                    <Link className={ `locations__item-link tabs__item ${ index === 0 ? 'tabs__item--active' : '' }` } to={`${ AppRoute.Root }?${ city.toLowerCase() }`}>
+                      <span>{ city }</span>
                     </Link>
                   </li>
                 ))
@@ -50,11 +53,11 @@ const Main = (props: MainProps): JSX.Element => {
             {
               isEmpty ? (
                 <NoPlaces
-                  currentCityName= { cities[3].name }
+                  currentCity= { currentCity }
                 />
               ) : (
                 <Places
-                  currentCity= { cities[3] }
+                  currentCity= { currentCity }
                   offers= { offers }
                 />
               )

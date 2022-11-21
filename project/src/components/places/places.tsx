@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import { Offers } from '../../types/offers';
-import { Location } from '../../types/location';
 import { pluralize } from '../../utils';
 
 import PlaceCard from '../place-card/place-card';
@@ -9,10 +8,7 @@ import Map from '../map/map';
 
 
 type PlacesProps = {
-  currentCity: {
-    location: Location;
-    name: string;
-  };
+  currentCity: string;
   offers: Offers;
 }
 
@@ -26,7 +22,7 @@ const Places = (props: PlacesProps): JSX.Element => {
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
 
-        <b className="places__found">{ pluralize(offers.length, 'place') } to stay in { currentCity.name }</b>
+        <b className="places__found">{ pluralize(offers.length, 'place') } to stay in { currentCity }</b>
 
         <form className="places__sorting" action="#" method="get">
           <span className="places__sorting-caption">Sort by </span>
@@ -62,7 +58,7 @@ const Places = (props: PlacesProps): JSX.Element => {
 
       <div className="cities__right-section">
         <Map
-          location={ currentCity.location }
+          location={ offers[0].city.location }
           offers={ offers }
           selectedPlaceID= { selectedPlaceID }
           parentClass='cities'

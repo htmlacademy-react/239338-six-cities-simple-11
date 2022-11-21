@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom';
 
-import { Offers } from '../../types/offers';
 import { pluralize } from '../../utils';
+
+import { useAppSelector } from '../../hooks/use-app-selector';
 
 import NotFound from '../not-found/not-found';
 
@@ -15,12 +16,13 @@ import PlaceCard from '../../components/place-card/place-card';
 
 type RoomProps = {
   isLogged: boolean;
-  offers: Offers;
 }
 
 
 const Room = (props: RoomProps): JSX.Element => {
-  const { isLogged, offers } = props;
+  const { isLogged } = props;
+
+  const offers = useAppSelector((state) => state.offers);
 
   const params = useParams();
   const currentOfferID = Number(params.id);
