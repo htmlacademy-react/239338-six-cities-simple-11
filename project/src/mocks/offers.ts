@@ -155,7 +155,7 @@ export const offers: Offers = [
         longitude: 4.895,
         zoom: 12
       },
-      name: 'Amsterdam'
+      name: 'Paris'
     },
     location: {
       latitude: 52.3909553943508,
@@ -205,7 +205,7 @@ export const offers: Offers = [
         longitude: 4.895,
         zoom: 12
       },
-      name: 'Amsterdam'
+      name: 'Paris'
     },
     location: {
       latitude: 52.3809553943508,
