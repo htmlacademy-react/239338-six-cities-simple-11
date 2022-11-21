@@ -1,10 +1,7 @@
-import { Link } from 'react-router-dom';
-
-import { AppRoute, cities } from '../../const';
-
 import { useAppSelector } from '../../hooks/use-app-selector';
 
 import Header from '../../components/header/header';
+import Locations from '../../components/locations/locations';
 import NoPlaces from '../../components/no-places/no-places';
 import Places from '../../components/places/places';
 
@@ -32,21 +29,7 @@ const Main = (props: MainProps): JSX.Element => {
       <main className={`page__main page__main--index ${ isEmpty ? 'page__main--index-empty' : '' }`}>
         <h1 className="visually-hidden">Cities</h1>
 
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              {
-                cities.map((city, index) => (
-                  <li key={ city } className="locations__item">
-                    <Link className={ `locations__item-link tabs__item ${ index === 0 ? 'tabs__item--active' : '' }` } to={`${ AppRoute.Root }?${ city.toLowerCase() }`}>
-                      <span>{ city }</span>
-                    </Link>
-                  </li>
-                ))
-              }
-            </ul>
-          </section>
-        </div>
+        <Locations/>
 
         <div className="cities">
           <div className={`cities__places-container ${ isEmpty ? 'cities__places-container--empty' : '' } container`}>
