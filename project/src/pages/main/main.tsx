@@ -1,3 +1,4 @@
+import { getSortingOptionByType } from '../../utils';
 import { useAppSelector } from '../../hooks/use-app-selector';
 
 import Header from '../../components/header/header';
@@ -15,9 +16,14 @@ const Main = (props: MainProps): JSX.Element => {
   const { isLogged } = props;
 
   const currentCity = useAppSelector((state) => state.currentCity);
-  const offers = useAppSelector((state) => state.offers).filter((offer) => offer.city.name === currentCity);
 
-  const isEmpty = offers.length === 0;
+  const currentSortingType = useAppSelector((state) => state.sortingType);
+  const currentSortingOption = getSortingOptionByType(currentSortingType);
+
+  const offers = useAppSelector((state) => state.offers);
+  const currentCityOffers = offers.filter((offer) => offer.city.name === currentCity);
+  const sortedOffers = currentCityOffers.sort(currentSortingOption.function);
+  const isEmpty = currentCityOffers.length === 0;
 
   return (
     <div className="page page--gray page--main">
@@ -41,7 +47,7 @@ const Main = (props: MainProps): JSX.Element => {
               ) : (
                 <Places
                   currentCity= { currentCity }
-                  offers= { offers }
+                  offers= { sortedOffers }
                 />
               )
             }
