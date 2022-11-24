@@ -34,8 +34,8 @@ const Login = (): JSX.Element => (
 
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <Link className="locations__item-link" to={`${ AppRoute.Root }?${ cities[0].id }`}>
-              <span>{ cities[0].name }</span>
+            <Link className="locations__item-link" to={`${ AppRoute.Root }?${ cities[0].toLowerCase() }`}>
+              <span>{ cities[0] }</span>
             </Link>
           </div>
         </section>

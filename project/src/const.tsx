@@ -1,3 +1,12 @@
+import { Offer } from './types/offers';
+import { SortingOption } from './types/sorting-option';
+
+
+export enum KeyCode {
+  Escape = 'Escape',
+  Enter = 'Enter'
+}
+
 export enum AppRoute {
   Root = '/',
   Login = '/login',
@@ -5,58 +14,33 @@ export enum AppRoute {
 }
 
 export const cities = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf'
+];
+
+export const sortingOptions: SortingOption[] = [
   {
-    id: 'paris',
-    name: 'Paris',
-    location: {
-      latitude: 52.38,
-      longitude: 4.895,
-      zoom: 12
-    }
+    type: 'default',
+    text: 'Popular',
+    function: (offerLeft: Offer, offerRight: Offer) => 0
   },
   {
-    id: 'cologne',
-    name: 'Cologne',
-    location: {
-      latitude: 52.38,
-      longitude: 4.895,
-      zoom: 12
-    }
+    type: 'price-low-high',
+    text: 'Price: low to high',
+    function: (offerLeft: Offer, offerRight: Offer) => offerLeft.price - offerRight.price
   },
   {
-    id: 'brussels',
-    name: 'Brussels',
-    location: {
-      latitude: 52.38,
-      longitude: 4.895,
-      zoom: 12
-    }
+    type: 'price-high-low',
+    text: 'Price: high to low',
+    function: (offerLeft: Offer, offerRight: Offer) => offerRight.price - offerLeft.price
   },
   {
-    id: 'amsterdam',
-    name: 'Amsterdam',
-    location: {
-      latitude: 52.38,
-      longitude: 4.895,
-      zoom: 12
-    }
-  },
-  {
-    id: 'hamburg',
-    name: 'Hamburg',
-    location: {
-      latitude: 52.38,
-      longitude: 4.895,
-      zoom: 12
-    }
-  },
-  {
-    id: 'dusseldorf',
-    name: 'Dusseldorf',
-    location: {
-      latitude: 52.38,
-      longitude: 4.895,
-      zoom: 12
-    }
+    type: 'top-rated',
+    text: 'Top rated first',
+    function: (offerLeft: Offer, offerRight: Offer) => offerRight.rating - offerLeft.rating
   }
 ];
