@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
-import {store} from './store';
+import { store } from './store';
+import { getOffers } from './store/api-action';
 
 import App from './components/app/app';
 
@@ -14,6 +15,9 @@ const Setting = {
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
+
+
+store.dispatch(getOffers());
 
 
 root.render(

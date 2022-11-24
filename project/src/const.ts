@@ -13,6 +13,10 @@ export enum AppRoute {
   Room = '/offer/:id'
 }
 
+export enum ApiRoute {
+  Offers = '/hotels'
+}
+
 export const cities = [
   'Paris',
   'Cologne',
