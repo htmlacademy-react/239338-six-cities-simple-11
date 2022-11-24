@@ -1,4 +1,4 @@
-import { SyntheticEvent, KeyboardEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { KeyCode, sortingOptions } from '../../const';
@@ -21,7 +21,7 @@ const PlacesSorting = (): JSX.Element => {
     setIsOpened((prevState) => !prevState);
   };
 
-  const handleToggleButtonKeyDown = (evt: KeyboardEvent) => {
+  const handleToggleButtonKeyDown = (evt: ReactKeyboardEvent) => {
     if (evt.key === KeyCode.Enter) {
       evt.preventDefault();
 
@@ -42,7 +42,7 @@ const PlacesSorting = (): JSX.Element => {
   };
 
   useEffect(() => {
-    const handleDocumentClick = (evt: SyntheticEvent) => {
+    const handleDocumentClick = (evt: MouseEvent) => {
       const target = evt.target as Element;
 
       if (isOpened && (!target.closest('.places__sorting-type') && !target.closest('.places__options'))) {
@@ -60,12 +60,12 @@ const PlacesSorting = (): JSX.Element => {
       }
     };
 
-    document.addEventListener('click', handleDocumentClick as unknown as EventListener);
-    document.addEventListener('keydown', handleDocumentKeyDown as unknown as EventListener);
+    document.addEventListener('click', handleDocumentClick);
+    document.addEventListener('keydown', handleDocumentKeyDown);
 
     return () => {
-      document.removeEventListener('click', handleDocumentClick as unknown as EventListener);
-      document.removeEventListener('keydown', handleDocumentKeyDown as unknown as EventListener);
+      document.removeEventListener('click', handleDocumentClick);
+      document.removeEventListener('keydown', handleDocumentKeyDown);
     };
   }, [isOpened]);
 
