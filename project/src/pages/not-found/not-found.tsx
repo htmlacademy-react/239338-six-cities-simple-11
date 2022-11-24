@@ -5,6 +5,9 @@ import { AppRoute } from '../../const';
 import Header from '../../components/header/header';
 
 
+const PADDING_TOP = '40vh';
+
+
 const NotFound = (): JSX.Element => (
   <div className="page page--gray page--login">
     <Header
@@ -17,7 +20,7 @@ const NotFound = (): JSX.Element => (
         <section className="login"
           style=
             {{
-              paddingTop: '40vh'
+              paddingTop: PADDING_TOP
             }}
         >
           <h1 className="login__title">404 Not Found</h1>
@@ -27,7 +30,7 @@ const NotFound = (): JSX.Element => (
           style=
             {{
               alignItems: 'flex-start',
-              paddingTop: '40vh'
+              paddingTop: PADDING_TOP
             }}
         >
           <div className="locations__item">
