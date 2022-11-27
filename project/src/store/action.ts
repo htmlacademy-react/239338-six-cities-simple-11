@@ -7,3 +7,5 @@ export const setCurrentCity = createAction<{ currentCity: string }>('city/setCur
 
 export const setSortingType = createAction<{ sortingType: string }>('offers/setSortingType');
 export const setOffers = createAction<Offers>('offers/set');
+
+export const setDataLoadingStatus = createAction<boolean>('data/setLoadingStatus');

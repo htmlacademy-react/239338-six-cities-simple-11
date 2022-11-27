@@ -7,11 +7,16 @@ import { Review } from '../../types/review';
 
 import { pluralize } from '../../utils';
 
+import { store } from '../../store';
+import { setDataLoadingStatus } from '../../store/action';
+import { useAppSelector } from '../../hooks/use-app-selector';
+
 import { createAPI } from '../../services/api';
 
 import NotFound from '../not-found/not-found';
 
 import Header from '../../components/header/header';
+import Loader from '../../components/loader/loader';
 import Rating from '../../components/rating/rating';
 import User from '../../components/user/user';
 import Reviews from '../../components/reviews/reviews';
@@ -48,10 +53,14 @@ const getOffersNearby = async (currentOfferID: string) => {
 };
 
 
+store.dispatch(setDataLoadingStatus(false));
+
+
 const Room = (props: RoomProps): JSX.Element => {
   const { isLogged } = props;
 
   const routeParams = useParams();
+  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
 
   const [ currentOffer, setCurrentOffer ] = useState<Offer | undefined>(undefined);
   const [ reviews, setReviews ] = useState<Review[] | undefined>(undefined);
@@ -61,19 +70,25 @@ const Room = (props: RoomProps): JSX.Element => {
 
   useEffect(() => {
     if (currentOfferID) {
-      getOffer(currentOfferID).then((data) => {
-        setCurrentOffer(data);
-      });
+      getOffer(currentOfferID).then((offerData) => {
+        setCurrentOffer(offerData);
 
-      getReviews(currentOfferID).then((data) => {
-        setReviews(data);
-      });
+        getReviews(currentOfferID).then((reviewsData) => {
+          setReviews(reviewsData);
 
-      getOffersNearby(currentOfferID).then((data) => {
-        setOffersNearby(data);
+          getOffersNearby(currentOfferID).then((offersData) => {
+            setOffersNearby(offersData);
+
+            store.dispatch(setDataLoadingStatus(true));
+          });
+        });
       });
     }
   }, [currentOfferID]);
+
+  if (!isDataLoaded) {
+    return <Loader/>;
+  }
 
   if (!currentOffer) {
     return <NotFound/>;

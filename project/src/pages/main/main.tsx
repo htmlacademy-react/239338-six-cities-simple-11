@@ -2,6 +2,7 @@ import { getSortingOptionByType } from '../../utils';
 import { useAppSelector } from '../../hooks/use-app-selector';
 
 import Header from '../../components/header/header';
+import Loader from '../../components/loader/loader';
 import Locations from '../../components/locations/locations';
 import NoPlaces from '../../components/no-places/no-places';
 import Places from '../../components/places/places';
@@ -31,6 +32,8 @@ const Main = (props: MainProps): JSX.Element => {
         isLogged= { isLogged }
         isMain
       />
+
+      <Loader/>
 
       <main className={`page__main page__main--index ${ isEmpty ? 'page__main--index-empty' : '' }`}>
         <h1 className="visually-hidden">Cities</h1>

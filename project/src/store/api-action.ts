@@ -6,7 +6,7 @@ import { ApiRoute } from '../const';
 import { Offers } from '../types/offers';
 import { AppDispatch, State } from '../types/state.js';
 
-import { setOffers } from './action';
+import { setDataLoadingStatus, setOffers } from './action';
 
 
 export const getOffers = createAsyncThunk<
@@ -20,8 +20,11 @@ export const getOffers = createAsyncThunk<
 >(
   'offers/get',
   async (_arg, { dispatch, extra: api }) => {
+    dispatch(setDataLoadingStatus(false));
+
     const { data } = await api.get<Offers>(ApiRoute.Offers);
 
     dispatch(setOffers(data));
+    dispatch(setDataLoadingStatus(true));
   }
 );
