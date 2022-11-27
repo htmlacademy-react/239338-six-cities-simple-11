@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { ApiRoute } from '../../const';
@@ -8,10 +8,9 @@ import { Review } from '../../types/review';
 import { pluralize } from '../../utils';
 
 import { store } from '../../store';
+import { api } from '../../store/index';
 import { setDataLoadingStatus } from '../../store/action';
 import { useAppSelector } from '../../hooks/use-app-selector';
-
-import { createAPI } from '../../services/api';
 
 import NotFound from '../not-found/not-found';
 
@@ -30,8 +29,6 @@ type RoomProps = {
 
 
 const MAX_IMAGES_AMOUNT = 6;
-
-const api = createAPI();
 
 
 const getOffer = async (currentOfferID: string) => {
@@ -68,7 +65,7 @@ const Room = (props: RoomProps): JSX.Element => {
 
   const currentOfferID = routeParams.id;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (currentOfferID) {
       getOffer(currentOfferID).then((offerData) => {
         setCurrentOffer(offerData);
