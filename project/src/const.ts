@@ -14,7 +14,8 @@ export enum AppRoute {
 }
 
 export enum ApiRoute {
-  Offers = '/hotels'
+  Offers = '/hotels',
+  Comments = '/comments'
 }
 
 export const cities = [
