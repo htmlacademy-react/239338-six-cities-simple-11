@@ -1,5 +1,7 @@
 import { useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 import { ApiRoute } from '../../const';
 import { Offer, Offers } from '../../types/offers';
@@ -50,9 +52,6 @@ const getOffersNearby = async (currentOfferID: string) => {
 };
 
 
-store.dispatch(setDataLoadingStatus(false));
-
-
 const Room = (props: RoomProps): JSX.Element => {
   const { isLogged } = props;
 
@@ -67,18 +66,26 @@ const Room = (props: RoomProps): JSX.Element => {
 
   useLayoutEffect(() => {
     if (currentOfferID) {
+      store.dispatch(setDataLoadingStatus(false));
+
       getOffer(currentOfferID).then((offerData) => {
         setCurrentOffer(offerData);
 
         getReviews(currentOfferID).then((reviewsData) => {
           setReviews(reviewsData);
-
-          getOffersNearby(currentOfferID).then((offersData) => {
-            setOffersNearby(offersData);
-
-            store.dispatch(setDataLoadingStatus(true));
-          });
+        }).catch((error: AxiosError<{error: string}>) => {
+          toast.error(`Could not load the reviews. ${ error.message }.`);
         });
+
+        getOffersNearby(currentOfferID).then((offersData) => {
+          setOffersNearby(offersData);
+        }).catch((error: AxiosError<{error: string}>) => {
+          toast.error(`Could not load the places nearby. ${ error.message }.`);
+        });
+
+        store.dispatch(setDataLoadingStatus(true));
+      }).catch((error: AxiosError<{error: string}>) => {
+        toast.error(`Could not load the property. ${ error.message }.`);
       });
     }
   }, [currentOfferID]);
