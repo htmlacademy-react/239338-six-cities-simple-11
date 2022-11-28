@@ -206,8 +206,9 @@ const Room = (props: RoomProps): JSX.Element => {
             offersNearby && (
               <Map
                 location={ city.location }
-                offers={ offersNearby }
+                offers={ offersNearby.concat(currentOffer) }
                 parentClass='property'
+                currentOfferID= { currentOffer.id }
               />
             )
           }

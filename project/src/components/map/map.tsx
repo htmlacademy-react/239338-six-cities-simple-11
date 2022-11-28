@@ -12,6 +12,7 @@ type MapProps = {
   offers: Offers;
   parentClass: string;
   selectedPlaceID?: number | undefined;
+  currentOfferID?: number | undefined;
 }
 
 type OfferMarker = {
@@ -64,7 +65,7 @@ const useMap = (mapRef: MutableRefObject<HTMLElement | null>) => {
   return map;
 };
 
-const useOffers = (map: leaflet.Map | null, offers: Offers) => {
+const useOffers = (map: leaflet.Map | null, offers: Offers, currentOfferID: number | undefined) => {
   const offersMarkers = useRef<OfferMarker[] | []>([]);
 
   useEffect(() => {
@@ -78,7 +79,7 @@ const useOffers = (map: leaflet.Map | null, offers: Offers) => {
       }));
 
       offersMarkers.current.forEach((marker) => {
-        setMarkerIcon(marker.marker, PinUrl.Default);
+        setMarkerIcon(marker.marker, marker.id === currentOfferID ? PinUrl.Active : PinUrl.Default);
 
         marker.marker.addTo(map);
       });
@@ -91,7 +92,7 @@ const useOffers = (map: leaflet.Map | null, offers: Offers) => {
         offersMarkers.current = [];
       };
     }
-  }, [map, offers]);
+  }, [map, offers, currentOfferID]);
 
   return offersMarkers.current;
 };
@@ -126,11 +127,11 @@ const useCurrentMarker = (renderedMarkers: OfferMarker[], selectedPlaceID: numbe
 
 
 const Map = (props: MapProps): JSX.Element => {
-  const { location, offers, selectedPlaceID, parentClass } = props;
+  const { location, offers, selectedPlaceID, currentOfferID, parentClass } = props;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef);
-  const renderedMarkers = useOffers(map, offers);
+  const renderedMarkers = useOffers(map, offers, currentOfferID);
 
   useLocation(map, location);
   useCurrentMarker(renderedMarkers, selectedPlaceID);
