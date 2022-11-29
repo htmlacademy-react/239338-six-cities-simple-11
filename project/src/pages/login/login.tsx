@@ -8,7 +8,6 @@ import Header from '../../components/header/header';
 const Login = (): JSX.Element => (
   <div className="page page--gray page--login">
     <Header
-      isLogged= { false }
       hasNav= { false }
     />
 

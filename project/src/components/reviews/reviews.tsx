@@ -1,6 +1,9 @@
 import { Review } from '../../types/review';
 
+import { AuthorizationStatus } from '../../const';
 import { getDateMilliseconds } from '../../utils';
+
+import { useAppSelector } from '../../hooks/use-app-selector';
 
 import ReviewsItem from '../reviews-item/reviews-item';
 import ReviewsForm from '../reviews-form/reviews-form';
@@ -9,7 +12,6 @@ import ReviewsForm from '../reviews-form/reviews-form';
 type ReviewsProps = {
   parentClass: string;
   reviews: Review[];
-  isLogged: boolean;
 }
 
 
@@ -20,8 +22,10 @@ const sortReviews = (reviewLeft: Review, reviewRight: Review) => getDateMillisec
 
 
 const Reviews = (props: ReviewsProps): JSX.Element => {
-  const { parentClass, reviews, isLogged } = props;
+  const { parentClass, reviews } = props;
   const reviewsAmount = reviews.length;
+
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   return (
     <section className={ `${parentClass}__reviews reviews` }>
@@ -44,7 +48,7 @@ const Reviews = (props: ReviewsProps): JSX.Element => {
         )
       }
 
-      { isLogged && <ReviewsForm/> }
+      { authorizationStatus === AuthorizationStatus.Auth && <ReviewsForm/> }
     </section>
   );
 };

@@ -8,14 +8,7 @@ import NoPlaces from '../../components/no-places/no-places';
 import Places from '../../components/places/places';
 
 
-type MainProps = {
-  isLogged: boolean;
-}
-
-
-const Main = (props: MainProps): JSX.Element => {
-  const { isLogged } = props;
-
+const Main = (): JSX.Element => {
   const currentCity = useAppSelector((state) => state.currentCity);
 
   const currentSortingType = useAppSelector((state) => state.sortingType);
@@ -29,7 +22,6 @@ const Main = (props: MainProps): JSX.Element => {
   return (
     <div className="page page--gray page--main">
       <Header
-        isLogged= { isLogged }
         isMain
       />
 

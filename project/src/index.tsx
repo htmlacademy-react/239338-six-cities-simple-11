@@ -11,10 +11,6 @@ import { getOffers } from './store/api-action';
 import App from './components/app/app';
 
 
-const Setting = {
-  IsLogged: true
-} as const;
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
@@ -28,9 +24,7 @@ root.render(
     <Provider store={ store }>
       <ToastContainer />
 
-      <App
-        isLogged= { Setting.IsLogged }
-      />
+      <App/>
     </Provider>
   </React.StrictMode>,
 );

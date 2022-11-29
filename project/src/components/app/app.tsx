@@ -10,54 +10,33 @@ import NotFound from '../../pages/not-found/not-found';
 import ScrollFix from '../scroll-fix/scroll-fix';
 
 
-type AppProps = {
-  isLogged: boolean;
-}
+const App = (): JSX.Element => (
+  <BrowserRouter>
+    <ScrollFix/>
 
+    <Routes>
+      <Route
+        path={ AppRoute.Root }
+        element={ <Main/> }
+      />
 
-const App = (props: AppProps): JSX.Element => {
-  const { isLogged } = props;
+      <Route
+        path={ AppRoute.Room }
+        element={ <Room/> }
+      />
 
-  return (
-    <BrowserRouter>
-      <ScrollFix/>
+      <Route
+        path={ AppRoute.Login }
+        element={ <Login/> }
+      />
 
-      <Routes>
-        <Route
-          path={ AppRoute.Root }
-          element={
-            <Main
-              isLogged= { isLogged }
-            />
-          }
-        />
-
-        <Route
-          path={ AppRoute.Room }
-          element={
-            <Room
-              isLogged= { isLogged }
-            />
-          }
-        />
-
-        <Route
-          path={ AppRoute.Login }
-          element={
-            <Login/>
-          }
-        />
-
-        <Route
-          path="*"
-          element={
-            <NotFound/>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+      <Route
+        path="*"
+        element={ <NotFound/> }
+      />
+    </Routes>
+  </BrowserRouter>
+);
 
 
 export default App;

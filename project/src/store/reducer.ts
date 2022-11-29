@@ -1,12 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { cities, sortingOptions } from '../const';
+import { AuthorizationStatus, cities, sortingOptions } from '../const';
 import { State } from '../types/state';
 
 import { setCurrentCity, setDataLoadingStatus, setOffers, setSortingType } from './action';
 
 
 const initialState: State = {
+  authorizationStatus: AuthorizationStatus.Unknown,
   currentCity: cities[0],
   sortingType: sortingOptions[0].type,
   isDataLoaded: false,

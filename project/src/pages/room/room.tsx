@@ -25,11 +25,6 @@ import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
 
 
-type RoomProps = {
-  isLogged: boolean;
-}
-
-
 const MAX_IMAGES_AMOUNT = 6;
 
 
@@ -52,9 +47,7 @@ const getOffersNearby = async (currentOfferID: string) => {
 };
 
 
-const Room = (props: RoomProps): JSX.Element => {
-  const { isLogged } = props;
-
+const Room = (): JSX.Element => {
   const routeParams = useParams();
   const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
 
@@ -115,9 +108,7 @@ const Room = (props: RoomProps): JSX.Element => {
 
   return (
     <div className="page">
-      <Header
-        isLogged= { isLogged }
-      />
+      <Header/>
 
       <main className="page__main page__main--property">
         <section className="property">
@@ -194,7 +185,6 @@ const Room = (props: RoomProps): JSX.Element => {
                 reviews && (
                   <Reviews
                     reviews={ reviews }
-                    isLogged={ isLogged }
                     parentClass='property'
                   />
                 )

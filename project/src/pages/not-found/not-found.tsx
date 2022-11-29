@@ -11,7 +11,6 @@ const PADDING_TOP = '40vh';
 const NotFound = (): JSX.Element => (
   <div className="page page--gray page--login">
     <Header
-      isLogged= { false }
       hasNav= { false }
     />
 
