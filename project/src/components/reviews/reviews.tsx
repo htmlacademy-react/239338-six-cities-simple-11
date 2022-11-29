@@ -13,7 +13,7 @@ type ReviewsProps = {
 }
 
 
-const MAX_REVIEWS_AMOUNT = 6;
+const MAX_REVIEWS_AMOUNT = 10;
 
 
 const sortReviews = (reviewLeft: Review, reviewRight: Review) => getDateMilliseconds(reviewRight.date) - getDateMilliseconds(reviewLeft.date);
