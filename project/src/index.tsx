@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { store } from './store';
-import { getOffers } from './store/api-action';
+import { checkAuthAction, getOffers } from './store/api-action';
 
 import App from './components/app/app';
 
@@ -16,6 +16,7 @@ const root = ReactDOM.createRoot(
 );
 
 
+store.dispatch(checkAuthAction());
 store.dispatch(getOffers());
 
 
