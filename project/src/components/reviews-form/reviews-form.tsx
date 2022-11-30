@@ -1,7 +1,5 @@
 import { useState, Fragment } from 'react';
 
-import { pluralize } from '../../utils';
-
 
 type FormData = {
   rating: number;
@@ -14,6 +12,12 @@ const enum FieldName {
   Comment = 'comment'
 }
 
+const enum CommentLength {
+  Min = 50,
+  Max = 300
+}
+
+
 const ratings = [
   'perfect',
   'good',
@@ -22,10 +26,14 @@ const ratings = [
   'terribly'
 ];
 
-const MIN_COMMENT_LENGTH = 50;
 
+const isCommentInvalid = (comment: string) => {
+  const commentLength = comment.trim().length;
 
-const isFormInvalid = (formData: FormData) => !formData[FieldName.Rating] || formData[FieldName.Comment].trim().length < MIN_COMMENT_LENGTH;
+  return commentLength < CommentLength.Min || commentLength > CommentLength.Max;
+};
+
+const isFormInvalid = (formData: FormData) => !formData[FieldName.Rating] || isCommentInvalid(formData[FieldName.Comment]);
 
 
 const ReviewsForm = (): JSX.Element => {
@@ -84,7 +92,7 @@ const ReviewsForm = (): JSX.Element => {
 
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{ pluralize(MIN_COMMENT_LENGTH, 'character') }</b>.
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{ CommentLength.Min }</b> and at most <b className="reviews__text-amount">{ CommentLength.Max }</b> characters.
         </p>
 
         <button
