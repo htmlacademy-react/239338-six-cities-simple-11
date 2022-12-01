@@ -65,8 +65,8 @@ const Login = (): JSX.Element => {
                   type="password"
                   name="password"
                   placeholder="Password"
-                  pattern="\S{2,}"
-                  title="Password must have at least one letter and digit"
+                  pattern="(?=.*[0-9])(?=.*[a-zA-Z])([!@#$%^&*-_]{0,})[0-9a-zA-Z!@#$%^&*-_]{2,}"
+                  title="Password must have at least one letter and one digit"
                   required
                 />
               </div>
