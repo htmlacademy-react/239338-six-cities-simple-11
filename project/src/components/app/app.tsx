@@ -1,11 +1,6 @@
-import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import { AppRoute } from '../../const';
-import { offers } from '../../mocks/offers';
-
-import { getOffers } from '../../store/action';
 
 import Main from '../../pages/main/main';
 import Room from '../../pages/room/room';
@@ -22,13 +17,6 @@ type AppProps = {
 
 const App = (props: AppProps): JSX.Element => {
   const { isLogged } = props;
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getOffers({
-      offers
-    }));
-  });
 
   return (
     <BrowserRouter>

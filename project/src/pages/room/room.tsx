@@ -1,12 +1,23 @@
+import { useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
+
+import { ApiRoute } from '../../const';
+import { Offer, Offers } from '../../types/offers';
+import { Review } from '../../types/review';
 
 import { pluralize } from '../../utils';
 
+import { store } from '../../store';
+import { api } from '../../store/index';
+import { setDataLoadingStatus } from '../../store/action';
 import { useAppSelector } from '../../hooks/use-app-selector';
 
 import NotFound from '../not-found/not-found';
 
 import Header from '../../components/header/header';
+import Loader from '../../components/loader/loader';
 import Rating from '../../components/rating/rating';
 import User from '../../components/user/user';
 import Reviews from '../../components/reviews/reviews';
@@ -19,16 +30,69 @@ type RoomProps = {
 }
 
 
+const MAX_IMAGES_AMOUNT = 6;
+
+
+const getOffer = async (currentOfferID: string) => {
+  const { data } = await api.get<Offer>(`${ ApiRoute.Offers }/${ currentOfferID }`);
+
+  return data;
+};
+
+const getReviews = async (currentOfferID: string) => {
+  const { data } = await api.get<Review[]>(`${ ApiRoute.Comments }/${ currentOfferID }`);
+
+  return data;
+};
+
+const getOffersNearby = async (currentOfferID: string) => {
+  const { data } = await api.get<Offers>(`${ ApiRoute.Offers }/${ currentOfferID }/nearby`);
+
+  return data;
+};
+
+
 const Room = (props: RoomProps): JSX.Element => {
   const { isLogged } = props;
 
-  const offers = useAppSelector((state) => state.offers);
+  const routeParams = useParams();
+  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
 
-  const params = useParams();
-  const currentOfferID = Number(params.id);
+  const [ currentOffer, setCurrentOffer ] = useState<Offer | undefined>(undefined);
+  const [ reviews, setReviews ] = useState<Review[] | undefined>(undefined);
+  const [ offersNearby, setOffersNearby ] = useState<Offers | undefined>(undefined);
 
-  const currentOffer = offers.find((offer) => offer.id === currentOfferID);
-  const offersNearby = offers.filter((offer) => offer.id !== currentOfferID);
+  const currentOfferID = routeParams.id;
+
+  useLayoutEffect(() => {
+    if (currentOfferID) {
+      store.dispatch(setDataLoadingStatus(false));
+
+      getOffer(currentOfferID).then((offerData) => {
+        setCurrentOffer(offerData);
+
+        getReviews(currentOfferID).then((reviewsData) => {
+          setReviews(reviewsData);
+        }).catch((error: AxiosError<{error: string}>) => {
+          toast.error(`Could not load the reviews. ${ error.message }.`);
+        });
+
+        getOffersNearby(currentOfferID).then((offersData) => {
+          setOffersNearby(offersData);
+        }).catch((error: AxiosError<{error: string}>) => {
+          toast.error(`Could not load the places nearby. ${ error.message }.`);
+        });
+
+        store.dispatch(setDataLoadingStatus(true));
+      }).catch((error: AxiosError<{error: string}>) => {
+        toast.error(`Could not load the property. ${ error.message }.`);
+      });
+    }
+  }, [currentOfferID]);
+
+  if (!isDataLoaded) {
+    return <Loader/>;
+  }
 
   if (!currentOffer) {
     return <NotFound/>;
@@ -46,8 +110,7 @@ const Room = (props: RoomProps): JSX.Element => {
     host,
     city,
     images,
-    goods,
-    reviews
+    goods
   } = currentOffer;
 
   return (
@@ -61,7 +124,7 @@ const Room = (props: RoomProps): JSX.Element => {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {
-                images.map((image) => (
+                images.slice(0, MAX_IMAGES_AMOUNT).map((image) => (
                   <div key={ image } className="property__image-wrapper">
                     <img className="property__image" src={ image } alt="Studio"/>
                   </div>
@@ -101,21 +164,17 @@ const Room = (props: RoomProps): JSX.Element => {
                 <span className="property__price-text">&nbsp;night</span>
               </div>
 
-              {
-                goods.length !== 0 && (
-                  <div className="property__inside">
-                    <h2 className="property__inside-title">What&apos;s inside</h2>
+              <div className="property__inside">
+                <h2 className="property__inside-title">What&apos;s inside</h2>
 
-                    <ul className="property__inside-list">
-                      {
-                        goods.map((item) => (
-                          <li key={ item } className="property__inside-item">{ item }</li>
-                        ))
-                      }
-                    </ul>
-                  </div>
-                )
-              }
+                <ul className="property__inside-list">
+                  {
+                    goods.map((item) => (
+                      <li key={ item } className="property__inside-item">{ item }</li>
+                    ))
+                  }
+                </ul>
+              </div>
 
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
@@ -126,32 +185,37 @@ const Room = (props: RoomProps): JSX.Element => {
                   classPrefix='host'
                 />
 
-                {
-                  description && (
-                    <div className="property__description">
-                      <p className="property__text">{ description }</p>
-                    </div>
-                  )
-                }
+                <div className="property__description">
+                  <p className="property__text">{ description }</p>
+                </div>
               </div>
 
-              <Reviews
-                reviews={ reviews }
-                isLogged={ isLogged }
-                parentClass='property'
-              />
+              {
+                reviews && (
+                  <Reviews
+                    reviews={ reviews }
+                    isLogged={ isLogged }
+                    parentClass='property'
+                  />
+                )
+              }
             </div>
           </div>
 
-          <Map
-            location={ city.location }
-            offers={ offersNearby }
-            parentClass='property'
-          />
+          {
+            offersNearby && (
+              <Map
+                location={ city.location }
+                offers={ offersNearby.concat(currentOffer) }
+                parentClass='property'
+                currentOfferID= { currentOffer.id }
+              />
+            )
+          }
         </section>
 
         {
-          offersNearby.length !== 0 && (
+          offersNearby && (
             <div className="container">
               <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>

@@ -1,5 +1,7 @@
 import { Review } from '../../types/review';
 
+import { getDateMilliseconds } from '../../utils';
+
 import ReviewsItem from '../reviews-item/reviews-item';
 import ReviewsForm from '../reviews-form/reviews-form';
 
@@ -9,6 +11,12 @@ type ReviewsProps = {
   reviews: Review[];
   isLogged: boolean;
 }
+
+
+const MAX_REVIEWS_AMOUNT = 10;
+
+
+const sortReviews = (reviewLeft: Review, reviewRight: Review) => getDateMilliseconds(reviewRight.date) - getDateMilliseconds(reviewLeft.date);
 
 
 const Reviews = (props: ReviewsProps): JSX.Element => {
@@ -25,7 +33,7 @@ const Reviews = (props: ReviewsProps): JSX.Element => {
         reviewsAmount !== 0 && (
           <ul className="reviews__list">
             {
-              reviews.map((review) => (
+              reviews.sort(sortReviews).slice(0, MAX_REVIEWS_AMOUNT).map((review) => (
                 <ReviewsItem
                   key={ review.id }
                   review={ review }

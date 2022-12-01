@@ -33,7 +33,7 @@ const ReviewItem = (props: ReviewItemProps): JSX.Element => {
         </p>
 
         <time className="reviews__time" dateTime={ getFormattedDate(date, 'yyyy-MM-dd') }>
-          { getFormattedDate(date, 'dd MMMM yyyy') }
+          { getFormattedDate(date, 'MMMM yyyy') }
         </time>
       </div>
     </li>
