@@ -6,11 +6,12 @@ import { AppRoute, ApiRoute, AuthorizationStatus } from '../const';
 import { AuthData } from '../types/auth-data';
 import { User } from '../types/user';
 import { Offers } from '../types/offers';
+import { Review, ReviewData } from '../types/review';
 import { AppDispatch, State } from '../types/state.js';
 
 import { saveToken, dropToken } from '../services/token';
 
-import { setAuthorizationStatus, setDataLoadingStatus, setUser, setOffers, redirectToRoute } from './action';
+import { setAuthorizationStatus, setDataLoadingStatus, setUser, setOffers, redirectToRoute, setReviews } from './action';
 
 
 export const checkAuthAction = createAsyncThunk<
@@ -96,4 +97,39 @@ export const getOffers = createAsyncThunk<
     dispatch(setOffers(data));
     dispatch(setDataLoadingStatus(true));
   }
+);
+
+
+export const getReviews = createAsyncThunk<
+  void,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'reviews/get',
+  async (currentOfferID, { dispatch, extra: api }) => {
+    const { data } = await api.get<Review[]>(`${ ApiRoute.Comments }/${ currentOfferID }`);
+
+    dispatch(setReviews(data));
+  }
+);
+
+export const sendReview = createAsyncThunk<
+  void,
+  ReviewData,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'reviews/send',
+  async ({data: {rating, comment}, currentOfferID}, {dispatch, extra: api}) => {
+    const { data } = await api.post<Review[]>(`${ ApiRoute.Comments }/${ currentOfferID || '' }`, {rating, comment});
+
+    dispatch(setReviews(data));
+  },
 );

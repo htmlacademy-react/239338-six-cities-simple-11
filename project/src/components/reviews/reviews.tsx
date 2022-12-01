@@ -11,7 +11,6 @@ import ReviewsForm from '../reviews-form/reviews-form';
 
 type ReviewsProps = {
   parentClass: string;
-  reviews: Review[];
 }
 
 
@@ -22,10 +21,13 @@ const sortReviews = (reviewLeft: Review, reviewRight: Review) => getDateMillisec
 
 
 const Reviews = (props: ReviewsProps): JSX.Element => {
-  const { parentClass, reviews } = props;
-  const reviewsAmount = reviews.length;
+  const { parentClass } = props;
 
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const reviews = useAppSelector((state) => state.currentOfferReviews);
+
+  const reviewsAmount = reviews.length;
+
 
   return (
     <section className={ `${parentClass}__reviews reviews` }>
@@ -37,7 +39,7 @@ const Reviews = (props: ReviewsProps): JSX.Element => {
         reviewsAmount !== 0 && (
           <ul className="reviews__list">
             {
-              reviews.sort(sortReviews).slice(0, MAX_REVIEWS_AMOUNT).map((review) => (
+              reviews.slice().sort(sortReviews).slice(0, MAX_REVIEWS_AMOUNT).map((review) => (
                 <ReviewsItem
                   key={ review.id }
                   review={ review }

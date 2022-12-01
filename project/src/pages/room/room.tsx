@@ -5,13 +5,13 @@ import { AxiosError } from 'axios';
 
 import { ApiRoute } from '../../const';
 import { Offer, Offers } from '../../types/offers';
-import { Review } from '../../types/review';
 
 import { pluralize } from '../../utils';
 
 import { store } from '../../store';
 import { api } from '../../store/index';
-import { setDataLoadingStatus } from '../../store/action';
+import { setCurrentOfferID, setDataLoadingStatus } from '../../store/action';
+import { getReviews } from '../../store/api-action';
 import { useAppSelector } from '../../hooks/use-app-selector';
 
 import NotFound from '../not-found/not-found';
@@ -34,12 +34,6 @@ const getOffer = async (currentOfferID: string) => {
   return data;
 };
 
-const getReviews = async (currentOfferID: string) => {
-  const { data } = await api.get<Review[]>(`${ ApiRoute.Comments }/${ currentOfferID }`);
-
-  return data;
-};
-
 const getOffersNearby = async (currentOfferID: string) => {
   const { data } = await api.get<Offers>(`${ ApiRoute.Offers }/${ currentOfferID }/nearby`);
 
@@ -52,7 +46,6 @@ const Room = (): JSX.Element => {
   const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
 
   const [ currentOffer, setCurrentOffer ] = useState<Offer | undefined>(undefined);
-  const [ reviews, setReviews ] = useState<Review[] | undefined>(undefined);
   const [ offersNearby, setOffersNearby ] = useState<Offers | undefined>(undefined);
 
   const currentOfferID = routeParams.id;
@@ -64,19 +57,17 @@ const Room = (): JSX.Element => {
       getOffer(currentOfferID).then((offerData) => {
         setCurrentOffer(offerData);
 
-        getReviews(currentOfferID).then((reviewsData) => {
-          setReviews(reviewsData);
-        }).catch((error: AxiosError<{error: string}>) => {
-          toast.error(`Could not load the reviews. ${ error.message }.`);
-        });
-
         getOffersNearby(currentOfferID).then((offersData) => {
           setOffersNearby(offersData);
         }).catch((error: AxiosError<{error: string}>) => {
           toast.error(`Could not load the places nearby. ${ error.message }.`);
         });
 
+        store.dispatch(getReviews(currentOfferID));
+
+        store.dispatch(setCurrentOfferID(currentOfferID));
         store.dispatch(setDataLoadingStatus(true));
+
       }).catch((error: AxiosError<{error: string}>) => {
         toast.error(`Could not load the property. ${ error.message }.`);
       });
@@ -181,14 +172,9 @@ const Room = (): JSX.Element => {
                 </div>
               </div>
 
-              {
-                reviews && (
-                  <Reviews
-                    reviews={ reviews }
-                    parentClass='property'
-                  />
-                )
-              }
+              <Reviews
+                parentClass='property'
+              />
             </div>
           </div>
 

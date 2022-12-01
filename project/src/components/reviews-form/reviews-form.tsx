@@ -1,4 +1,8 @@
-import { useState, Fragment } from 'react';
+import { useState, FormEvent, Fragment } from 'react';
+import { useAppSelector } from '../../hooks/use-app-selector';
+
+import { store } from '../../store';
+import { sendReview } from '../../store/api-action';
 
 
 type FormData = {
@@ -37,10 +41,21 @@ const isFormInvalid = (formData: FormData) => !formData[FieldName.Rating] || isC
 
 
 const ReviewsForm = (): JSX.Element => {
+  const currentOfferID = useAppSelector((state) => state.currentOfferID);
+
   const [formData, setFormData] = useState({
     [FieldName.Rating]: 0,
     [FieldName.Comment]: ''
   });
+
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    store.dispatch(sendReview({
+      data: formData,
+      currentOfferID
+    }));
+  };
 
   const handleFormElementChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = evt.target;
@@ -48,8 +63,14 @@ const ReviewsForm = (): JSX.Element => {
     setFormData({...formData, [name]: evt.target.name === FieldName.Rating ? Number(value) : value });
   };
 
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={ handleFormSubmit }
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
 
       <div className="reviews__rating-form form__rating">
