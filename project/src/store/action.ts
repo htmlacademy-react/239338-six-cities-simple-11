@@ -4,7 +4,7 @@ import { Offers } from '../types/offers';
 import { Review } from '../types/review';
 import { User } from '../types/user';
 
-import { AuthorizationStatus, AppRoute } from '../const';
+import { AuthorizationStatus, ReviewsSendingStatus, AppRoute } from '../const';
 
 
 export const setCurrentCity = createAction<{ currentCity: string }>('city/setCurrent');
@@ -21,4 +21,5 @@ export const setAuthorizationStatus = createAction<AuthorizationStatus>('user/se
 export const redirectToRoute = createAction<AppRoute>('app/redirectToRoute');
 
 export const setReviews = createAction<Review[]>('reviews/set');
+export const setReviewsSendingStatus = createAction<ReviewsSendingStatus>('reviews/setSendingStatus');
 

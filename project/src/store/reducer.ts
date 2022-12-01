@@ -1,9 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { AuthorizationStatus, cities, sortingOptions } from '../const';
+import { AuthorizationStatus, ReviewsSendingStatus, cities, sortingOptions } from '../const';
 import { State } from '../types/state';
 
-import { setCurrentCity, setOffers, setSortingType, setDataLoadingStatus, setAuthorizationStatus, setUser, setCurrentOfferID, setReviews } from './action';
+import { setCurrentCity, setOffers, setSortingType, setDataLoadingStatus, setAuthorizationStatus, setUser, setCurrentOfferID, setReviews, setReviewsSendingStatus } from './action';
 
 
 const initialState: State = {
@@ -14,7 +14,8 @@ const initialState: State = {
   isDataLoaded: false,
   offers: [],
   currentOfferID: undefined,
-  currentOfferReviews: []
+  currentOfferReviews: [],
+  reviewsSendingStatus: ReviewsSendingStatus.Unknown
 };
 
 
@@ -43,5 +44,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setReviews, (state, action) => {
       state.currentOfferReviews = action.payload;
+    })
+    .addCase(setReviewsSendingStatus, (state, action) => {
+      state.reviewsSendingStatus = action.payload;
     });
 });

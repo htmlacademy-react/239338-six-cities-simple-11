@@ -26,6 +26,12 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum ReviewsSendingStatus {
+  Success = 'SUCCESS',
+  Error = 'ERROR',
+  Unknown = 'UNKNOWN',
+}
+
 export const cities = [
   'Paris',
   'Cologne',

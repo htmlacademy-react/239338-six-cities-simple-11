@@ -1,4 +1,4 @@
-import { AuthorizationStatus } from '../const';
+import { AuthorizationStatus, ReviewsSendingStatus } from '../const';
 
 import { User } from './user';
 import { Offers } from './offers';
@@ -16,6 +16,7 @@ export type State = {
   offers: Offers;
   currentOfferID: string | undefined;
   currentOfferReviews: Review[];
+  reviewsSendingStatus: ReviewsSendingStatus;
 };
 
 export type AppDispatch = typeof store.dispatch;

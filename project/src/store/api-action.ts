@@ -1,7 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
+import { toast } from 'react-toastify';
 
-import { AppRoute, ApiRoute, AuthorizationStatus } from '../const';
+import { AppRoute, ApiRoute, AuthorizationStatus, ReviewsSendingStatus } from '../const';
 
 import { AuthData } from '../types/auth-data';
 import { User } from '../types/user';
@@ -11,7 +12,7 @@ import { AppDispatch, State } from '../types/state.js';
 
 import { saveToken, dropToken } from '../services/token';
 
-import { setAuthorizationStatus, setDataLoadingStatus, setUser, setOffers, redirectToRoute, setReviews } from './action';
+import { setAuthorizationStatus, setDataLoadingStatus, setUser, setOffers, redirectToRoute, setReviews, setReviewsSendingStatus } from './action';
 
 
 export const checkAuthAction = createAsyncThunk<
@@ -128,8 +129,15 @@ export const sendReview = createAsyncThunk<
 >(
   'reviews/send',
   async ({data: {rating, comment}, currentOfferID}, {dispatch, extra: api}) => {
-    const { data } = await api.post<Review[]>(`${ ApiRoute.Comments }/${ currentOfferID || '' }`, {rating, comment});
+    try {
+      const { data } = await api.post<Review[]>(`${ ApiRoute.Comments }/${ currentOfferID || '' }`, {rating, comment});
 
-    dispatch(setReviews(data));
+      dispatch(setReviews(data));
+      dispatch(setReviewsSendingStatus(ReviewsSendingStatus.Success));
+    } catch {
+      toast.error('An error occurred, the review was not sent');
+
+      dispatch(setReviewsSendingStatus(ReviewsSendingStatus.Error));
+    }
   },
 );

@@ -1,7 +1,9 @@
-import { useState, FormEvent, Fragment } from 'react';
+import { useState, FormEvent, Fragment, useEffect } from 'react';
+import { ReviewsSendingStatus } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector';
 
 import { store } from '../../store';
+import { setReviewsSendingStatus } from '../../store/action';
 import { sendReview } from '../../store/api-action';
 
 
@@ -30,6 +32,11 @@ const ratings = [
   'terribly'
 ];
 
+const INITIAL_FORM_STATE = {
+  [FieldName.Rating]: 0,
+  [FieldName.Comment]: ''
+};
+
 
 const isCommentInvalid = (comment: string) => {
   const commentLength = comment.trim().length;
@@ -42,15 +49,17 @@ const isFormInvalid = (formData: FormData) => !formData[FieldName.Rating] || isC
 
 const ReviewsForm = (): JSX.Element => {
   const currentOfferID = useAppSelector((state) => state.currentOfferID);
+  const reviewsSendingStatus = useAppSelector((state) => state.reviewsSendingStatus);
 
-  const [formData, setFormData] = useState({
-    [FieldName.Rating]: 0,
-    [FieldName.Comment]: ''
-  });
+  const [ isBlocked, setIsBlocked ] = useState(false);
+  const [formData, setFormData] = useState(INITIAL_FORM_STATE);
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
+    setIsBlocked(true);
+
+    store.dispatch(setReviewsSendingStatus(ReviewsSendingStatus.Unknown));
     store.dispatch(sendReview({
       data: formData,
       currentOfferID
@@ -63,6 +72,13 @@ const ReviewsForm = (): JSX.Element => {
     setFormData({...formData, [name]: evt.target.name === FieldName.Rating ? Number(value) : value });
   };
 
+  useEffect(() => {
+    setIsBlocked(false);
+
+    if (reviewsSendingStatus === ReviewsSendingStatus.Success) {
+      setFormData(INITIAL_FORM_STATE);
+    }
+  }, [reviewsSendingStatus]);
 
   return (
     <form
@@ -70,6 +86,9 @@ const ReviewsForm = (): JSX.Element => {
       action="#"
       method="post"
       onSubmit={ handleFormSubmit }
+      style={{
+        pointerEvents: isBlocked ? 'none' : 'auto'
+      }}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
 
