@@ -60,7 +60,7 @@ const Room = (): JSX.Element => {
         getOffersNearby(currentOfferID).then((offersData) => {
           setOffersNearby(offersData);
         }).catch((error: AxiosError<{error: string}>) => {
-          toast.error(`Could not load the places nearby. ${ error.message }.`);
+          toast.error('An error occurred, the places nearby could not be loaded.');
         });
 
         store.dispatch(getReviews(currentOfferID));
@@ -69,7 +69,7 @@ const Room = (): JSX.Element => {
         store.dispatch(setDataLoadingStatus(true));
 
       }).catch((error: AxiosError<{error: string}>) => {
-        toast.error(`Could not load the property. ${ error.message }.`);
+        toast.error('An error occurred, the property data could not be loaded.');
       });
     }
   }, [currentOfferID]);

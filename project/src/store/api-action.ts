@@ -48,14 +48,18 @@ export const loginAction = createAsyncThunk<
 >(
   'user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
-    const { data } = await api.post<User>(ApiRoute.Login, {email, password});
-    const { token } = data;
+    try {
+      const { data } = await api.post<User>(ApiRoute.Login, {email, password});
+      const { token } = data;
 
-    saveToken(token);
+      saveToken(token);
 
-    dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
-    dispatch(setUser(data));
-    dispatch(redirectToRoute(AppRoute.Root));
+      dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
+      dispatch(setUser(data));
+      dispatch(redirectToRoute(AppRoute.Root));
+    } catch (error) {
+      toast.error('An error occurred, unable to log in.');
+    }
   },
 );
 
@@ -70,12 +74,16 @@ export const logoutAction = createAsyncThunk<
 >(
   'user/logout',
   async (_arg, {dispatch, extra: api}) => {
-    await api.delete(ApiRoute.Logout);
+    try {
+      await api.delete(ApiRoute.Logout);
 
-    dropToken();
+      dropToken();
 
-    dispatch(setUser(undefined));
-    dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
+      dispatch(setUser(undefined));
+      dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
+    } catch (error) {
+      toast.error('An error occurred, unable to log out.');
+    }
   },
 );
 
@@ -93,9 +101,14 @@ export const getOffers = createAsyncThunk<
   async (_arg, { dispatch, extra: api }) => {
     dispatch(setDataLoadingStatus(false));
 
-    const { data } = await api.get<Offers>(ApiRoute.Offers);
+    try {
+      const { data } = await api.get<Offers>(ApiRoute.Offers);
 
-    dispatch(setOffers(data));
+      dispatch(setOffers(data));
+    } catch (error) {
+      toast.error('An error occurred, the places could not be loaded.');
+    }
+
     dispatch(setDataLoadingStatus(true));
   }
 );
@@ -112,9 +125,13 @@ export const getReviews = createAsyncThunk<
 >(
   'reviews/get',
   async (currentOfferID, { dispatch, extra: api }) => {
-    const { data } = await api.get<Review[]>(`${ ApiRoute.Comments }/${ currentOfferID }`);
+    try {
+      const { data } = await api.get<Review[]>(`${ ApiRoute.Comments }/${ currentOfferID }`);
 
-    dispatch(setReviews(data));
+      dispatch(setReviews(data));
+    } catch (error) {
+      toast.error('An error occurred, the reviews could not be loaded.');
+    }
   }
 );
 
@@ -135,7 +152,7 @@ export const sendReview = createAsyncThunk<
       dispatch(setReviews(data));
       dispatch(setReviewsSendingStatus(ReviewsSendingStatus.Success));
     } catch {
-      toast.error('An error occurred, the review was not sent');
+      toast.error('An error occurred, the review was not sent.');
 
       dispatch(setReviewsSendingStatus(ReviewsSendingStatus.Error));
     }
