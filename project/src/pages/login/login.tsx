@@ -1,15 +1,19 @@
 import { useRef, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
-import { AppRoute, cities } from '../../const';
+import { AppRoute, AuthorizationStatus, cities } from '../../const';
 
 import { store } from '../../store';
 import { loginAction } from '../../store/api-action';
+
+import { useAppSelector } from '../../hooks/use-app-selector';
 
 import Header from '../../components/header/header';
 
 
 const Login = (): JSX.Element => {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
   const emailFieldRef = useRef<HTMLInputElement | null>(null);
   const passwordFieldRef = useRef<HTMLInputElement | null>(null);
 
@@ -23,6 +27,10 @@ const Login = (): JSX.Element => {
       }));
     }
   };
+
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    return <Navigate to={ AppRoute.Root }/>;
+  }
 
   return (
     <div className="page page--gray page--login">
