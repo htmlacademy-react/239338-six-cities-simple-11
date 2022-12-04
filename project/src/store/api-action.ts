@@ -6,13 +6,13 @@ import { AppRoute, ApiRoute, AuthorizationStatus, ReviewsSendingStatus } from '.
 
 import { AuthData } from '../types/auth-data';
 import { User } from '../types/user';
-import { Offers } from '../types/offers';
+import { Offer, Offers } from '../types/offers';
 import { Review, ReviewData } from '../types/review';
 import { AppDispatch, State } from '../types/state.js';
 
 import { saveToken, dropToken } from '../services/token';
 
-import { setAuthorizationStatus, setDataLoadingStatus, setUser, setOffers, redirectToRoute, setReviews, setReviewsSendingStatus } from './action';
+import { setAuthorizationStatus, setDataLoadingStatus, setUser, setOffers, redirectToRoute, setReviews, setReviewsSendingStatus, setCurrentOffer, setCurrentOfferNearbyOffers } from './action';
 
 
 export const checkAuthAction = createAsyncThunk<
@@ -105,8 +105,61 @@ export const getOffers = createAsyncThunk<
       const { data } = await api.get<Offers>(ApiRoute.Offers);
 
       dispatch(setOffers(data));
-    } catch (error) {
+    } catch {
       toast.error('An error occurred, the places could not be loaded.');
+    }
+
+    dispatch(setDataLoadingStatus(true));
+  }
+);
+
+export const getOffersNearby = createAsyncThunk<
+  void,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'offers/getNearbyOffers',
+  async (currentOfferID, { dispatch, extra: api }) => {
+    dispatch(setDataLoadingStatus(false));
+
+    try {
+      const { data } = await api.get<Offers>(`${ ApiRoute.Offers }/${ currentOfferID }/nearby`);
+
+      dispatch(setCurrentOfferNearbyOffers(data));
+    } catch {
+      toast.error('An error occurred, the offers nearby could not be loaded.');
+    }
+
+    dispatch(setDataLoadingStatus(true));
+  }
+);
+
+export const getOffer = createAsyncThunk<
+  void,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'offers/getCurrent',
+  async (currentOfferID, { dispatch, extra: api }) => {
+    dispatch(setDataLoadingStatus(false));
+
+    try {
+      const { data } = await api.get<Offer>(`${ ApiRoute.Offers }/${ currentOfferID }`);
+
+      dispatch(setCurrentOffer(data));
+
+      dispatch(getReviews(currentOfferID));
+      dispatch(getOffersNearby(currentOfferID));
+    } catch {
+      toast.error('An error occurred, the data of the offer could not be loaded.');
     }
 
     dispatch(setDataLoadingStatus(true));

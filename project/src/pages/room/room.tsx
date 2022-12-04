@@ -1,17 +1,11 @@
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { AxiosError } from 'axios';
-
-import { ApiRoute } from '../../const';
-import { Offer, Offers } from '../../types/offers';
 
 import { pluralize } from '../../utils';
 
 import { store } from '../../store';
-import { api } from '../../store/index';
-import { setCurrentOfferID, setDataLoadingStatus } from '../../store/action';
-import { getReviews } from '../../store/api-action';
+import { setCurrentOffer, setCurrentOfferNearbyOffers, setReviews } from '../../store/action';
+import { getOffer } from '../../store/api-action';
 import { useAppSelector } from '../../hooks/use-app-selector';
 
 import NotFound from '../not-found/not-found';
@@ -27,51 +21,30 @@ import PlaceCard from '../../components/place-card/place-card';
 
 const MAX_IMAGES_AMOUNT = 6;
 
+const dispatch = store.dispatch;
 
-const getOffer = async (currentOfferID: string) => {
-  const { data } = await api.get<Offer>(`${ ApiRoute.Offers }/${ currentOfferID }`);
-
-  return data;
-};
-
-const getOffersNearby = async (currentOfferID: string) => {
-  const { data } = await api.get<Offers>(`${ ApiRoute.Offers }/${ currentOfferID }/nearby`);
-
-  return data;
+const clearCurrentOffer = () => {
+  dispatch(setCurrentOffer(undefined));
+  dispatch(setCurrentOfferNearbyOffers([]));
+  dispatch(setReviews([]));
 };
 
 
 const Room = (): JSX.Element => {
   const routeParams = useParams();
-  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
 
-  const [ currentOffer, setCurrentOffer ] = useState<Offer | undefined>(undefined);
-  const [ offersNearby, setOffersNearby ] = useState<Offers | undefined>(undefined);
+  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
+  const currentOffer = useAppSelector((state) => state.currentOffer);
+  const offersNearby = useAppSelector((state) => state.currentOfferNearbyOffers);
 
   const currentOfferID = routeParams.id;
 
   useLayoutEffect(() => {
     if (currentOfferID) {
-      store.dispatch(setDataLoadingStatus(false));
-
-      getOffer(currentOfferID).then((offerData) => {
-        setCurrentOffer(offerData);
-
-        getOffersNearby(currentOfferID).then((offersData) => {
-          setOffersNearby(offersData);
-        }).catch((error: AxiosError<{error: string}>) => {
-          toast.error('An error occurred, the places nearby could not be loaded.');
-        });
-
-        store.dispatch(getReviews(currentOfferID));
-
-        store.dispatch(setCurrentOfferID(currentOfferID));
-        store.dispatch(setDataLoadingStatus(true));
-
-      }).catch((error: AxiosError<{error: string}>) => {
-        toast.error('An error occurred, the property data could not be loaded.');
-      });
+      dispatch(getOffer(currentOfferID));
     }
+
+    return clearCurrentOffer;
   }, [currentOfferID]);
 
   if (!isDataLoaded) {

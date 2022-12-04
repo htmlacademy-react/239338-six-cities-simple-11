@@ -3,7 +3,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus, ReviewsSendingStatus, cities, sortingOptions } from '../const';
 import { State } from '../types/state';
 
-import { setCurrentCity, setOffers, setSortingType, setDataLoadingStatus, setAuthorizationStatus, setUser, setCurrentOfferID, setReviews, setReviewsSendingStatus } from './action';
+import { setCurrentCity, setOffers, setSortingType, setDataLoadingStatus, setAuthorizationStatus, setUser, setCurrentOffer, setCurrentOfferNearbyOffers, setReviews, setReviewsSendingStatus } from './action';
 
 
 const initialState: State = {
@@ -14,7 +14,9 @@ const initialState: State = {
   isDataLoaded: false,
   offers: [],
   currentOfferID: undefined,
+  currentOffer: undefined,
   currentOfferReviews: [],
+  currentOfferNearbyOffers: [],
   reviewsSendingStatus: ReviewsSendingStatus.Unknown
 };
 
@@ -39,8 +41,11 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setUser, (state, action) => {
       state.user = action.payload;
     })
-    .addCase(setCurrentOfferID, (state, action) => {
-      state.currentOfferID = action.payload;
+    .addCase(setCurrentOffer, (state, action) => {
+      state.currentOffer = action.payload;
+    })
+    .addCase(setCurrentOfferNearbyOffers, (state, action) => {
+      state.currentOfferNearbyOffers = action.payload;
     })
     .addCase(setReviews, (state, action) => {
       state.currentOfferReviews = action.payload;
