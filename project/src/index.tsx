@@ -6,20 +6,17 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { store } from './store';
-import { getOffers } from './store/api-action';
+import { checkAuthAction, getOffers } from './store/api-action';
 
 import App from './components/app/app';
 
-
-const Setting = {
-  IsLogged: true
-} as const;
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
 
+store.dispatch(checkAuthAction());
 store.dispatch(getOffers());
 
 
@@ -28,9 +25,7 @@ root.render(
     <Provider store={ store }>
       <ToastContainer />
 
-      <App
-        isLogged= { Setting.IsLogged }
-      />
+      <App/>
     </Provider>
   </React.StrictMode>,
 );

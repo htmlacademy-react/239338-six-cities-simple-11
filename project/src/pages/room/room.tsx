@@ -1,17 +1,11 @@
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { AxiosError } from 'axios';
-
-import { ApiRoute } from '../../const';
-import { Offer, Offers } from '../../types/offers';
-import { Review } from '../../types/review';
 
 import { pluralize } from '../../utils';
 
 import { store } from '../../store';
-import { api } from '../../store/index';
-import { setDataLoadingStatus } from '../../store/action';
+import { setCurrentOffer, setCurrentOfferNearbyOffers, setReviews } from '../../store/action';
+import { getOffer } from '../../store/api-action';
 import { useAppSelector } from '../../hooks/use-app-selector';
 
 import NotFound from '../not-found/not-found';
@@ -25,69 +19,32 @@ import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
 
 
-type RoomProps = {
-  isLogged: boolean;
-}
-
-
 const MAX_IMAGES_AMOUNT = 6;
 
+const dispatch = store.dispatch;
 
-const getOffer = async (currentOfferID: string) => {
-  const { data } = await api.get<Offer>(`${ ApiRoute.Offers }/${ currentOfferID }`);
-
-  return data;
-};
-
-const getReviews = async (currentOfferID: string) => {
-  const { data } = await api.get<Review[]>(`${ ApiRoute.Comments }/${ currentOfferID }`);
-
-  return data;
-};
-
-const getOffersNearby = async (currentOfferID: string) => {
-  const { data } = await api.get<Offers>(`${ ApiRoute.Offers }/${ currentOfferID }/nearby`);
-
-  return data;
+const clearCurrentOffer = () => {
+  dispatch(setCurrentOffer(undefined));
+  dispatch(setCurrentOfferNearbyOffers([]));
+  dispatch(setReviews([]));
 };
 
 
-const Room = (props: RoomProps): JSX.Element => {
-  const { isLogged } = props;
-
+const Room = (): JSX.Element => {
   const routeParams = useParams();
-  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
 
-  const [ currentOffer, setCurrentOffer ] = useState<Offer | undefined>(undefined);
-  const [ reviews, setReviews ] = useState<Review[] | undefined>(undefined);
-  const [ offersNearby, setOffersNearby ] = useState<Offers | undefined>(undefined);
+  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
+  const currentOffer = useAppSelector((state) => state.currentOffer);
+  const offersNearby = useAppSelector((state) => state.currentOfferNearbyOffers);
 
   const currentOfferID = routeParams.id;
 
   useLayoutEffect(() => {
     if (currentOfferID) {
-      store.dispatch(setDataLoadingStatus(false));
-
-      getOffer(currentOfferID).then((offerData) => {
-        setCurrentOffer(offerData);
-
-        getReviews(currentOfferID).then((reviewsData) => {
-          setReviews(reviewsData);
-        }).catch((error: AxiosError<{error: string}>) => {
-          toast.error(`Could not load the reviews. ${ error.message }.`);
-        });
-
-        getOffersNearby(currentOfferID).then((offersData) => {
-          setOffersNearby(offersData);
-        }).catch((error: AxiosError<{error: string}>) => {
-          toast.error(`Could not load the places nearby. ${ error.message }.`);
-        });
-
-        store.dispatch(setDataLoadingStatus(true));
-      }).catch((error: AxiosError<{error: string}>) => {
-        toast.error(`Could not load the property. ${ error.message }.`);
-      });
+      dispatch(getOffer(currentOfferID));
     }
+
+    return clearCurrentOffer;
   }, [currentOfferID]);
 
   if (!isDataLoaded) {
@@ -115,9 +72,7 @@ const Room = (props: RoomProps): JSX.Element => {
 
   return (
     <div className="page">
-      <Header
-        isLogged= { isLogged }
-      />
+      <Header/>
 
       <main className="page__main page__main--property">
         <section className="property">
@@ -190,15 +145,9 @@ const Room = (props: RoomProps): JSX.Element => {
                 </div>
               </div>
 
-              {
-                reviews && (
-                  <Reviews
-                    reviews={ reviews }
-                    isLogged={ isLogged }
-                    parentClass='property'
-                  />
-                )
-              }
+              <Reviews
+                parentClass='property'
+              />
             </div>
           </div>
 

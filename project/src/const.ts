@@ -15,7 +15,21 @@ export enum AppRoute {
 
 export enum ApiRoute {
   Offers = '/hotels',
-  Comments = '/comments'
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout'
+}
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+export enum ReviewsSendingStatus {
+  Success = 'SUCCESS',
+  Error = 'ERROR',
+  Unknown = 'UNKNOWN',
 }
 
 export const cities = [

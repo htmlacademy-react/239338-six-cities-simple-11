@@ -1,31 +1,46 @@
+import { SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
 
-import { AppRoute } from '../../const';
+import { AuthorizationStatus, AppRoute } from '../../const';
+
+import { useAppSelector } from '../../hooks/use-app-selector';
+
+import { store } from '../../store';
+import { logoutAction } from '../../store/api-action';
 
 
-type HeaderNavProps = {
-  isLogged: boolean;
-}
+const HeaderNav = (): JSX.Element => {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const user = useAppSelector((state) => state.user);
 
+  const handleSignOutLinkClick = (evt: SyntheticEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
 
-const HeaderNav = (props: HeaderNavProps): JSX.Element => {
-  const { isLogged } = props;
+    store.dispatch(logoutAction());
+  };
 
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
         {
-          isLogged ? (
+          authorizationStatus === AuthorizationStatus.Auth && user ? (
             <>
               <li className="header__nav-item user">
                 <div className="header__nav-profile">
-                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                  <div className="header__avatar-wrapper user__avatar-wrapper">
+                    <img className="user__avatar" width="20" height="20" src={ user.avatarUrl } alt={ user.name }/>
+                  </div>
+
+                  <span className="header__user-name user__name">{ user.email }</span>
                 </div>
               </li>
 
               <li className="header__nav-item">
-                <Link className="header__nav-link" to={ AppRoute.Login }>
+                <Link
+                  className="header__nav-link"
+                  to={ AppRoute.Login }
+                  onClick= { handleSignOutLinkClick }
+                >
                   <span className="header__signout">Sign out</span>
                 </Link>
               </li>

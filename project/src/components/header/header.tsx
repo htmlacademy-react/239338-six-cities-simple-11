@@ -7,14 +7,13 @@ import HeaderNav from '../header-nav/header-nav';
 
 
 type HeaderProps = {
-  isLogged: boolean;
   hasNav?: boolean;
   isMain?: boolean;
 }
 
 
 const Header = (props: HeaderProps): JSX.Element => {
-  const { isLogged, hasNav = true, isMain = false } = props;
+  const { hasNav = true, isMain = false } = props;
 
   return (
     <header className="header">
@@ -35,11 +34,7 @@ const Header = (props: HeaderProps): JSX.Element => {
           </div>
 
           {
-            hasNav && (
-              <HeaderNav
-                isLogged= { isLogged }
-              />
-            )
+            hasNav && <HeaderNav/>
           }
         </div>
       </div>

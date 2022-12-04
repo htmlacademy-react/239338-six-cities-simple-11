@@ -1,6 +1,10 @@
-import { useState, Fragment } from 'react';
+import { useState, FormEvent, Fragment, useEffect } from 'react';
+import { ReviewsSendingStatus } from '../../const';
+import { useAppSelector } from '../../hooks/use-app-selector';
 
-import { pluralize } from '../../utils';
+import { store } from '../../store';
+import { setReviewsSendingStatus } from '../../store/action';
+import { sendReview } from '../../store/api-action';
 
 
 type FormData = {
@@ -14,6 +18,12 @@ const enum FieldName {
   Comment = 'comment'
 }
 
+const enum CommentLength {
+  Min = 50,
+  Max = 300
+}
+
+
 const ratings = [
   'perfect',
   'good',
@@ -22,17 +32,39 @@ const ratings = [
   'terribly'
 ];
 
-const MIN_COMMENT_LENGTH = 50;
+const INITIAL_FORM_STATE = {
+  [FieldName.Rating]: 0,
+  [FieldName.Comment]: ''
+};
 
 
-const isFormInvalid = (formData: FormData) => !formData[FieldName.Rating] || formData[FieldName.Comment].trim().length < MIN_COMMENT_LENGTH;
+const isCommentInvalid = (comment: string) => {
+  const commentLength = comment.trim().length;
+
+  return commentLength < CommentLength.Min || commentLength > CommentLength.Max;
+};
+
+const isFormInvalid = (formData: FormData) => !formData[FieldName.Rating] || isCommentInvalid(formData[FieldName.Comment]);
 
 
 const ReviewsForm = (): JSX.Element => {
-  const [formData, setFormData] = useState({
-    [FieldName.Rating]: 0,
-    [FieldName.Comment]: ''
-  });
+  const currentOfferID = useAppSelector((state) => state.currentOffer);
+  const reviewsSendingStatus = useAppSelector((state) => state.reviewsSendingStatus);
+
+  const [ isBlocked, setIsBlocked ] = useState(false);
+  const [formData, setFormData] = useState(INITIAL_FORM_STATE);
+
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    setIsBlocked(true);
+
+    store.dispatch(setReviewsSendingStatus(ReviewsSendingStatus.Unknown));
+    store.dispatch(sendReview({
+      data: formData,
+      currentOfferID: currentOfferID?.id
+    }));
+  };
 
   const handleFormElementChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = evt.target;
@@ -40,8 +72,24 @@ const ReviewsForm = (): JSX.Element => {
     setFormData({...formData, [name]: evt.target.name === FieldName.Rating ? Number(value) : value });
   };
 
+  useEffect(() => {
+    setIsBlocked(false);
+
+    if (reviewsSendingStatus === ReviewsSendingStatus.Success) {
+      setFormData(INITIAL_FORM_STATE);
+    }
+  }, [reviewsSendingStatus]);
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={ handleFormSubmit }
+      style={{
+        pointerEvents: isBlocked ? 'none' : 'auto'
+      }}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
 
       <div className="reviews__rating-form form__rating">
@@ -84,7 +132,7 @@ const ReviewsForm = (): JSX.Element => {
 
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{ pluralize(MIN_COMMENT_LENGTH, 'character') }</b>.
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{ CommentLength.Min }</b> and at most <b className="reviews__text-amount">{ CommentLength.Max }</b> characters.
         </p>
 
         <button
