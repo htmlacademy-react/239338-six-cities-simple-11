@@ -13,7 +13,6 @@ const initialState: State = {
   sortingType: sortingOptions[0].type,
   isDataLoaded: false,
   offers: [],
-  currentOfferID: undefined,
   currentOffer: undefined,
   currentOfferReviews: [],
   currentOfferNearbyOffers: [],

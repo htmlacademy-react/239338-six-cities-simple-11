@@ -48,7 +48,7 @@ const isFormInvalid = (formData: FormData) => !formData[FieldName.Rating] || isC
 
 
 const ReviewsForm = (): JSX.Element => {
-  const currentOfferID = useAppSelector((state) => state.currentOfferID);
+  const currentOfferID = useAppSelector((state) => state.currentOffer);
   const reviewsSendingStatus = useAppSelector((state) => state.reviewsSendingStatus);
 
   const [ isBlocked, setIsBlocked ] = useState(false);
@@ -62,7 +62,7 @@ const ReviewsForm = (): JSX.Element => {
     store.dispatch(setReviewsSendingStatus(ReviewsSendingStatus.Unknown));
     store.dispatch(sendReview({
       data: formData,
-      currentOfferID
+      currentOfferID: currentOfferID?.id
     }));
   };
 

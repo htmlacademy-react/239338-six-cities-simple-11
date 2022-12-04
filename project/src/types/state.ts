@@ -14,7 +14,6 @@ export type State = {
   sortingType: string;
   isDataLoaded: boolean;
   offers: Offers;
-  currentOfferID: string | undefined;
   currentOffer: Offer | undefined;
   currentOfferReviews: Review[];
   currentOfferNearbyOffers: Offers;

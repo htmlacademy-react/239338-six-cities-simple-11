@@ -13,5 +13,5 @@ export type ReviewData = {
     rating: number;
     comment: string;
   };
-  currentOfferID: string | undefined;
+  currentOfferID: number | undefined;
 };
