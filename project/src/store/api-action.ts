@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
 
-import { AppRoute, ApiRoute, AuthorizationStatus, ReviewsSendingStatus } from '../const';
+import { ApiRoute, AuthorizationStatus, ReviewsSendingStatus } from '../const';
 
 import { AuthData } from '../types/auth-data';
 import { User } from '../types/user';
@@ -12,7 +12,7 @@ import { AppDispatch, State } from '../types/state.js';
 
 import { saveToken, dropToken } from '../services/token';
 
-import { setAuthorizationStatus, setDataLoadingStatus, setUser, setOffers, redirectToRoute, setReviews, setReviewsSendingStatus, setCurrentOffer, setCurrentOfferNearbyOffers } from './action';
+import { setAuthorizationStatus, setDataLoadingStatus, setUser, setOffers, setReviews, setReviewsSendingStatus, setCurrentOffer, setCurrentOfferNearbyOffers } from './action';
 
 
 export const checkAuthAction = createAsyncThunk<
@@ -56,7 +56,6 @@ export const loginAction = createAsyncThunk<
 
       dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
       dispatch(setUser(data));
-      dispatch(redirectToRoute(AppRoute.Root));
     } catch (error) {
       toast.error('An error occurred, unable to log in.');
     }
