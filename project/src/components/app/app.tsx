@@ -8,11 +8,13 @@ import Login from '../../pages/login/login';
 import NotFound from '../../pages/not-found/not-found';
 
 import ScrollFix from '../scroll-fix/scroll-fix';
+import Loader from '../loader/loader';
 
 
 const App = (): JSX.Element => (
   <BrowserRouter>
     <ScrollFix/>
+    <Loader/>
 
     <Routes>
       <Route

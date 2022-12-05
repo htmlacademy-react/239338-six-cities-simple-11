@@ -8,7 +8,6 @@ import { setOffers } from '../../store/action';
 import { getOffers } from '../../store/api-action';
 
 import Header from '../../components/header/header';
-import Loader from '../../components/loader/loader';
 import Locations from '../../components/locations/locations';
 import NoPlaces from '../../components/no-places/no-places';
 import Places from '../../components/places/places';
@@ -43,8 +42,6 @@ const Main = (): JSX.Element => {
       <Header
         isMain
       />
-
-      <Loader/>
 
       <main className={`page__main page__main--index ${ isEmpty ? 'page__main--index-empty' : '' }`}>
         <h1 className="visually-hidden">Cities</h1>

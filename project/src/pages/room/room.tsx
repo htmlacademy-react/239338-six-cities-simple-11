@@ -11,7 +11,6 @@ import { useAppSelector } from '../../hooks/use-app-selector';
 import NotFound from '../not-found/not-found';
 
 import Header from '../../components/header/header';
-import Loader from '../../components/loader/loader';
 import Rating from '../../components/rating/rating';
 import User from '../../components/user/user';
 import Reviews from '../../components/reviews/reviews';
@@ -33,7 +32,6 @@ const clearCurrentOffer = () => {
 const Room = (): JSX.Element => {
   const routeParams = useParams();
 
-  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
   const currentOffer = useAppSelector((state) => state.currentOffer);
   const offersNearby = useAppSelector((state) => state.currentOfferNearbyOffers);
 
@@ -46,10 +44,6 @@ const Room = (): JSX.Element => {
 
     return clearCurrentOffer;
   }, [currentOfferID]);
-
-  if (!isDataLoaded) {
-    return <Loader/>;
-  }
 
   if (!currentOffer) {
     return <NotFound/>;
