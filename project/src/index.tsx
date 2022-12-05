@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { store } from './store';
-import { checkAuthAction, getOffers } from './store/api-action';
+import { checkAuthAction } from './store/api-action';
 
 import App from './components/app/app';
 
@@ -17,8 +17,6 @@ const root = ReactDOM.createRoot(
 
 
 store.dispatch(checkAuthAction());
-store.dispatch(getOffers());
-
 
 root.render(
   <React.StrictMode>
