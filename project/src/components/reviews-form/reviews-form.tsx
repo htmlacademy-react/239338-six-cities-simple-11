@@ -138,7 +138,7 @@ const ReviewsForm = (): JSX.Element => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={ isFormInvalid(formData) }
+          disabled={ isBlocked || isFormInvalid(formData) }
         >
           Submit
         </button>
