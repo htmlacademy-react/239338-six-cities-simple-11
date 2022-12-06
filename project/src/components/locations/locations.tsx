@@ -5,7 +5,8 @@ import { cities } from '../../const';
 
 import { useAppSelector } from '../../hooks/use-app-selector';
 
-import { setCurrentCity } from '../../store/action';
+import { setCurrentCity } from '../../store/offers-process/offers-process';
+import { getCurrentCity } from '../../store/offers-process/selectors';
 
 
 const getCityNameByHref = (href: string) => href.split('#')[1];
@@ -13,7 +14,7 @@ const getCityNameByHref = (href: string) => href.split('#')[1];
 
 const Locations = (): JSX.Element => {
   const dispatch = useDispatch();
-  const currentCity = useAppSelector((state) => state.currentCity);
+  const currentCity = useAppSelector(getCurrentCity);
 
   const handleLocationLinkClick = (evt: SyntheticEvent<HTMLAnchorElement>) => {
     evt.preventDefault();

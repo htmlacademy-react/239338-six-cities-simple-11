@@ -4,8 +4,9 @@ import { useParams } from 'react-router-dom';
 import { pluralize } from '../../utils';
 
 import { store } from '../../store';
-import { setCurrentOffer, setCurrentOfferNearbyOffers, setReviews } from '../../store/action';
-import { getOffer } from '../../store/api-action';
+import { clearCurrentOffer, clearCurrentOfferNearby } from '../../store/offers-process/offers-process';
+import { getCurrentOffer, getNearbyOffers } from '../../store/offers-process/selectors';
+import { getCurrentOfferAction } from '../../store/api-action';
 import { useAppSelector } from '../../hooks/use-app-selector';
 
 import NotFound from '../not-found/not-found';
@@ -22,27 +23,24 @@ const MAX_IMAGES_AMOUNT = 6;
 
 const dispatch = store.dispatch;
 
-const clearCurrentOffer = () => {
-  dispatch(setCurrentOffer(undefined));
-  dispatch(setCurrentOfferNearbyOffers([]));
-  dispatch(setReviews([]));
-};
-
 
 const Room = (): JSX.Element => {
   const routeParams = useParams();
 
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const offersNearby = useAppSelector((state) => state.currentOfferNearbyOffers);
+  const currentOffer = useAppSelector(getCurrentOffer);
+  const offersNearby = useAppSelector(getNearbyOffers);
 
   const currentOfferID = routeParams.id;
 
   useLayoutEffect(() => {
     if (currentOfferID) {
-      dispatch(getOffer(currentOfferID));
+      dispatch(getCurrentOfferAction(currentOfferID));
     }
 
-    return clearCurrentOffer;
+    return () => {
+      dispatch(clearCurrentOffer);
+      dispatch(clearCurrentOfferNearby);
+    };
   }, [currentOfferID]);
 
   if (!currentOffer) {

@@ -5,14 +5,16 @@ import { KeyCode, sortingOptions } from '../../const';
 import { getSortingOptionByType } from '../../utils';
 
 import { useAppSelector } from '../../hooks/use-app-selector';
-import { setSortingType } from '../../store/action';
+
+import { setSortingType } from '../../store/offers-process/offers-process';
+import { getSortingType } from '../../store/offers-process/selectors';
 
 
 const PlacesSorting = (): JSX.Element => {
   const [ isOpened, setIsOpened ] = useState(false);
   const dispatch = useDispatch();
 
-  const currentSortingType = useAppSelector((state) => state.sortingType);
+  const currentSortingType = useAppSelector(getSortingType);
   const currentSortingOption = getSortingOptionByType(currentSortingType);
 
   const handleToggleButtonClick = (evt: SyntheticEvent) => {

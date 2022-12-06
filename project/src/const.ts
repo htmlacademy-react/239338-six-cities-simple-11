@@ -20,6 +20,12 @@ export enum ApiRoute {
   Logout = '/logout'
 }
 
+export enum NameSpace {
+  User = 'USER',
+  Offers = 'OFFERS',
+  Reviews = 'REVIEWS'
+}
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',

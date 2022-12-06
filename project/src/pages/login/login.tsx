@@ -5,6 +5,7 @@ import { AppRoute, AuthorizationStatus, cities } from '../../const';
 
 import { store } from '../../store';
 import { loginAction } from '../../store/api-action';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 import { useAppSelector } from '../../hooks/use-app-selector';
 
@@ -12,7 +13,7 @@ import Header from '../../components/header/header';
 
 
 const Login = (): JSX.Element => {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const emailFieldRef = useRef<HTMLInputElement | null>(null);
   const passwordFieldRef = useRef<HTMLInputElement | null>(null);

@@ -4,8 +4,9 @@ import { getSortingOptionByType } from '../../utils';
 import { useAppSelector } from '../../hooks/use-app-selector';
 
 import { store } from '../../store';
-import { setOffers } from '../../store/action';
-import { getOffers } from '../../store/api-action';
+import { clearOffers } from '../../store/offers-process/offers-process';
+import { getCurrentCity, getSortingType, getOffers } from '../../store/offers-process/selectors';
+import { getOffersAction } from '../../store/api-action';
 
 import Header from '../../components/header/header';
 import Locations from '../../components/locations/locations';
@@ -15,26 +16,24 @@ import Places from '../../components/places/places';
 
 const dispatch = store.dispatch;
 
-const clearOffers = () => {
-  dispatch(setOffers([]));
-};
-
 
 const Main = (): JSX.Element => {
-  const currentCity = useAppSelector((state) => state.currentCity);
+  const currentCity = useAppSelector(getCurrentCity);
 
-  const currentSortingType = useAppSelector((state) => state.sortingType);
+  const currentSortingType = useAppSelector(getSortingType);
   const currentSortingOption = getSortingOptionByType(currentSortingType);
 
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
   const currentCityOffers = offers.filter((offer) => offer.city.name === currentCity);
   const sortedOffers = currentCityOffers.sort(currentSortingOption.function);
   const isEmpty = currentCityOffers.length === 0;
 
   useLayoutEffect(() => {
-    dispatch(getOffers());
+    dispatch(getOffersAction());
 
-    return clearOffers;
+    return () => {
+      dispatch(clearOffers);
+    };
   }, []);
 
   return (

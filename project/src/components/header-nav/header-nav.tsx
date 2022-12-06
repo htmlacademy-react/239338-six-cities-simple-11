@@ -7,11 +7,12 @@ import { useAppSelector } from '../../hooks/use-app-selector';
 
 import { store } from '../../store';
 import { logoutAction } from '../../store/api-action';
+import { getAuthorizationStatus, getUser } from '../../store/user-process/selectors';
 
 
 const HeaderNav = (): JSX.Element => {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const user = useAppSelector((state) => state.user);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const user = useAppSelector(getUser);
 
   const handleSignOutLinkClick = (evt: SyntheticEvent<HTMLAnchorElement>) => {
     evt.preventDefault();

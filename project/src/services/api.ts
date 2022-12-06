@@ -1,8 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosError } from 'axios';
 
-import { store } from '../store';
-import { setDataLoadingStatus } from '../store/action';
-
 import { getToken } from './token';
 
 
@@ -31,8 +28,6 @@ export const createAPI = (): AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError<{error: string}>) => {
-      store.dispatch(setDataLoadingStatus(true));
-
       throw error;
     }
   );

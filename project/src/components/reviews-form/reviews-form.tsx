@@ -3,8 +3,9 @@ import { ReviewsSendingStatus } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector';
 
 import { store } from '../../store';
-import { setReviewsSendingStatus } from '../../store/action';
-import { sendReview } from '../../store/api-action';
+import { sendReviewAction } from '../../store/api-action';
+import { getCurrentOffer } from '../../store/offers-process/selectors';
+import { getReviewsSendingStatus } from '../../store/reviews-process/selectors';
 
 
 type FormData = {
@@ -48,8 +49,8 @@ const isFormInvalid = (formData: FormData) => !formData[FieldName.Rating] || isC
 
 
 const ReviewsForm = (): JSX.Element => {
-  const currentOfferID = useAppSelector((state) => state.currentOffer);
-  const reviewsSendingStatus = useAppSelector((state) => state.reviewsSendingStatus);
+  const currentOfferID = useAppSelector(getCurrentOffer);
+  const reviewsSendingStatus = useAppSelector(getReviewsSendingStatus);
 
   const [ isBlocked, setIsBlocked ] = useState(false);
   const [formData, setFormData] = useState(INITIAL_FORM_STATE);
@@ -59,8 +60,7 @@ const ReviewsForm = (): JSX.Element => {
 
     setIsBlocked(true);
 
-    store.dispatch(setReviewsSendingStatus(ReviewsSendingStatus.Unknown));
-    store.dispatch(sendReview({
+    store.dispatch(sendReviewAction({
       data: formData,
       currentOfferID: currentOfferID?.id
     }));

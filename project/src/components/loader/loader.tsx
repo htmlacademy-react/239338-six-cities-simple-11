@@ -1,8 +1,10 @@
 import { useAppSelector } from '../../hooks/use-app-selector';
 
+import { getIsOffersDataLoading } from '../../store/offers-process/selectors';
+
 
 const Loader = (): JSX.Element => {
-  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
+  const isDataLoading = useAppSelector(getIsOffersDataLoading);
 
   return (
     <div
@@ -11,7 +13,7 @@ const Loader = (): JSX.Element => {
         zIndex: '2000',
         top: '0',
         left: '0',
-        display: isDataLoaded ? 'none' : 'grid',
+        display: isDataLoading ? 'grid' : 'none',
         placeItems: 'center',
         height: '100%',
         width: '100%',

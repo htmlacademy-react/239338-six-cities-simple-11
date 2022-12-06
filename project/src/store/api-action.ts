@@ -1,22 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { toast } from 'react-toastify';
 
-import { ApiRoute, AuthorizationStatus, ReviewsSendingStatus } from '../const';
+import { ApiRoute } from '../const';
 
+import { AppDispatch, State } from '../types/state.js';
 import { AuthData } from '../types/auth-data';
 import { User } from '../types/user';
 import { Offer, Offers } from '../types/offers';
 import { Review, ReviewData } from '../types/review';
-import { AppDispatch, State } from '../types/state.js';
 
 import { saveToken, dropToken } from '../services/token';
 
-import { setAuthorizationStatus, setDataLoadingStatus, setUser, setOffers, setReviews, setReviewsSendingStatus, setCurrentOffer, setCurrentOfferNearbyOffers } from './action';
-
 
 export const checkAuthAction = createAsyncThunk<
-  void,
+  User,
   undefined,
   {
     dispatch: AppDispatch;
@@ -26,19 +23,14 @@ export const checkAuthAction = createAsyncThunk<
 >(
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
-    try {
-      const { data } = await api.get<User>(ApiRoute.Login);
+    const { data } = await api.get<User>(ApiRoute.Login);
 
-      dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
-      dispatch(setUser(data));
-    } catch {
-      dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
-    }
-  },
+    return data;
+  }
 );
 
 export const loginAction = createAsyncThunk<
-  void,
+  User,
   AuthData,
   {
     dispatch: AppDispatch;
@@ -48,18 +40,13 @@ export const loginAction = createAsyncThunk<
 >(
   'user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
-    try {
-      const { data } = await api.post<User>(ApiRoute.Login, {email, password});
-      const { token } = data;
+    const { data } = await api.post<User>(ApiRoute.Login, {email, password});
+    const { token } = data;
 
-      saveToken(token);
+    saveToken(token);
 
-      dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
-      dispatch(setUser(data));
-    } catch (error) {
-      toast.error('An error occurred, unable to log in.');
-    }
-  },
+    return data;
+  }
 );
 
 export const logoutAction = createAsyncThunk<
@@ -73,101 +60,15 @@ export const logoutAction = createAsyncThunk<
 >(
   'user/logout',
   async (_arg, {dispatch, extra: api}) => {
-    try {
-      await api.delete(ApiRoute.Logout);
+    await api.delete(ApiRoute.Logout);
 
-      dropToken();
-
-      dispatch(setUser(undefined));
-      dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
-    } catch (error) {
-      toast.error('An error occurred, unable to log out.');
-    }
+    dropToken();
   },
 );
 
 
-export const getOffers = createAsyncThunk<
-  void,
-  undefined,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
->(
-  'offers/get',
-  async (_arg, { dispatch, extra: api }) => {
-    dispatch(setDataLoadingStatus(false));
-
-    try {
-      const { data } = await api.get<Offers>(ApiRoute.Offers);
-
-      dispatch(setOffers(data));
-    } catch {
-      toast.error('An error occurred, the places could not be loaded.');
-    }
-
-    dispatch(setDataLoadingStatus(true));
-  }
-);
-
-export const getOffersNearby = createAsyncThunk<
-  void,
-  string,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
->(
-  'offers/getNearbyOffers',
-  async (currentOfferID, { dispatch, extra: api }) => {
-    dispatch(setDataLoadingStatus(false));
-
-    try {
-      const { data } = await api.get<Offers>(`${ ApiRoute.Offers }/${ currentOfferID }/nearby`);
-
-      dispatch(setCurrentOfferNearbyOffers(data));
-    } catch {
-      toast.error('An error occurred, the offers nearby could not be loaded.');
-    }
-
-    dispatch(setDataLoadingStatus(true));
-  }
-);
-
-export const getOffer = createAsyncThunk<
-  void,
-  string,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
->(
-  'offers/getCurrent',
-  async (currentOfferID, { dispatch, extra: api }) => {
-    dispatch(setDataLoadingStatus(false));
-
-    try {
-      const { data } = await api.get<Offer>(`${ ApiRoute.Offers }/${ currentOfferID }`);
-
-      dispatch(setCurrentOffer(data));
-
-      dispatch(getReviews(currentOfferID));
-      dispatch(getOffersNearby(currentOfferID));
-    } catch {
-      toast.error('An error occurred, the data of the offer could not be loaded.');
-    }
-
-    dispatch(setDataLoadingStatus(true));
-  }
-);
-
-
-export const getReviews = createAsyncThunk<
-  void,
+export const getReviewsAction = createAsyncThunk<
+  Review[],
   string,
   {
     dispatch: AppDispatch;
@@ -177,18 +78,14 @@ export const getReviews = createAsyncThunk<
 >(
   'reviews/get',
   async (currentOfferID, { dispatch, extra: api }) => {
-    try {
-      const { data } = await api.get<Review[]>(`${ ApiRoute.Comments }/${ currentOfferID }`);
+    const { data } = await api.get<Review[]>(`${ ApiRoute.Comments }/${ currentOfferID }`);
 
-      dispatch(setReviews(data));
-    } catch (error) {
-      toast.error('An error occurred, the reviews could not be loaded.');
-    }
+    return data;
   }
 );
 
-export const sendReview = createAsyncThunk<
-  void,
+export const sendReviewAction = createAsyncThunk<
+  Review[],
   ReviewData,
   {
     dispatch: AppDispatch;
@@ -198,15 +95,63 @@ export const sendReview = createAsyncThunk<
 >(
   'reviews/send',
   async ({data: {rating, comment}, currentOfferID}, {dispatch, extra: api}) => {
-    try {
-      const { data } = await api.post<Review[]>(`${ ApiRoute.Comments }/${ currentOfferID || '' }`, {rating, comment});
+    const { data } = await api.post<Review[]>(`${ ApiRoute.Comments }/${ currentOfferID || '' }`, {rating, comment});
 
-      dispatch(setReviews(data));
-      dispatch(setReviewsSendingStatus(ReviewsSendingStatus.Success));
-    } catch {
-      toast.error('An error occurred, the review was not sent.');
-
-      dispatch(setReviewsSendingStatus(ReviewsSendingStatus.Error));
-    }
+    return data;
   },
+);
+
+
+export const getOffersAction = createAsyncThunk<
+  Offers,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'offers/get',
+  async (_arg, { dispatch, extra: api }) => {
+    const { data } = await api.get<Offers>(ApiRoute.Offers);
+
+    return data;
+  }
+);
+
+export const getNearbyOffersAction = createAsyncThunk<
+  Offers,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'offers/getNearby',
+  async (currentOfferID, { dispatch, extra: api }) => {
+    const { data } = await api.get<Offers>(`${ ApiRoute.Offers }/${ currentOfferID }/nearby`);
+
+    return data;
+  }
+);
+
+export const getCurrentOfferAction = createAsyncThunk<
+  Offer,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'offers/getCurrent',
+  async (currentOfferID, { dispatch, extra: api }) => {
+    const { data } = await api.get<Offer>(`${ ApiRoute.Offers }/${ currentOfferID }`);
+
+    dispatch(getReviewsAction(currentOfferID));
+    dispatch(getNearbyOffersAction(currentOfferID));
+
+    return data;
+  }
 );
