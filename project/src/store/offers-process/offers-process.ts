@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { NameSpace, cities, offersSortingOptions } from '../../const';
+import { NameSpace, CITIES, OFFERS_SORTING_OPTIONS } from '../../const';
 import { OffersProcess } from '../../types/state';
 
 import { showError } from '../../utils';
@@ -9,8 +9,8 @@ import { getOffersAction, getCurrentOfferAction, getNearbyOffersAction } from '.
 
 
 const initialState: OffersProcess = {
-  currentCity: cities[0],
-  sortingType: offersSortingOptions[0].type,
+  currentCity: CITIES[0],
+  sortingType: OFFERS_SORTING_OPTIONS[0].type,
   isOffersDataLoading: false,
   offers: [],
   currentOffer: undefined,

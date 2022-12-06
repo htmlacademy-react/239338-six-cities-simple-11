@@ -27,7 +27,7 @@ const enum CommentLength {
 }
 
 
-const ratings = [
+const RATINGS = [
   'perfect',
   'good',
   'not bad',
@@ -96,8 +96,8 @@ const ReviewsForm = (): JSX.Element => {
 
       <div className="reviews__rating-form form__rating">
         {
-          ratings.map((rating, index) => {
-            const ratingValue = ratings.length - index;
+          RATINGS.map((rating, index) => {
+            const ratingValue = RATINGS.length - index;
             const ratingID = `${ ratingValue }-stars`;
 
             return (

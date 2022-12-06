@@ -1,6 +1,6 @@
 import { SyntheticEvent } from 'react';
 
-import { cities } from '../../const';
+import { CITIES } from '../../const';
 
 import { getCityNameByHref } from '../../utils';
 import { useAppSelector } from '../../hooks';
@@ -28,7 +28,7 @@ const Locations = (): JSX.Element => {
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {
-            cities.map((city) => {
+            CITIES.map((city) => {
               const isActive = city === currentCity;
 
               return (

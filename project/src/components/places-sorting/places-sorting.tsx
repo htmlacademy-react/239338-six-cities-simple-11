@@ -1,6 +1,6 @@
 import { SyntheticEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useState, useRef } from 'react';
 
-import { KeyCode, offersSortingOptions } from '../../const';
+import { KeyCode, OFFERS_SORTING_OPTIONS } from '../../const';
 
 import { getSortingOptionByType } from '../../utils';
 import { useAppSelector } from '../../hooks';
@@ -95,7 +95,7 @@ const PlacesSorting = (): JSX.Element => {
 
       <ul className={ `places__options places__options--custom ${ isOpened ? 'places__options--opened' : '' }` }>
         {
-          offersSortingOptions.map((option) => {
+          OFFERS_SORTING_OPTIONS.map((option) => {
             const isActive = option.type === currentSortingOption?.type;
 
             return (

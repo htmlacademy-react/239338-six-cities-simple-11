@@ -50,7 +50,7 @@ export const PinParam = {
 } as const;
 
 
-export const cities = [
+export const CITIES = [
   'Paris',
   'Cologne',
   'Brussels',
@@ -60,7 +60,7 @@ export const cities = [
 ];
 
 
-export const offersSortingOptions = [
+export const OFFERS_SORTING_OPTIONS = [
   {
     type: 'default',
     text: 'Popular',
