@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
 
 import { NameSpace, cities, sortingOptions } from '../../const';
 import { OffersProcess } from '../../types/state';
+
+import { showError } from '../../utils';
 
 import { getOffersAction, getCurrentOfferAction, getNearbyOffersAction } from '../api-action';
 
@@ -56,7 +57,7 @@ export const offersProcess = createSlice({
       .addCase(getOffersAction.rejected, (state) => {
         state.isOffersDataLoading = false;
 
-        toast.error('An error occurred, the places could not be loaded.');
+        showError('the places could not be loaded');
       })
 
       .addCase(getCurrentOfferAction.pending, (state) => {
@@ -70,14 +71,14 @@ export const offersProcess = createSlice({
       .addCase(getCurrentOfferAction.rejected, (state) => {
         state.isOffersDataLoading = false;
 
-        toast.error('An error occurred, the data of the offer could not be loaded.');
+        showError('the data of the offer could not be loaded');
       })
 
       .addCase(getNearbyOffersAction.fulfilled, (state, action) => {
         state.currentOfferNearby = action.payload;
       })
       .addCase(getNearbyOffersAction.rejected, () => {
-        toast.error('An error occurred, the offers nearby could not be loaded.');
+        showError('the offers nearby could not be loaded');
       });
   }
 });

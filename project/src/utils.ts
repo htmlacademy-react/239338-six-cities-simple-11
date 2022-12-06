@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { toast } from 'react-toastify';
 
 import { sortingOptions } from './const';
 import { SortingOption } from './types/sorting-option';
@@ -10,3 +11,7 @@ export const getFormattedDate = (ISODate: string, format: string) => DateTime.fr
 export const getDateMilliseconds = (ISODate: string) => DateTime.fromISO(ISODate).toMillis();
 
 export const getSortingOptionByType = (type: string) => sortingOptions.find((option) => option.type === type) as SortingOption;
+
+export const showError = (text: string) => {
+  toast.error(`An error occurred, ${ text }.`);
+} ;

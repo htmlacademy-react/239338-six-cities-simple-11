@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
 
 import { NameSpace, AuthorizationStatus } from '../../const';
 import { UserProcess } from '../../types/state';
+
+import { showError } from '../../utils';
 
 import { checkAuthAction, loginAction, logoutAction } from '../api-action';
 
@@ -37,7 +38,7 @@ export const userProcess = createSlice({
       .addCase(loginAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
 
-        toast.error('An error occurred, unable to log in.');
+        showError('unable to log in');
       })
 
       .addCase(logoutAction.fulfilled, (state) => {
@@ -46,7 +47,7 @@ export const userProcess = createSlice({
         state.user = undefined;
       })
       .addCase(logoutAction.rejected, () => {
-        toast.error('An error occurred, unable to log out.');
+        showError('unable to log out');
       });
   }
 });

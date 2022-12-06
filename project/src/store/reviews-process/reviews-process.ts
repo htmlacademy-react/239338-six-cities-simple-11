@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
 
 import { NameSpace, ReviewsSendingStatus } from '../../const';
 import { ReviewsProcess } from '../../types/state';
+
+import { showError } from '../../utils';
 
 import { getReviewsAction, sendReviewAction } from '../api-action';
 
@@ -28,7 +29,7 @@ export const reviewsProcess = createSlice({
         state.currentReviews = action.payload;
       })
       .addCase(getReviewsAction.rejected, () => {
-        toast.error('An error occurred, the reviews could not be loaded.');
+        showError('the reviews could not be loaded');
       })
 
       .addCase(sendReviewAction.pending, (state) => {
@@ -42,7 +43,7 @@ export const reviewsProcess = createSlice({
       .addCase(sendReviewAction.rejected, (state) => {
         state.sendingStatus = ReviewsSendingStatus.Error;
 
-        toast.error('An error occurred, the review was not sent.');
+        showError('the review was not sent');
       });
   }
 });
