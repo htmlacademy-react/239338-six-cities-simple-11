@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import { AppRoute } from '../../const';
 
@@ -7,12 +7,14 @@ import Room from '../../pages/room/room';
 import Login from '../../pages/login/login';
 import NotFound from '../../pages/not-found/not-found';
 
+import browserHistory from '../../browser-history';
+import HistoryRouter from '../history-route/history-route';
 import ScrollFix from '../scroll-fix/scroll-fix';
 import Loader from '../loader/loader';
 
 
 const App = (): JSX.Element => (
-  <BrowserRouter>
+  <HistoryRouter history={ browserHistory }>
     <ScrollFix/>
     <Loader/>
 
@@ -37,7 +39,7 @@ const App = (): JSX.Element => (
         element={ <NotFound/> }
       />
     </Routes>
-  </BrowserRouter>
+  </HistoryRouter>
 );
 
 
