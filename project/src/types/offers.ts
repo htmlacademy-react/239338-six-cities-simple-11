@@ -1,7 +1,10 @@
+import { Marker } from 'leaflet';
+
 import { Person } from './person';
 import { City } from './city';
 import { Location } from './location';
 import { Review } from './review';
+
 
 export type Offer = {
   id: number;
@@ -22,4 +25,12 @@ export type Offer = {
   reviews: Review[];
 };
 
+export type OfferMarker = {
+  id: number;
+  marker: Marker;
+}
+
 export type Offers = Offer[];
+
+export type OffersMarkers = OfferMarker[];
+

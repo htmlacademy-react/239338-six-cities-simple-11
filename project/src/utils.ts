@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon';
 import { toast } from 'react-toastify';
+import leaflet, { Marker } from 'leaflet';
 
-import { sortingOptions, cities } from './const';
+import { PinParam, sortingOptions, cities } from './const';
 import { SortingOption } from './types/sorting-option';
 
 
@@ -18,3 +19,11 @@ export const getSortingOptionByType = (type: string) => sortingOptions.find((opt
 export const showError = (text: string) => {
   toast.error(`An error occurred, ${ text }.`);
 } ;
+
+export const setMarkerIcon = (marker: Marker, iconUrl: string) => {
+  marker.setIcon(new leaflet.Icon({
+    iconUrl: iconUrl,
+    iconSize: [ PinParam.Size.Width, PinParam.Size.Heigh ],
+    iconAnchor: [ PinParam.Size.Width / 2, PinParam.Size.Heigh ]
+  }));
+};
