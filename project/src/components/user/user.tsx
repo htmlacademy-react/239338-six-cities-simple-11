@@ -12,6 +12,7 @@ const User = (props: UserProps): JSX.Element => {
   const { user, parentClass, classPrefix } = props;
   const { isPro, avatarUrl, name } = user;
 
+
   return (
     <div className={ `${ parentClass }__${ classPrefix ? `${ classPrefix }-` : '' }user user` }>
       <div className={ `${ parentClass }__avatar-wrapper ${ isPro ? `${ parentClass }__avatar-wrapper--pro` : '' } user__avatar-wrapper` }>

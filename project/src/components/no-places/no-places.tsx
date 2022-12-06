@@ -6,6 +6,7 @@ type NoPlacesProps = {
 const NoPlaces = (props: NoPlacesProps): JSX.Element => {
   const { currentCity } = props;
 
+
   return (
     <>
       <section className="cities__no-places">

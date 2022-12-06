@@ -2,12 +2,12 @@ import { useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { pluralize } from '../../utils';
+import { useAppSelector } from '../../hooks';
 
 import { store } from '../../store';
+import { getCurrentOfferAction } from '../../store/api-action';
 import { clearCurrentOffer, clearCurrentOfferNearby } from '../../store/offers-process/offers-process';
 import { getCurrentOffer, getNearbyOffers } from '../../store/offers-process/selectors';
-import { getCurrentOfferAction } from '../../store/api-action';
-import { useAppSelector } from '../../hooks';
 
 import NotFound from '../not-found/not-found';
 
@@ -32,6 +32,7 @@ const Room = (): JSX.Element => {
 
   const currentOfferID = routeParams.id;
 
+
   useLayoutEffect(() => {
     if (currentOfferID) {
       dispatch(getCurrentOfferAction(currentOfferID));
@@ -43,9 +44,11 @@ const Room = (): JSX.Element => {
     };
   }, [currentOfferID]);
 
+
   if (!currentOffer) {
     return <NotFound/>;
   }
+
 
   const {
     title,
@@ -61,6 +64,7 @@ const Room = (): JSX.Element => {
     images,
     goods
   } = currentOffer;
+
 
   return (
     <div className="page">

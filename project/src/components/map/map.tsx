@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { Location } from '../../types/location';
 import { Offers } from '../../types/offers';
 
-import { useMap, useOffers, useLocation, useCurrentMarker, useAppSelector } from '../../hooks';
+import { useAppSelector, useMap, useOffers, useLocation, useCurrentMarker } from '../../hooks';
 
 import { getSelectedOfferID } from '../../store/offers-process/selectors';
 
@@ -25,8 +25,10 @@ const Map = (props: MapProps): JSX.Element => {
   const map = useMap(mapRef);
   const renderedMarkers = useOffers(map, offers, currentOfferID);
 
+
   useLocation(map, location);
   useCurrentMarker(renderedMarkers, selectedOfferID);
+
 
   return (
     <div

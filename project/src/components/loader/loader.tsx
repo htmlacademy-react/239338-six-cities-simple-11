@@ -8,6 +8,7 @@ import { getIsOffersDataLoading } from '../../store/offers-process/selectors';
 const Loader = (): JSX.Element => {
   const isDataLoading = useAppSelector(getIsOffersDataLoading);
 
+
   return (
     <div
       className='loader'

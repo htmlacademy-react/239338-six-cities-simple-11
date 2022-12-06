@@ -28,6 +28,7 @@ const Main = (): JSX.Element => {
   const sortedOffers = currentCityOffers.sort(currentSortingOption?.function);
   const isEmpty = currentCityOffers.length === 0;
 
+
   useLayoutEffect(() => {
     dispatch(getOffersAction());
 
@@ -35,6 +36,7 @@ const Main = (): JSX.Element => {
       dispatch(clearOffers);
     };
   }, []);
+
 
   return (
     <div className="page page--gray page--main">

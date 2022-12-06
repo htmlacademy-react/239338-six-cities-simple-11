@@ -5,9 +5,12 @@ type RatingProps = {
 }
 
 
+const MAX_VALUE = 5;
+
+
 const Rating = (props: RatingProps): JSX.Element => {
   const { parentClass, value, hasValueOutput = false } = props;
-  const MAX_VALUE = 5;
+
 
   return (
     <div className={ `${ parentClass }__rating rating` }>

@@ -9,6 +9,7 @@ import { setMarkerIcon } from '../../utils';
 export const useCurrentMarker = (renderedMarkers: OffersMarkers, selectedOfferID: number | undefined) => {
   const currentMarker = useRef<OfferMarker | undefined>(undefined);
 
+
   useEffect(() => {
     if (currentMarker.current) {
       setMarkerIcon(currentMarker.current.marker, PinParam.Url.Default);

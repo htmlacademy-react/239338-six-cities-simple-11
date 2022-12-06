@@ -11,6 +11,7 @@ export const useMap = (mapRef: MutableRefObject<HTMLElement | null>) => {
   const [ map, setMap ] = useState<Map | null>(null);
   const isRenderedRef = useRef(false);
 
+
   useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
       const layer = new leaflet.TileLayer(TITLE_LAYER);
@@ -25,6 +26,7 @@ export const useMap = (mapRef: MutableRefObject<HTMLElement | null>) => {
       isRenderedRef.current = true;
     }
   }, [mapRef]);
+
 
   return map;
 };

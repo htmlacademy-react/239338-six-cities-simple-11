@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
+import browserHistory from '../../browser-history';
 import { AppRoute } from '../../const';
 
 import Main from '../../pages/main/main';
@@ -7,8 +8,7 @@ import Room from '../../pages/room/room';
 import Login from '../../pages/login/login';
 import NotFound from '../../pages/not-found/not-found';
 
-import browserHistory from '../../browser-history';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import ScrollFix from '../scroll-fix/scroll-fix';
 import Loader from '../loader/loader';
 

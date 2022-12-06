@@ -2,15 +2,15 @@ import { useRef, FormEvent, SyntheticEvent } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { AppRoute, AuthorizationStatus } from '../../const';
+
 import { getCityNameByHref, getRandomCity } from '../../utils';
+import { useAppSelector } from '../../hooks';
 
 import { store } from '../../store';
 import { redirectToRoute } from '../../store/action';
 import { loginAction } from '../../store/api-action';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { setCurrentCity } from '../../store/offers-process/offers-process';
-
-import { useAppSelector } from '../../hooks';
 
 import Header from '../../components/header/header';
 

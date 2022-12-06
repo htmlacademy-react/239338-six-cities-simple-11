@@ -15,6 +15,7 @@ type HeaderProps = {
 const Header = (props: HeaderProps): JSX.Element => {
   const { hasNav = true, isMain = false } = props;
 
+
   return (
     <header className="header">
       <div className="container">

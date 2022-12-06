@@ -37,6 +37,7 @@ export enum ReviewsSendingStatus {
   Unknown = 'UNKNOWN',
 }
 
+
 export const PinParam = {
   Url: {
     Default: 'img/pin.svg',
@@ -48,6 +49,7 @@ export const PinParam = {
   }
 } as const;
 
+
 export const cities = [
   'Paris',
   'Cologne',
@@ -56,6 +58,7 @@ export const cities = [
   'Hamburg',
   'Dusseldorf'
 ];
+
 
 export const offersSortingOptions = [
   {

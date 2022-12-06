@@ -10,6 +10,7 @@ import { setMarkerIcon } from '../../utils';
 export const useOffers = (map: Map | null, offers: Offers, currentOfferID: number | undefined) => {
   const offersMarkers = useRef<OffersMarkers | []>([]);
 
+
   useEffect(() => {
     if (map) {
       offersMarkers.current = offers.map((offer) => ({
@@ -35,6 +36,7 @@ export const useOffers = (map: Map | null, offers: Offers, currentOfferID: numbe
       };
     }
   }, [map, offers, currentOfferID]);
+
 
   return offersMarkers.current;
 };

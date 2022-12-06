@@ -1,6 +1,7 @@
 import { SyntheticEvent } from 'react';
 
 import { cities } from '../../const';
+
 import { getCityNameByHref } from '../../utils';
 import { useAppSelector } from '../../hooks';
 
@@ -12,6 +13,7 @@ import { getCurrentCity } from '../../store/offers-process/selectors';
 const Locations = (): JSX.Element => {
   const currentCity = useAppSelector(getCurrentCity);
 
+
   const handleLocationLinkClick = (evt: SyntheticEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
 
@@ -19,6 +21,7 @@ const Locations = (): JSX.Element => {
       currentCity: getCityNameByHref(evt.currentTarget.getAttribute('href') as string)
     }));
   };
+
 
   return (
     <div className="tabs">

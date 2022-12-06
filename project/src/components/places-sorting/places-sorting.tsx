@@ -1,8 +1,8 @@
 import { SyntheticEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useState } from 'react';
 
 import { KeyCode, offersSortingOptions } from '../../const';
-import { getSortingOptionByType } from '../../utils';
 
+import { getSortingOptionByType } from '../../utils';
 import { useAppSelector } from '../../hooks';
 
 import { store } from '../../store';
@@ -15,6 +15,7 @@ const PlacesSorting = (): JSX.Element => {
 
   const currentSortingType = useAppSelector(getSortingType);
   const currentSortingOption = getSortingOptionByType(currentSortingType);
+
 
   const handleToggleButtonClick = (evt: SyntheticEvent) => {
     evt.preventDefault();
@@ -41,6 +42,7 @@ const PlacesSorting = (): JSX.Element => {
 
     setIsOpened(false);
   };
+
 
   useEffect(() => {
     const handleDocumentClick = (evt: MouseEvent) => {
@@ -69,6 +71,7 @@ const PlacesSorting = (): JSX.Element => {
       document.removeEventListener('keydown', handleDocumentKeyDown);
     };
   }, [isOpened]);
+
 
   return (
     <form className="places__sorting" action="#" method="get">

@@ -1,10 +1,9 @@
 import { useLayoutEffect } from 'react';
 
+import { AuthorizationStatus } from '../../const';
 import { Review } from '../../types/reviews';
 
-import { AuthorizationStatus } from '../../const';
 import { getDateMilliseconds } from '../../utils';
-
 import { useAppSelector } from '../../hooks';
 
 import { store } from '../../store';

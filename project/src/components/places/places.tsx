@@ -16,6 +16,7 @@ type PlacesProps = {
 const Places = (props: PlacesProps): JSX.Element => {
   const { currentCity, offers } = props;
 
+
   return (
     <>
       <section className="cities__places places">

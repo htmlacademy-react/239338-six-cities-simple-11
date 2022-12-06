@@ -6,7 +6,7 @@ import { Offer } from '../../types/offers';
 import { store } from '../../store';
 import { setSelectedOfferID } from '../../store/offers-process/offers-process';
 
-import Rating from '../../components/rating/rating';
+import Rating from '../rating/rating';
 
 
 type PlaceCardProps = {
@@ -22,6 +22,7 @@ const PlaceCard = (props: PlaceCardProps): JSX.Element => {
   const { parentClass, place } = props;
   const { id, isPremium, previewImage, price, rating, title, type } = place;
 
+
   const handlePlaceCardMouseEnter = () => {
     dispatch(setSelectedOfferID({
       selectedOfferID: id
@@ -33,6 +34,7 @@ const PlaceCard = (props: PlaceCardProps): JSX.Element => {
       selectedOfferID: undefined
     }));
   };
+
 
   return (
     <article

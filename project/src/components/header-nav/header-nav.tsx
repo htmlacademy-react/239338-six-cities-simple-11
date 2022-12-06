@@ -14,11 +14,13 @@ const HeaderNav = (): JSX.Element => {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const user = useAppSelector(getUser);
 
+
   const handleSignOutLinkClick = (evt: SyntheticEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
 
     store.dispatch(logoutAction());
   };
+
 
   return (
     <nav className="header__nav">
