@@ -3,26 +3,35 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offers';
 
+import { store } from '../../store';
+import { setSelectedOfferID } from '../../store/offers-process/offers-process';
+
 import Rating from '../../components/rating/rating';
 
 
 type PlaceCardProps = {
   parentClass: string;
   place: Offer;
-  setSelectedPlaceID?: (selectedPlaceID: number | undefined) => void;
 }
 
 
+const dispatch = store.dispatch;
+
+
 const PlaceCard = (props: PlaceCardProps): JSX.Element => {
-  const { parentClass, place, setSelectedPlaceID = () => null } = props;
+  const { parentClass, place } = props;
   const { id, isPremium, previewImage, price, rating, title, type } = place;
 
   const handlePlaceCardMouseEnter = () => {
-    setSelectedPlaceID(id);
+    dispatch(setSelectedOfferID({
+      selectedOfferID: id
+    }));
   };
 
   const handlePlaceCardMouseLeave = () => {
-    setSelectedPlaceID(undefined);
+    dispatch(setSelectedOfferID({
+      selectedOfferID: undefined
+    }));
   };
 
   return (

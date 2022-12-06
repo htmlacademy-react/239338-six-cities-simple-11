@@ -15,3 +15,5 @@ export const getOffers = (state: State): Offers => state[NameSpace.Offers].offer
 export const getNearbyOffers = (state: State): Offers => state[NameSpace.Offers].currentOfferNearby;
 
 export const getCurrentOffer = (state: State): Offer | undefined => state[NameSpace.Offers].currentOffer;
+
+export const getSelectedOfferID = (state: State): number | undefined => state[NameSpace.Offers].selectedOfferID;

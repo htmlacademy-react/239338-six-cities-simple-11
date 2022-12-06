@@ -15,6 +15,7 @@ const initialState: OffersProcess = {
   offers: [],
   currentOffer: undefined,
   currentOfferNearby: [],
+  selectedOfferID: undefined
 };
 
 
@@ -29,6 +30,10 @@ export const offersProcess = createSlice({
 
     setSortingType: (state, action: PayloadAction<{ sortingType: string }>) => {
       state.sortingType = action.payload.sortingType;
+    },
+
+    setSelectedOfferID: (state, action: PayloadAction<{ selectedOfferID: number | undefined }>) => {
+      state.selectedOfferID = action.payload.selectedOfferID;
     },
 
     clearOffers: (state) => {
@@ -83,4 +88,4 @@ export const offersProcess = createSlice({
   }
 });
 
-export const { setCurrentCity, setSortingType, clearOffers, clearCurrentOffer, clearCurrentOfferNearby } = offersProcess.actions;
+export const { setCurrentCity, setSortingType, setSelectedOfferID, clearOffers, clearCurrentOffer, clearCurrentOfferNearby } = offersProcess.actions;

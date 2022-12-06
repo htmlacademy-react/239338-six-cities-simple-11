@@ -19,6 +19,7 @@ export type OffersProcess = {
   offers: Offer[];
   currentOffer: Offer | undefined;
   currentOfferNearby: Offer[];
+  selectedOfferID: number | undefined;
 };
 
 export type ReviewsProcess = {

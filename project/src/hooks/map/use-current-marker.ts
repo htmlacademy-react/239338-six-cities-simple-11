@@ -6,7 +6,7 @@ import { OfferMarker, OffersMarkers } from '../../types/offers';
 import { setMarkerIcon } from '../../utils';
 
 
-export const useCurrentMarker = (renderedMarkers: OffersMarkers, selectedPlaceID: number | undefined) => {
+export const useCurrentMarker = (renderedMarkers: OffersMarkers, selectedOfferID: number | undefined) => {
   const currentMarker = useRef<OfferMarker | undefined>(undefined);
 
   useEffect(() => {
@@ -16,12 +16,12 @@ export const useCurrentMarker = (renderedMarkers: OffersMarkers, selectedPlaceID
       currentMarker.current = undefined;
     }
 
-    if (selectedPlaceID) {
-      currentMarker.current = renderedMarkers.find((marker) => marker.id === selectedPlaceID);
+    if (selectedOfferID) {
+      currentMarker.current = renderedMarkers.find((marker) => marker.id === selectedOfferID);
 
       if (currentMarker.current) {
         setMarkerIcon(currentMarker.current.marker, PinParam.Url.Active);
       }
     }
-  }, [renderedMarkers, selectedPlaceID]);
+  }, [renderedMarkers, selectedOfferID]);
 };
