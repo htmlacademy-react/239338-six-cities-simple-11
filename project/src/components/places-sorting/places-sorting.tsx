@@ -1,18 +1,17 @@
 import { SyntheticEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { KeyCode, offersSortingOptions } from '../../const';
 import { getSortingOptionByType } from '../../utils';
 
 import { useAppSelector } from '../../hooks';
 
+import { store } from '../../store';
 import { setSortingType } from '../../store/offers-process/offers-process';
 import { getSortingType } from '../../store/offers-process/selectors';
 
 
 const PlacesSorting = (): JSX.Element => {
   const [ isOpened, setIsOpened ] = useState(false);
-  const dispatch = useDispatch();
 
   const currentSortingType = useAppSelector(getSortingType);
   const currentSortingOption = getSortingOptionByType(currentSortingType);
@@ -36,7 +35,7 @@ const PlacesSorting = (): JSX.Element => {
 
     evt.preventDefault();
 
-    dispatch(setSortingType({
+    store.dispatch(setSortingType({
       sortingType: target.id
     }));
 

@@ -23,8 +23,6 @@ type ReviewsProps = {
 
 const MAX_REVIEWS_AMOUNT = 10;
 
-const dispatch = store.dispatch;
-
 
 const sortReviews = (reviewLeft: Review, reviewRight: Review) => getDateMilliseconds(reviewRight.date) - getDateMilliseconds(reviewLeft.date);
 
@@ -39,7 +37,7 @@ const Reviews = (props: ReviewsProps): JSX.Element => {
 
 
   useLayoutEffect(() => () => {
-    dispatch(clearCurrentReviews);
+    store.dispatch(clearCurrentReviews);
   }, []);
 
 

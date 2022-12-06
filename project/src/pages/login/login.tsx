@@ -1,6 +1,5 @@
 import { useRef, FormEvent, SyntheticEvent } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { getCityNameByHref, getRandomCity } from '../../utils';
@@ -16,11 +15,12 @@ import { useAppSelector } from '../../hooks';
 import Header from '../../components/header/header';
 
 
+const dispatch = store.dispatch;
+
 const randomCity = getRandomCity();
 
 
 const Login = (): JSX.Element => {
-  const dispatch = useDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const emailFieldRef = useRef<HTMLInputElement | null>(null);
@@ -31,7 +31,7 @@ const Login = (): JSX.Element => {
     evt.preventDefault();
 
     if (emailFieldRef.current && passwordFieldRef.current) {
-      store.dispatch(loginAction({
+      dispatch(loginAction({
         email: emailFieldRef.current.value,
         password: passwordFieldRef.current.value
       }));

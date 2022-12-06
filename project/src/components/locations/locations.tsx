@@ -1,22 +1,21 @@
 import { SyntheticEvent } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { cities } from '../../const';
 import { getCityNameByHref } from '../../utils';
 import { useAppSelector } from '../../hooks';
 
+import { store } from '../../store';
 import { setCurrentCity } from '../../store/offers-process/offers-process';
 import { getCurrentCity } from '../../store/offers-process/selectors';
 
 
 const Locations = (): JSX.Element => {
-  const dispatch = useDispatch();
   const currentCity = useAppSelector(getCurrentCity);
 
   const handleLocationLinkClick = (evt: SyntheticEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
 
-    dispatch(setCurrentCity({
+    store.dispatch(setCurrentCity({
       currentCity: getCityNameByHref(evt.currentTarget.getAttribute('href') as string)
     }));
   };
