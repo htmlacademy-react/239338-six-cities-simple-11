@@ -1,28 +1,25 @@
 import { Marker } from 'leaflet';
-
-import { Person } from './person';
-import { City } from './city';
 import { Location } from './location';
-import { Review } from './review';
+import { City } from './city';
+import { User } from './user';
 
 
 export type Offer = {
-  id: number;
-  title: string;
-  description: string;
-  type: string;
-  price: number;
   bedrooms: number;
-  maxAdults: number;
-  rating: number;
-  isPremium: boolean;
-  previewImage: string;
-  host: Person;
   city: City;
-  location: Location;
-  images: string[];
+  description: string;
   goods: string[];
-  reviews: Review[];
+  host: User;
+  id: number;
+  images: string[];
+  isPremium: boolean;
+  location: Location;
+  maxAdults: number;
+  previewImage: string;
+  price: number;
+  rating: number;
+  title: string;
+  type: string;
 };
 
 export type OfferMarker = {

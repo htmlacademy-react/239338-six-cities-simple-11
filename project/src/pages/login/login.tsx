@@ -32,7 +32,7 @@ const Login = (): JSX.Element => {
 
     if (emailFieldRef.current && passwordFieldRef.current) {
       store.dispatch(loginAction({
-        login: emailFieldRef.current.value,
+        email: emailFieldRef.current.value,
         password: passwordFieldRef.current.value
       }));
     }

@@ -1,5 +1,4 @@
 import { Offer } from './types/offers';
-import { SortingOption } from './types/sorting-option';
 
 
 export enum KeyCode {
@@ -58,11 +57,11 @@ export const cities = [
   'Dusseldorf'
 ];
 
-export const sortingOptions: SortingOption[] = [
+export const offersSortingOptions = [
   {
     type: 'default',
     text: 'Popular',
-    function: (offerLeft: Offer, offerRight: Offer) => 0
+    function: () => 0
   },
   {
     type: 'price-low-high',

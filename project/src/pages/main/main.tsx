@@ -25,7 +25,7 @@ const Main = (): JSX.Element => {
 
   const offers = useAppSelector(getOffers);
   const currentCityOffers = offers.filter((offer) => offer.city.name === currentCity);
-  const sortedOffers = currentCityOffers.sort(currentSortingOption.function);
+  const sortedOffers = currentCityOffers.sort(currentSortingOption?.function);
   const isEmpty = currentCityOffers.length === 0;
 
   useLayoutEffect(() => {

@@ -2,8 +2,7 @@ import { DateTime } from 'luxon';
 import { toast } from 'react-toastify';
 import leaflet, { Marker } from 'leaflet';
 
-import { PinParam, sortingOptions, cities } from './const';
-import { SortingOption } from './types/sorting-option';
+import { PinParam, offersSortingOptions, cities } from './const';
 
 
 export const pluralize = (number: number, caption: string) => `${ number } ${ caption }${ number !== 1 ? 's' : '' }`;
@@ -14,7 +13,7 @@ export const getDateMilliseconds = (ISODate: string) => DateTime.fromISO(ISODate
 export const getCityNameByHref = (href: string) => href.split('#')[1];
 export const getRandomCity = () => cities[Math.floor(Math.random() * cities.length)];
 
-export const getSortingOptionByType = (type: string) => sortingOptions.find((option) => option.type === type) as SortingOption;
+export const getSortingOptionByType = (type: string) => offersSortingOptions.find((option) => option.type === type);
 
 export const showError = (text: string) => {
   toast.error(`An error occurred, ${ text }.`);

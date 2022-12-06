@@ -1,6 +1,6 @@
 import { useLayoutEffect } from 'react';
 
-import { Review } from '../../types/review';
+import { Review } from '../../types/reviews';
 
 import { AuthorizationStatus } from '../../const';
 import { getDateMilliseconds } from '../../utils';

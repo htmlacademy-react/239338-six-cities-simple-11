@@ -62,7 +62,7 @@ const ReviewsForm = (): JSX.Element => {
     setIsBlocked(true);
 
     store.dispatch(sendReviewAction({
-      data: formData,
+      review: formData,
       currentOfferID: currentOfferID?.id
     }));
   };

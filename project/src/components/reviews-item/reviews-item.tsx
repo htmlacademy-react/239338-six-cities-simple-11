@@ -1,6 +1,6 @@
 import { getFormattedDate } from '../../utils';
 
-import { Review } from '../../types/review';
+import { Review } from '../../types/reviews';
 
 import User from '../../components/user/user';
 import Rating from '../rating/rating';

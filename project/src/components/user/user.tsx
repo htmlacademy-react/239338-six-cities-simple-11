@@ -1,8 +1,8 @@
-import { Person } from '../../types/person';
+import { User as UserType } from '../../types/user';
 
 
 type UserProps = {
-  user: Person;
+  user: UserType;
   parentClass: string;
   classPrefix?: string;
 }

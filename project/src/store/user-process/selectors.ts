@@ -1,9 +1,9 @@
 import { NameSpace, AuthorizationStatus } from '../../const';
 
-import { State } from '../../types/state';
-import { User } from '../../types/user';
+import { AppState } from '../../types/state';
+import { AppUser } from '../../types/user';
 
 
-export const getAuthorizationStatus = (state: State): AuthorizationStatus => state[NameSpace.User].authorizationStatus;
+export const getAuthorizationStatus = (state: AppState): AuthorizationStatus => state[NameSpace.User].authorizationStatus;
 
-export const getUser = (state: State): User | undefined => state[NameSpace.User].user;
+export const getUser = (state: AppState): AppUser | undefined => state[NameSpace.User].user;

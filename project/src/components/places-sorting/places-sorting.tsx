@@ -1,7 +1,7 @@
 import { SyntheticEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { KeyCode, sortingOptions } from '../../const';
+import { KeyCode, offersSortingOptions } from '../../const';
 import { getSortingOptionByType } from '../../utils';
 
 import { useAppSelector } from '../../hooks';
@@ -81,7 +81,7 @@ const PlacesSorting = (): JSX.Element => {
         onClick={ handleToggleButtonClick }
         onKeyDown={ handleToggleButtonKeyDown }
       >
-        { currentSortingOption.text }
+        { currentSortingOption?.text }
 
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"/>
@@ -90,8 +90,8 @@ const PlacesSorting = (): JSX.Element => {
 
       <ul className={ `places__options places__options--custom ${ isOpened ? 'places__options--opened' : '' }` }>
         {
-          sortingOptions.map((option) => {
-            const isActive = option.type === currentSortingOption.type;
+          offersSortingOptions.map((option) => {
+            const isActive = option.type === currentSortingOption?.type;
 
             return (
               <li

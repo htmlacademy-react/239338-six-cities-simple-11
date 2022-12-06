@@ -3,44 +3,43 @@ import { AxiosInstance } from 'axios';
 
 import { ApiRoute } from '../const';
 
-import { AppDispatch, State } from '../types/state.js';
-import { AuthData } from '../types/auth-data';
-import { User } from '../types/user';
+import { AppDispatch, AppState } from '../types/state.js';
+import { AppUser, AppUserData } from '../types/user';
 import { Offer, Offers } from '../types/offers';
-import { Review, ReviewData } from '../types/review';
+import { Reviews, ReviewData } from '../types/reviews';
 
 import { saveToken, dropToken } from '../services/token';
 
 
 export const checkAuthAction = createAsyncThunk<
-  User,
+  AppUser,
   undefined,
   {
     dispatch: AppDispatch;
-    state: State;
+    state: AppState;
     extra: AxiosInstance;
   }
 >(
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
-    const { data } = await api.get<User>(ApiRoute.Login);
+    const { data } = await api.get<AppUser>(ApiRoute.Login);
 
     return data;
   }
 );
 
 export const loginAction = createAsyncThunk<
-  User,
-  AuthData,
+  AppUser,
+  AppUserData,
   {
     dispatch: AppDispatch;
-    state: State;
+    state: AppState;
     extra: AxiosInstance;
   }
 >(
   'user/login',
-  async ({login: email, password}, {dispatch, extra: api}) => {
-    const { data } = await api.post<User>(ApiRoute.Login, {email, password});
+  async ({email, password}, {dispatch, extra: api}) => {
+    const { data } = await api.post<AppUser>(ApiRoute.Login, {email, password});
     const { token } = data;
 
     saveToken(token);
@@ -54,7 +53,7 @@ export const logoutAction = createAsyncThunk<
   undefined,
   {
     dispatch: AppDispatch;
-    state: State;
+    state: AppState;
     extra: AxiosInstance;
   }
 >(
@@ -68,34 +67,37 @@ export const logoutAction = createAsyncThunk<
 
 
 export const getReviewsAction = createAsyncThunk<
-  Review[],
+  Reviews,
   string,
   {
     dispatch: AppDispatch;
-    state: State;
+    state: AppState;
     extra: AxiosInstance;
   }
 >(
   'reviews/get',
   async (currentOfferID, { dispatch, extra: api }) => {
-    const { data } = await api.get<Review[]>(`${ ApiRoute.Comments }/${ currentOfferID }`);
+    const { data } = await api.get<Reviews>(`${ ApiRoute.Comments }/${ currentOfferID }`);
 
     return data;
   }
 );
 
 export const sendReviewAction = createAsyncThunk<
-  Review[],
-  ReviewData,
+  Reviews,
+  {
+    review: ReviewData;
+    currentOfferID: number | undefined;
+  },
   {
     dispatch: AppDispatch;
-    state: State;
+    state: AppState;
     extra: AxiosInstance;
   }
 >(
   'reviews/send',
-  async ({data: {rating, comment}, currentOfferID}, {dispatch, extra: api}) => {
-    const { data } = await api.post<Review[]>(`${ ApiRoute.Comments }/${ currentOfferID || '' }`, {rating, comment});
+  async ({review: {rating, comment}, currentOfferID}, {dispatch, extra: api}) => {
+    const { data } = await api.post<Reviews>(`${ ApiRoute.Comments }/${ currentOfferID || '' }`, {rating, comment});
 
     return data;
   },
@@ -107,7 +109,7 @@ export const getOffersAction = createAsyncThunk<
   undefined,
   {
     dispatch: AppDispatch;
-    state: State;
+    state: AppState;
     extra: AxiosInstance;
   }
 >(
@@ -124,7 +126,7 @@ export const getNearbyOffersAction = createAsyncThunk<
   string,
   {
     dispatch: AppDispatch;
-    state: State;
+    state: AppState;
     extra: AxiosInstance;
   }
 >(
@@ -141,7 +143,7 @@ export const getCurrentOfferAction = createAsyncThunk<
   string,
   {
     dispatch: AppDispatch;
-    state: State;
+    state: AppState;
     extra: AxiosInstance;
   }
 >(
