@@ -1,4 +1,4 @@
-import { SyntheticEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useState, useRef } from 'react';
 
 import { KeyCode, offersSortingOptions } from '../../const';
 
@@ -15,6 +15,9 @@ const PlacesSorting = (): JSX.Element => {
 
   const currentSortingType = useAppSelector(getSortingType);
   const currentSortingOption = getSortingOptionByType(currentSortingType);
+
+  const documentRef = useRef<Document>(document);
+  const documentRefCurrent = documentRef.current;
 
 
   const handleToggleButtonClick = (evt: SyntheticEvent) => {
@@ -63,14 +66,14 @@ const PlacesSorting = (): JSX.Element => {
       }
     };
 
-    document.addEventListener('click', handleDocumentClick);
-    document.addEventListener('keydown', handleDocumentKeyDown);
+    documentRefCurrent.addEventListener('click', handleDocumentClick);
+    documentRefCurrent.addEventListener('keydown', handleDocumentKeyDown);
 
     return () => {
-      document.removeEventListener('click', handleDocumentClick);
-      document.removeEventListener('keydown', handleDocumentKeyDown);
+      documentRefCurrent.removeEventListener('click', handleDocumentClick);
+      documentRefCurrent.removeEventListener('keydown', handleDocumentKeyDown);
     };
-  }, [isOpened]);
+  }, [isOpened, documentRefCurrent]);
 
 
   return (
