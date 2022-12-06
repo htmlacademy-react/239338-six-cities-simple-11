@@ -5,7 +5,7 @@ import { Review } from '../../types/review';
 import { AuthorizationStatus } from '../../const';
 import { getDateMilliseconds } from '../../utils';
 
-import { useAppSelector } from '../../hooks/use-app-selector';
+import { useAppSelector } from '../../hooks';
 
 import { store } from '../../store';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';

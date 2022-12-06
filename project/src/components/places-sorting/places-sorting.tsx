@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { KeyCode, sortingOptions } from '../../const';
 import { getSortingOptionByType } from '../../utils';
 
-import { useAppSelector } from '../../hooks/use-app-selector';
+import { useAppSelector } from '../../hooks';
 
 import { setSortingType } from '../../store/offers-process/offers-process';
 import { getSortingType } from '../../store/offers-process/selectors';

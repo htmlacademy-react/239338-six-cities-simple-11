@@ -1,7 +1,7 @@
 import { useLayoutEffect } from 'react';
 
 import { getSortingOptionByType } from '../../utils';
-import { useAppSelector } from '../../hooks/use-app-selector';
+import { useAppSelector } from '../../hooks';
 
 import { store } from '../../store';
 import { clearOffers } from '../../store/offers-process/offers-process';

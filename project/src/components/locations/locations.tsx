@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { cities } from '../../const';
 import { getCityNameByHref } from '../../utils';
-import { useAppSelector } from '../../hooks/use-app-selector';
+import { useAppSelector } from '../../hooks';
 
 import { setCurrentCity } from '../../store/offers-process/offers-process';
 import { getCurrentCity } from '../../store/offers-process/selectors';

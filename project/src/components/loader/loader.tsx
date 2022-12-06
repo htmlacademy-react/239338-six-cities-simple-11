@@ -1,6 +1,6 @@
 import './loader.css';
 
-import { useAppSelector } from '../../hooks/use-app-selector';
+import { useAppSelector } from '../../hooks';
 
 import { getIsOffersDataLoading } from '../../store/offers-process/selectors';
 

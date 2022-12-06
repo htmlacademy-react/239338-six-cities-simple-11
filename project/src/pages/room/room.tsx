@@ -7,7 +7,7 @@ import { store } from '../../store';
 import { clearCurrentOffer, clearCurrentOfferNearby } from '../../store/offers-process/offers-process';
 import { getCurrentOffer, getNearbyOffers } from '../../store/offers-process/selectors';
 import { getCurrentOfferAction } from '../../store/api-action';
-import { useAppSelector } from '../../hooks/use-app-selector';
+import { useAppSelector } from '../../hooks';
 
 import NotFound from '../not-found/not-found';
 

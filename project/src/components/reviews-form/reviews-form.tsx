@@ -1,6 +1,7 @@
 import { useState, FormEvent, Fragment, useEffect } from 'react';
+
 import { ReviewsSendingStatus } from '../../const';
-import { useAppSelector } from '../../hooks/use-app-selector';
+import { useAppSelector } from '../../hooks';
 
 import { store } from '../../store';
 import { sendReviewAction } from '../../store/api-action';

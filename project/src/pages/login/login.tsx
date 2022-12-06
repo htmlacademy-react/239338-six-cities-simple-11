@@ -11,7 +11,7 @@ import { loginAction } from '../../store/api-action';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { setCurrentCity } from '../../store/offers-process/offers-process';
 
-import { useAppSelector } from '../../hooks/use-app-selector';
+import { useAppSelector } from '../../hooks';
 
 import Header from '../../components/header/header';
 
