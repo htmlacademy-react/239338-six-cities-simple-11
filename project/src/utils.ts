@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { toast } from 'react-toastify';
 
-import { sortingOptions } from './const';
+import { sortingOptions, cities } from './const';
 import { SortingOption } from './types/sorting-option';
 
 
@@ -9,6 +9,9 @@ export const pluralize = (number: number, caption: string) => `${ number } ${ ca
 
 export const getFormattedDate = (ISODate: string, format: string) => DateTime.fromISO(ISODate).toFormat(format);
 export const getDateMilliseconds = (ISODate: string) => DateTime.fromISO(ISODate).toMillis();
+
+export const getCityNameByHref = (href: string) => href.split('#')[1];
+export const getRandomCity = () => cities[Math.floor(Math.random() * cities.length)];
 
 export const getSortingOptionByType = (type: string) => sortingOptions.find((option) => option.type === type) as SortingOption;
 
