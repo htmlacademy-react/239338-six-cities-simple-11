@@ -17,14 +17,14 @@ import Header from '../../components/header/header';
 
 const dispatch = store.dispatch;
 
-const randomCity = getRandomCity();
-
 
 const Login = (): JSX.Element => {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const emailFieldRef = useRef<HTMLInputElement | null>(null);
   const passwordFieldRef = useRef<HTMLInputElement | null>(null);
+
+  const randomCity = getRandomCity();
 
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
