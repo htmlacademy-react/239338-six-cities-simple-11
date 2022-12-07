@@ -12,6 +12,7 @@ import Rating from '../rating/rating';
 type PlaceCardProps = {
   parentClass: string;
   place: Offer;
+  hasMouseEvents?: boolean;
 }
 
 
@@ -19,7 +20,7 @@ const dispatch = store.dispatch;
 
 
 const PlaceCard = (props: PlaceCardProps): JSX.Element => {
-  const { parentClass, place } = props;
+  const { parentClass, place, hasMouseEvents = false } = props;
   const { id, isPremium, previewImage, price, rating, title, type } = place;
 
 
@@ -39,8 +40,8 @@ const PlaceCard = (props: PlaceCardProps): JSX.Element => {
   return (
     <article
       className={ `${ parentClass }__card place-card`}
-      onMouseEnter={ handlePlaceCardMouseEnter }
-      onMouseLeave={ handlePlaceCardMouseLeave }
+      onMouseEnter={ hasMouseEvents ? handlePlaceCardMouseEnter : undefined }
+      onMouseLeave={ hasMouseEvents ? handlePlaceCardMouseLeave : undefined }
     >
       {
         isPremium && (

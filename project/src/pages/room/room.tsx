@@ -153,7 +153,7 @@ const Room = (): JSX.Element => {
                 location={ city.location }
                 offers={ offersNearby.concat(currentOffer) }
                 parentClass='property'
-                currentOfferID= { currentOffer.id }
+                currentOfferID={ currentOffer.id }
               />
             )
           }

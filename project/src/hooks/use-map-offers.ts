@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react';
 import leaflet, { Map } from 'leaflet';
 
-import { PinParam } from '../../const';
-import { Offers, OffersMarkers } from '../../types/offers';
+import { PinParam } from '../const';
+import { Offers, OffersMarkers } from '../types/offers';
 
-import { setMarkerIcon } from '../../utils';
+import { setMarkerIcon } from '../utils';
 
 
-export const useOffers = (map: Map | null, offers: Offers, currentOfferID: number | undefined) => {
+export const useMapOffers = (map: Map | null, offers: Offers) => {
   const offersMarkers = useRef<OffersMarkers | []>([]);
 
 
@@ -22,10 +22,11 @@ export const useOffers = (map: Map | null, offers: Offers, currentOfferID: numbe
       }));
 
       offersMarkers.current.forEach((marker) => {
-        setMarkerIcon(marker.marker, marker.id === currentOfferID ? PinParam.Url.Active : PinParam.Url.Default);
+        setMarkerIcon(marker.marker, PinParam.Url.Default);
 
         marker.marker.addTo(map);
       });
+
 
       return () => {
         offersMarkers.current.forEach((marker) => {
@@ -35,7 +36,7 @@ export const useOffers = (map: Map | null, offers: Offers, currentOfferID: numbe
         offersMarkers.current = [];
       };
     }
-  }, [map, offers, currentOfferID]);
+  }, [map, offers]);
 
 
   return offersMarkers.current;

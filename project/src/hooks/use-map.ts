@@ -20,6 +20,7 @@ export const useMap = (mapRef: MutableRefObject<HTMLElement | null>) => {
         scrollWheelZoom: false
       });
 
+
       instance.addLayer(layer);
       setMap(instance);
 

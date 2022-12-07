@@ -32,6 +32,7 @@ const Places = (props: PlacesProps): JSX.Element => {
                 key= { offer.id }
                 parentClass= 'cities'
                 place= { offer }
+                hasMouseEvents
               />
             ))
           }

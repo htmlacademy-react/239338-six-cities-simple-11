@@ -1,10 +1,12 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { Location } from '../../types/location';
 import { Offers } from '../../types/offers';
 
-import { useAppSelector, useMap, useOffers, useLocation, useCurrentMarker } from '../../hooks';
+import { useAppSelector, useMap, useMapOffers, useMapLocation, useMapCurrentOffer } from '../../hooks';
 
+import { store } from '../../store';
+import { setSelectedOfferID } from '../../store/offers-process/offers-process';
 import { getSelectedOfferID } from '../../store/offers-process/selectors';
 
 
@@ -23,11 +25,17 @@ const Map = (props: MapProps): JSX.Element => {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef);
-  const renderedMarkers = useOffers(map, offers, currentOfferID);
+  const offersMarkers = useMapOffers(map, offers);
 
 
-  useLocation(map, location);
-  useCurrentMarker(renderedMarkers, selectedOfferID);
+  useMapLocation(map, location);
+  useMapCurrentOffer(map, offersMarkers, currentOfferID || selectedOfferID);
+
+  useEffect(() => {
+    store.dispatch(setSelectedOfferID({
+      selectedOfferID: undefined
+    }));
+  }, []);
 
 
   return (
