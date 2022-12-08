@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { Offers } from '../../types/offers';
 
 import { pluralize } from '../../utils';
@@ -17,7 +15,7 @@ type PlacesProps = {
 
 const Places = (props: PlacesProps): JSX.Element => {
   const { currentCity, offers } = props;
-  const [ selectedPlaceID, setSelectedPlaceID ] = useState<number | undefined>(undefined);
+
 
   return (
     <>
@@ -34,7 +32,7 @@ const Places = (props: PlacesProps): JSX.Element => {
                 key= { offer.id }
                 parentClass= 'cities'
                 place= { offer }
-                setSelectedPlaceID= { setSelectedPlaceID }
+                hasMouseEvents
               />
             ))
           }
@@ -45,7 +43,6 @@ const Places = (props: PlacesProps): JSX.Element => {
         <Map
           location={ offers[0].city.location }
           offers={ offers }
-          selectedPlaceID= { selectedPlaceID }
           parentClass='cities'
         />
       </div>

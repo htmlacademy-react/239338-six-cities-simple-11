@@ -1,32 +1,53 @@
-import { useRef, FormEvent } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { useRef, FormEvent, SyntheticEvent } from 'react';
+import { Navigate } from 'react-router-dom';
 
-import { AppRoute, AuthorizationStatus, cities } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
+
+import { getCityNameByHref, getRandomCity } from '../../utils';
+import { useAppSelector } from '../../hooks';
 
 import { store } from '../../store';
+import { redirectToRoute } from '../../store/action';
 import { loginAction } from '../../store/api-action';
-
-import { useAppSelector } from '../../hooks/use-app-selector';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { setCurrentCity } from '../../store/offers-process/offers-process';
 
 import Header from '../../components/header/header';
 
 
+const dispatch = store.dispatch;
+
+
 const Login = (): JSX.Element => {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const emailFieldRef = useRef<HTMLInputElement | null>(null);
   const passwordFieldRef = useRef<HTMLInputElement | null>(null);
+
+  const randomCity = getRandomCity();
+
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (emailFieldRef.current && passwordFieldRef.current) {
-      store.dispatch(loginAction({
-        login: emailFieldRef.current.value,
+      dispatch(loginAction({
+        email: emailFieldRef.current.value,
         password: passwordFieldRef.current.value
       }));
     }
   };
+
+  const handleLocationLinkClick = (evt: SyntheticEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
+
+    dispatch(setCurrentCity({
+      currentCity: getCityNameByHref(evt.currentTarget.getAttribute('href') as string)
+    }));
+
+    dispatch(redirectToRoute(AppRoute.Root));
+  };
+
 
   if (authorizationStatus === AuthorizationStatus.Auth) {
     return <Navigate to={ AppRoute.Root }/>;
@@ -85,9 +106,13 @@ const Login = (): JSX.Element => {
 
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={`${ AppRoute.Root }?${ cities[0].toLowerCase() }`}>
-                <span>{ cities[0] }</span>
-              </Link>
+              <a
+                className="locations__item-link"
+                href={ `#${ randomCity }` }
+                onClick={ handleLocationLinkClick }
+              >
+                <span>{ randomCity }</span>
+              </a>
             </div>
           </section>
         </div>

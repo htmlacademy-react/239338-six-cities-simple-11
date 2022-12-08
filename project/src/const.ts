@@ -1,5 +1,4 @@
 import { Offer } from './types/offers';
-import { SortingOption } from './types/sorting-option';
 
 
 export enum KeyCode {
@@ -20,6 +19,12 @@ export enum ApiRoute {
   Logout = '/logout'
 }
 
+export enum NameSpace {
+  User = 'USER',
+  Offers = 'OFFERS',
+  Reviews = 'REVIEWS'
+}
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -32,7 +37,20 @@ export enum ReviewsSendingStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const cities = [
+
+export const PinParam = {
+  Url: {
+    Default: 'img/pin.svg',
+    Active: 'img/pin-active.svg'
+  },
+  Size: {
+    Width: 28,
+    Heigh: 40
+  }
+} as const;
+
+
+export const CITIES = [
   'Paris',
   'Cologne',
   'Brussels',
@@ -41,11 +59,12 @@ export const cities = [
   'Dusseldorf'
 ];
 
-export const sortingOptions: SortingOption[] = [
+
+export const OFFERS_SORTING_OPTIONS = [
   {
     type: 'default',
     text: 'Popular',
-    function: (offerLeft: Offer, offerRight: Offer) => 0
+    function: () => 0
   },
   {
     type: 'price-low-high',

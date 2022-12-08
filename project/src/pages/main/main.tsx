@@ -1,31 +1,48 @@
+import { useLayoutEffect } from 'react';
+
 import { getSortingOptionByType } from '../../utils';
-import { useAppSelector } from '../../hooks/use-app-selector';
+import { useAppSelector } from '../../hooks';
+
+import { store } from '../../store';
+import { clearOffers } from '../../store/offers-process/offers-process';
+import { getCurrentCity, getSortingType, getOffers } from '../../store/offers-process/selectors';
+import { getOffersAction } from '../../store/api-action';
 
 import Header from '../../components/header/header';
-import Loader from '../../components/loader/loader';
 import Locations from '../../components/locations/locations';
 import NoPlaces from '../../components/no-places/no-places';
 import Places from '../../components/places/places';
 
 
-const Main = (): JSX.Element => {
-  const currentCity = useAppSelector((state) => state.currentCity);
+const dispatch = store.dispatch;
 
-  const currentSortingType = useAppSelector((state) => state.sortingType);
+
+const Main = (): JSX.Element => {
+  const currentCity = useAppSelector(getCurrentCity);
+
+  const currentSortingType = useAppSelector(getSortingType);
   const currentSortingOption = getSortingOptionByType(currentSortingType);
 
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
   const currentCityOffers = offers.filter((offer) => offer.city.name === currentCity);
-  const sortedOffers = currentCityOffers.sort(currentSortingOption.function);
+  const sortedOffers = currentCityOffers.sort(currentSortingOption?.function);
   const isEmpty = currentCityOffers.length === 0;
+
+
+  useLayoutEffect(() => {
+    dispatch(getOffersAction());
+
+    return () => {
+      dispatch(clearOffers);
+    };
+  }, []);
+
 
   return (
     <div className="page page--gray page--main">
       <Header
         isMain
       />
-
-      <Loader/>
 
       <main className={`page__main page__main--index ${ isEmpty ? 'page__main--index-empty' : '' }`}>
         <h1 className="visually-hidden">Cities</h1>

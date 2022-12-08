@@ -3,33 +3,45 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offers';
 
-import Rating from '../../components/rating/rating';
+import { store } from '../../store';
+import { setSelectedOfferID } from '../../store/offers-process/offers-process';
+
+import Rating from '../rating/rating';
 
 
 type PlaceCardProps = {
   parentClass: string;
   place: Offer;
-  setSelectedPlaceID?: (selectedPlaceID: number | undefined) => void;
+  hasMouseEvents?: boolean;
 }
 
 
+const dispatch = store.dispatch;
+
+
 const PlaceCard = (props: PlaceCardProps): JSX.Element => {
-  const { parentClass, place, setSelectedPlaceID = () => null } = props;
+  const { parentClass, place, hasMouseEvents = false } = props;
   const { id, isPremium, previewImage, price, rating, title, type } = place;
 
+
   const handlePlaceCardMouseEnter = () => {
-    setSelectedPlaceID(id);
+    dispatch(setSelectedOfferID({
+      selectedOfferID: id
+    }));
   };
 
   const handlePlaceCardMouseLeave = () => {
-    setSelectedPlaceID(undefined);
+    dispatch(setSelectedOfferID({
+      selectedOfferID: undefined
+    }));
   };
+
 
   return (
     <article
       className={ `${ parentClass }__card place-card`}
-      onMouseEnter={ handlePlaceCardMouseEnter }
-      onMouseLeave={ handlePlaceCardMouseLeave }
+      onMouseEnter={ hasMouseEvents ? handlePlaceCardMouseEnter : undefined }
+      onMouseLeave={ hasMouseEvents ? handlePlaceCardMouseLeave : undefined }
     >
       {
         isPremium && (

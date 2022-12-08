@@ -1,8 +1,8 @@
+import { Review } from '../../types/reviews';
+
 import { getFormattedDate } from '../../utils';
 
-import { Review } from '../../types/review';
-
-import User from '../../components/user/user';
+import User from '../user/user';
 import Rating from '../rating/rating';
 
 
@@ -14,6 +14,7 @@ type ReviewItemProps = {
 const ReviewItem = (props: ReviewItemProps): JSX.Element => {
   const { review } = props;
   const { user, rating, comment, date } = review;
+
 
   return (
     <li className="reviews__item">

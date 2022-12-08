@@ -1,34 +1,34 @@
 import { SyntheticEvent } from 'react';
-import { useDispatch } from 'react-redux';
 
-import { cities } from '../../const';
+import { CITIES } from '../../const';
 
-import { useAppSelector } from '../../hooks/use-app-selector';
+import { getCityNameByHref } from '../../utils';
+import { useAppSelector } from '../../hooks';
 
-import { setCurrentCity } from '../../store/action';
-
-
-const getCityNameByHref = (href: string) => href.split('#')[1];
+import { store } from '../../store';
+import { setCurrentCity } from '../../store/offers-process/offers-process';
+import { getCurrentCity } from '../../store/offers-process/selectors';
 
 
 const Locations = (): JSX.Element => {
-  const dispatch = useDispatch();
-  const currentCity = useAppSelector((state) => state.currentCity);
+  const currentCity = useAppSelector(getCurrentCity);
+
 
   const handleLocationLinkClick = (evt: SyntheticEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
 
-    dispatch(setCurrentCity({
+    store.dispatch(setCurrentCity({
       currentCity: getCityNameByHref(evt.currentTarget.getAttribute('href') as string)
     }));
   };
+
 
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {
-            cities.map((city) => {
+            CITIES.map((city) => {
               const isActive = city === currentCity;
 
               return (

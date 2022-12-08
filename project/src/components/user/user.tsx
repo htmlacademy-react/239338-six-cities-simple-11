@@ -1,8 +1,8 @@
-import { Person } from '../../types/person';
+import { User as UserType } from '../../types/user';
 
 
 type UserProps = {
-  user: Person;
+  user: UserType;
   parentClass: string;
   classPrefix?: string;
 }
@@ -11,6 +11,7 @@ type UserProps = {
 const User = (props: UserProps): JSX.Element => {
   const { user, parentClass, classPrefix } = props;
   const { isPro, avatarUrl, name } = user;
+
 
   return (
     <div className={ `${ parentClass }__${ classPrefix ? `${ classPrefix }-` : '' }user user` }>

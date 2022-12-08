@@ -1,23 +1,32 @@
 import { AuthorizationStatus, ReviewsSendingStatus } from '../const';
 
-import { User } from './user';
+import { AppUser } from './user';
 import { Offer, Offers } from './offers';
-import { Review } from './review';
+import { Reviews } from './reviews';
 
 import { store } from '../store/index.js';
 
 
-export type State = {
+export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
-  user: User | undefined;
+  user: AppUser | undefined;
+};
+
+export type OffersProcess = {
+  isOffersDataLoading: boolean;
   currentCity: string;
   sortingType: string;
-  isDataLoaded: boolean;
   offers: Offers;
   currentOffer: Offer | undefined;
-  currentOfferReviews: Review[];
-  currentOfferNearbyOffers: Offers;
-  reviewsSendingStatus: ReviewsSendingStatus;
+  currentOfferNearby: Offers;
+  selectedOfferID: number | undefined;
 };
+
+export type ReviewsProcess = {
+  sendingStatus: ReviewsSendingStatus;
+  currentReviews: Reviews;
+};
+
+export type AppState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;

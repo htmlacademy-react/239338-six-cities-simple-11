@@ -2,16 +2,16 @@ import { useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { pluralize } from '../../utils';
+import { useAppSelector } from '../../hooks';
 
 import { store } from '../../store';
-import { setCurrentOffer, setCurrentOfferNearbyOffers, setReviews } from '../../store/action';
-import { getOffer } from '../../store/api-action';
-import { useAppSelector } from '../../hooks/use-app-selector';
+import { getCurrentOfferAction } from '../../store/api-action';
+import { clearCurrentOffer, clearCurrentOfferNearby } from '../../store/offers-process/offers-process';
+import { getCurrentOffer, getNearbyOffers } from '../../store/offers-process/selectors';
 
 import NotFound from '../not-found/not-found';
 
 import Header from '../../components/header/header';
-import Loader from '../../components/loader/loader';
 import Rating from '../../components/rating/rating';
 import User from '../../components/user/user';
 import Reviews from '../../components/reviews/reviews';
@@ -23,37 +23,32 @@ const MAX_IMAGES_AMOUNT = 6;
 
 const dispatch = store.dispatch;
 
-const clearCurrentOffer = () => {
-  dispatch(setCurrentOffer(undefined));
-  dispatch(setCurrentOfferNearbyOffers([]));
-  dispatch(setReviews([]));
-};
-
 
 const Room = (): JSX.Element => {
   const routeParams = useParams();
 
-  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const offersNearby = useAppSelector((state) => state.currentOfferNearbyOffers);
+  const currentOffer = useAppSelector(getCurrentOffer);
+  const offersNearby = useAppSelector(getNearbyOffers);
 
   const currentOfferID = routeParams.id;
 
+
   useLayoutEffect(() => {
     if (currentOfferID) {
-      dispatch(getOffer(currentOfferID));
+      dispatch(getCurrentOfferAction(currentOfferID));
     }
 
-    return clearCurrentOffer;
+    return () => {
+      dispatch(clearCurrentOffer);
+      dispatch(clearCurrentOfferNearby);
+    };
   }, [currentOfferID]);
 
-  if (!isDataLoaded) {
-    return <Loader/>;
-  }
 
   if (!currentOffer) {
     return <NotFound/>;
   }
+
 
   const {
     title,
@@ -69,6 +64,7 @@ const Room = (): JSX.Element => {
     images,
     goods
   } = currentOffer;
+
 
   return (
     <div className="page">
@@ -157,7 +153,7 @@ const Room = (): JSX.Element => {
                 location={ city.location }
                 offers={ offersNearby.concat(currentOffer) }
                 parentClass='property'
-                currentOfferID= { currentOffer.id }
+                currentOfferID={ currentOffer.id }
               />
             )
           }

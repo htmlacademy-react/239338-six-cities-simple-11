@@ -1,10 +1,13 @@
 import { useState, FormEvent, Fragment, useEffect } from 'react';
+
 import { ReviewsSendingStatus } from '../../const';
-import { useAppSelector } from '../../hooks/use-app-selector';
+
+import { useAppSelector } from '../../hooks';
 
 import { store } from '../../store';
-import { setReviewsSendingStatus } from '../../store/action';
-import { sendReview } from '../../store/api-action';
+import { sendReviewAction } from '../../store/api-action';
+import { getCurrentOffer } from '../../store/offers-process/selectors';
+import { getReviewsSendingStatus } from '../../store/reviews-process/selectors';
 
 
 type FormData = {
@@ -24,7 +27,7 @@ const enum CommentLength {
 }
 
 
-const ratings = [
+const RATINGS = [
   'perfect',
   'good',
   'not bad',
@@ -48,8 +51,8 @@ const isFormInvalid = (formData: FormData) => !formData[FieldName.Rating] || isC
 
 
 const ReviewsForm = (): JSX.Element => {
-  const currentOfferID = useAppSelector((state) => state.currentOffer);
-  const reviewsSendingStatus = useAppSelector((state) => state.reviewsSendingStatus);
+  const currentOfferID = useAppSelector(getCurrentOffer);
+  const reviewsSendingStatus = useAppSelector(getReviewsSendingStatus);
 
   const [ isBlocked, setIsBlocked ] = useState(false);
   const [formData, setFormData] = useState(INITIAL_FORM_STATE);
@@ -59,9 +62,8 @@ const ReviewsForm = (): JSX.Element => {
 
     setIsBlocked(true);
 
-    store.dispatch(setReviewsSendingStatus(ReviewsSendingStatus.Unknown));
-    store.dispatch(sendReview({
-      data: formData,
+    store.dispatch(sendReviewAction({
+      review: formData,
       currentOfferID: currentOfferID?.id
     }));
   };
@@ -94,8 +96,8 @@ const ReviewsForm = (): JSX.Element => {
 
       <div className="reviews__rating-form form__rating">
         {
-          ratings.map((rating, index) => {
-            const ratingValue = ratings.length - index;
+          RATINGS.map((rating, index) => {
+            const ratingValue = RATINGS.length - index;
             const ratingID = `${ ratingValue }-stars`;
 
             return (
@@ -138,7 +140,7 @@ const ReviewsForm = (): JSX.Element => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={ isFormInvalid(formData) }
+          disabled={ isBlocked || isFormInvalid(formData) }
         >
           Submit
         </button>

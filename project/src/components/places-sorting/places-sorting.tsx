@@ -1,19 +1,24 @@
-import { SyntheticEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { SyntheticEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useState, useRef } from 'react';
 
-import { KeyCode, sortingOptions } from '../../const';
+import { KeyCode, OFFERS_SORTING_OPTIONS } from '../../const';
+
 import { getSortingOptionByType } from '../../utils';
+import { useAppSelector } from '../../hooks';
 
-import { useAppSelector } from '../../hooks/use-app-selector';
-import { setSortingType } from '../../store/action';
+import { store } from '../../store';
+import { setSortingType } from '../../store/offers-process/offers-process';
+import { getSortingType } from '../../store/offers-process/selectors';
 
 
 const PlacesSorting = (): JSX.Element => {
   const [ isOpened, setIsOpened ] = useState(false);
-  const dispatch = useDispatch();
 
-  const currentSortingType = useAppSelector((state) => state.sortingType);
+  const currentSortingType = useAppSelector(getSortingType);
   const currentSortingOption = getSortingOptionByType(currentSortingType);
+
+  const documentRef = useRef<Document>(document);
+  const documentRefCurrent = documentRef.current;
+
 
   const handleToggleButtonClick = (evt: SyntheticEvent) => {
     evt.preventDefault();
@@ -34,12 +39,13 @@ const PlacesSorting = (): JSX.Element => {
 
     evt.preventDefault();
 
-    dispatch(setSortingType({
+    store.dispatch(setSortingType({
       sortingType: target.id
     }));
 
     setIsOpened(false);
   };
+
 
   useEffect(() => {
     const handleDocumentClick = (evt: MouseEvent) => {
@@ -60,14 +66,15 @@ const PlacesSorting = (): JSX.Element => {
       }
     };
 
-    document.addEventListener('click', handleDocumentClick);
-    document.addEventListener('keydown', handleDocumentKeyDown);
+    documentRefCurrent.addEventListener('click', handleDocumentClick);
+    documentRefCurrent.addEventListener('keydown', handleDocumentKeyDown);
 
     return () => {
-      document.removeEventListener('click', handleDocumentClick);
-      document.removeEventListener('keydown', handleDocumentKeyDown);
+      documentRefCurrent.removeEventListener('click', handleDocumentClick);
+      documentRefCurrent.removeEventListener('keydown', handleDocumentKeyDown);
     };
-  }, [isOpened]);
+  }, [isOpened, documentRefCurrent]);
+
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -79,7 +86,7 @@ const PlacesSorting = (): JSX.Element => {
         onClick={ handleToggleButtonClick }
         onKeyDown={ handleToggleButtonKeyDown }
       >
-        { currentSortingOption.text }
+        { currentSortingOption?.text }
 
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"/>
@@ -88,8 +95,8 @@ const PlacesSorting = (): JSX.Element => {
 
       <ul className={ `places__options places__options--custom ${ isOpened ? 'places__options--opened' : '' }` }>
         {
-          sortingOptions.map((option) => {
-            const isActive = option.type === currentSortingOption.type;
+          OFFERS_SORTING_OPTIONS.map((option) => {
+            const isActive = option.type === currentSortingOption?.type;
 
             return (
               <li
