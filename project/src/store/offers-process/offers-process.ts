@@ -8,7 +8,7 @@ import { showError } from '../../utils';
 import { getOffersAction, getCurrentOfferAction, getNearbyOffersAction } from '../api-action';
 
 
-const initialState: OffersProcess = {
+export const initialState: OffersProcess = {
   currentCity: CITIES[0],
   sortingType: OFFERS_SORTING_OPTIONS[0].type,
   isOffersDataLoading: false,

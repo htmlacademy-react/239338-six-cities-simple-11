@@ -8,7 +8,7 @@ import { showError } from '../../utils';
 import { checkAuthAction, loginAction, logoutAction } from '../api-action';
 
 
-const initialState: UserProcess = {
+export const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,
   user: undefined
 };

@@ -37,6 +37,11 @@ export enum ReviewsSendingStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum RatingValue {
+  MIN = 1,
+  MAX = 5
+}
+
 
 export const PinParam = {
   Url: {
