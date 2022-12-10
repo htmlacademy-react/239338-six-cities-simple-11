@@ -14,7 +14,7 @@ export const initialState: OffersProcess = {
   isOffersDataLoading: false,
   offers: [],
   currentOffer: undefined,
-  currentOfferNearby: [],
+  currentNearbyOffers: [],
   selectedOfferID: undefined
 };
 
@@ -44,8 +44,8 @@ export const offersProcess = createSlice({
       state.currentOffer = undefined;
     },
 
-    clearCurrentOfferNearby: (state) => {
-      state.currentOfferNearby = [];
+    clearNearbyOffersAction: (state) => {
+      state.currentNearbyOffers = [];
     }
   },
 
@@ -80,7 +80,7 @@ export const offersProcess = createSlice({
       })
 
       .addCase(getNearbyOffersAction.fulfilled, (state, action) => {
-        state.currentOfferNearby = action.payload;
+        state.currentNearbyOffers = action.payload;
       })
       .addCase(getNearbyOffersAction.rejected, () => {
         showError('the offers nearby could not be loaded');
@@ -88,4 +88,4 @@ export const offersProcess = createSlice({
   }
 });
 
-export const { setCurrentCity, setSortingType, setSelectedOfferID, clearOffers, clearCurrentOffer, clearCurrentOfferNearby } = offersProcess.actions;
+export const { setCurrentCity, setSortingType, setSelectedOfferID, clearOffers, clearCurrentOffer, clearNearbyOffersAction } = offersProcess.actions;
