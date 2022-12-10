@@ -55,6 +55,9 @@ export const PinParam = {
 } as const;
 
 
+export const AUTH_TOKEN_KEY = 'six-cities-auth-token';
+
+
 export const CITIES = [
   'Paris',
   'Cologne',

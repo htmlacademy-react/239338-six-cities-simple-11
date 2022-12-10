@@ -2,12 +2,14 @@ import { datatype, lorem, date, name, internet, address, image } from 'faker';
 
 import { RatingValue, OFFERS_SORTING_OPTIONS } from './const';
 
-import { User, AppUser } from './types/user';
+import { User, AppUser, AppUserData } from './types/user';
 import { Offer } from './types/offers';
 import { Review } from './types/reviews';
 
 
 export const makeMockID = (): number => datatype.number();
+
+export const makeMockToken = (): string => datatype.uuid();
 
 
 export const makeMockUser = (): User => ({
@@ -23,8 +25,13 @@ export const makeMockAppUser = (): AppUser => ({
   isPro: datatype.boolean(),
   name: name.findName(),
   email: internet.email(),
-  token: datatype.uuid()
+  token: makeMockToken()
 } as AppUser);
+
+export const makeMockAppUserData = (): AppUserData => ({
+  email: internet.email(),
+  password: internet.password()
+} as AppUserData);
 
 
 export const makeMockCity = (): string => address.city();
