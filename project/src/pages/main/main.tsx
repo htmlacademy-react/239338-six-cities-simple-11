@@ -39,7 +39,7 @@ const Main = (): JSX.Element => {
 
 
   return (
-    <div className="page page--gray page--main">
+    <div className="page page--gray page--main" data-testid="main-page">
       <Header
         isMain
       />

@@ -9,7 +9,7 @@ const PADDING_TOP = '40vh';
 
 
 const NotFound = (): JSX.Element => (
-  <div className="page page--gray page--login">
+  <div className="page page--gray page--login" data-testid="not-found-page">
     <Header
       hasNav= { false }
     />

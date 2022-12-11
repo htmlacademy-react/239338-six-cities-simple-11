@@ -51,7 +51,7 @@ export const makeMockOffer = (): Offer => ({
   goods: [ datatype.string(), datatype.string() ],
   host: makeMockUser(),
   id: makeMockID(),
-  images: [ image.imageUrl(), image.imageUrl() ],
+  images: [ image.imageUrl(260, 200, 'city', true), image.imageUrl(260, 200, 'city', true) ],
   isPremium: datatype.boolean(),
   location: {
     latitude: Number(address.latitude()),

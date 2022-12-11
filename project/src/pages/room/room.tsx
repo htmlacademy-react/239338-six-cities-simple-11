@@ -67,7 +67,7 @@ const Room = (): JSX.Element => {
 
 
   return (
-    <div className="page">
+    <div className="page" data-testid="room-page">
       <Header/>
 
       <main className="page__main page__main--property">
