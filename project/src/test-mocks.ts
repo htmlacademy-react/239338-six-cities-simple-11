@@ -8,9 +8,10 @@ import { Review } from './types/reviews';
 
 
 export const makeMockID = (): number => datatype.number();
-
 export const makeMockToken = (): string => datatype.uuid();
 
+export const makeMockEmail = (): string => internet.email();
+export const makeMockPassword = (): string => internet.password();
 
 export const makeMockUser = (): User => ({
   avatarUrl: internet.avatar(),
@@ -24,13 +25,13 @@ export const makeMockAppUser = (): AppUser => ({
   id: makeMockID(),
   isPro: datatype.boolean(),
   name: name.findName(),
-  email: internet.email(),
+  email: makeMockEmail(),
   token: makeMockToken()
 } as AppUser);
 
 export const makeMockAppUserData = (): AppUserData => ({
-  email: internet.email(),
-  password: internet.password()
+  email: makeMockEmail(),
+  password: makeMockPassword()
 } as AppUserData);
 
 

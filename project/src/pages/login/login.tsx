@@ -71,9 +71,11 @@ const Login = (): JSX.Element => {
               onSubmit={ handleFormSubmit }
             >
               <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">E-mail</label>
+                <label htmlFor='email-field' className="visually-hidden">E-mail</label>
 
                 <input
+                  id="email-field"
+                  data-testid="email-field"
                   ref={ emailFieldRef }
                   className="login__input form__input"
                   type="email"
@@ -86,9 +88,11 @@ const Login = (): JSX.Element => {
               </div>
 
               <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">Password</label>
+                <label htmlFor='password-field' className="visually-hidden">Password</label>
 
                 <input
+                  id='password-field'
+                  data-testid="password-field"
                   ref={ passwordFieldRef }
                   className="login__input form__input"
                   type="password"
@@ -107,6 +111,7 @@ const Login = (): JSX.Element => {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <a
+                data-testid='locations-link'
                 className="locations__item-link"
                 href={ `#${ randomCity }` }
                 onClick={ handleLocationLinkClick }
