@@ -11,7 +11,7 @@ type ReviewItemProps = {
 }
 
 
-const ReviewItem = (props: ReviewItemProps): JSX.Element => {
+const ReviewsItem = (props: ReviewItemProps): JSX.Element => {
   const { review } = props;
   const { user, rating, comment, date } = review;
 
@@ -42,4 +42,4 @@ const ReviewItem = (props: ReviewItemProps): JSX.Element => {
 };
 
 
-export default ReviewItem;
+export default ReviewsItem;

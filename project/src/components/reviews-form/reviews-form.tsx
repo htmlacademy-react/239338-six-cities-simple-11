@@ -41,13 +41,13 @@ const INITIAL_FORM_STATE = {
 };
 
 
-const isCommentInvalid = (comment: string) => {
+const checkIsCommentInvalid = (comment: string) => {
   const commentLength = comment.trim().length;
 
   return commentLength < CommentLength.Min || commentLength > CommentLength.Max;
 };
 
-const isFormInvalid = (formData: FormData) => !formData[FieldName.Rating] || isCommentInvalid(formData[FieldName.Comment]);
+const checkIsFormInvalid = (formData: FormData) => !formData[FieldName.Rating] || checkIsCommentInvalid(formData[FieldName.Comment]);
 
 
 const ReviewsForm = (): JSX.Element => {
@@ -140,7 +140,7 @@ const ReviewsForm = (): JSX.Element => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={ isBlocked || isFormInvalid(formData) }
+          disabled={ isBlocked || checkIsFormInvalid(formData) }
         >
           Submit
         </button>
