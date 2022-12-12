@@ -6,7 +6,7 @@ import { useAppSelector } from '../../hooks';
 
 import { store } from '../../store';
 import { getCurrentOfferAction } from '../../store/api-action';
-import { clearCurrentOffer, clearCurrentOfferNearby } from '../../store/offers-process/offers-process';
+import { clearCurrentOffer, clearNearbyOffers } from '../../store/offers-process/offers-process';
 import { getCurrentOffer, getNearbyOffers } from '../../store/offers-process/selectors';
 
 import NotFound from '../not-found/not-found';
@@ -28,7 +28,7 @@ const Room = (): JSX.Element => {
   const routeParams = useParams();
 
   const currentOffer = useAppSelector(getCurrentOffer);
-  const offersNearby = useAppSelector(getNearbyOffers);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
 
   const currentOfferID = routeParams.id;
 
@@ -40,7 +40,7 @@ const Room = (): JSX.Element => {
 
     return () => {
       dispatch(clearCurrentOffer);
-      dispatch(clearCurrentOfferNearby);
+      dispatch(clearNearbyOffers);
     };
   }, [currentOfferID]);
 
@@ -148,10 +148,10 @@ const Room = (): JSX.Element => {
           </div>
 
           {
-            offersNearby && (
+            nearbyOffers && (
               <Map
                 location={ city.location }
-                offers={ offersNearby.concat(currentOffer) }
+                offers={ nearbyOffers.concat(currentOffer) }
                 parentClass='property'
                 currentOfferID={ currentOffer.id }
               />
@@ -160,14 +160,14 @@ const Room = (): JSX.Element => {
         </section>
 
         {
-          offersNearby && (
+          nearbyOffers && (
             <div className="container">
               <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
                 <div className="near-places__list places__list">
                   {
-                    offersNearby.map((offer) => (
+                    nearbyOffers.map((offer) => (
                       <PlaceCard
                         key= { offer.id }
                         parentClass= 'near-places'

@@ -18,7 +18,7 @@ export type OffersProcess = {
   sortingType: string;
   offers: Offers;
   currentOffer: Offer | undefined;
-  currentOfferNearby: Offers;
+  currentNearbyOffers: Offers;
   selectedOfferID: number | undefined;
 };
 

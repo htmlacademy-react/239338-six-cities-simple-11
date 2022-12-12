@@ -12,7 +12,7 @@ export const getIsOffersDataLoading = (state: AppState): boolean => state[NameSp
 
 export const getOffers = (state: AppState): Offers => state[NameSpace.Offers].offers;
 
-export const getNearbyOffers = (state: AppState): Offers => state[NameSpace.Offers].currentOfferNearby;
+export const getNearbyOffers = (state: AppState): Offers => state[NameSpace.Offers].currentNearbyOffers;
 
 export const getCurrentOffer = (state: AppState): Offer | undefined => state[NameSpace.Offers].currentOffer;
 
