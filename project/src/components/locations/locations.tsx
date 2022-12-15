@@ -1,5 +1,4 @@
 import { SyntheticEvent } from 'react';
-import { useSelector, useDispatch, TypedUseSelectorHook } from 'react-redux';
 
 import { CITIES } from '../../const';
 
@@ -9,7 +8,6 @@ import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
 import { setCurrentCity } from '../../store/offers-process/offers-process';
 import { getCurrentCity } from '../../store/offers-process/selectors';
-
 
 
 const Locations = (): JSX.Element => {

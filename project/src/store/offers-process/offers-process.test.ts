@@ -5,7 +5,7 @@ import { makeMockCity, makeMockOffer, makeMockSortingType, makeMockID } from '..
 
 import { getOffersAction, getCurrentOfferAction, getNearbyOffersAction } from '../api-action';
 
-import { offersProcess, setCurrentCity, setSortingType, setSelectedOfferID, clearOffers, clearCurrentOffer, clearNearbyOffersAction } from './offers-process';
+import { offersProcess, setCurrentCity, setSortingType, setSelectedOfferID, clearOffers, clearCurrentOffer, clearNearbyOffers } from './offers-process';
 
 
 const sortingType = makeMockSortingType();
@@ -179,7 +179,7 @@ describe('Reducer: offers', () => {
     it('should clear the existing nearby offers', () => {
       const state = initialState;
 
-      expect(offersProcess.reducer(state, clearNearbyOffersAction()))
+      expect(offersProcess.reducer(state, clearNearbyOffers()))
         .toEqual({
           ...initialState,
           currentNearbyOffers: []
