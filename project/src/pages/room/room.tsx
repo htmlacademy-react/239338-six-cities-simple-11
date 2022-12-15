@@ -6,7 +6,7 @@ import { useAppSelector } from '../../hooks';
 
 import { store } from '../../store';
 import { getCurrentOfferAction } from '../../store/api-action';
-import { clearCurrentOffer, clearNearbyOffersAction } from '../../store/offers-process/offers-process';
+import { clearCurrentOffer, clearNearbyOffers } from '../../store/offers-process/offers-process';
 import { getCurrentOffer, getNearbyOffers } from '../../store/offers-process/selectors';
 
 import NotFound from '../not-found/not-found';
@@ -40,7 +40,7 @@ const Room = (): JSX.Element => {
 
     return () => {
       dispatch(clearCurrentOffer);
-      dispatch(clearNearbyOffersAction);
+      dispatch(clearNearbyOffers);
     };
   }, [currentOfferID]);
 

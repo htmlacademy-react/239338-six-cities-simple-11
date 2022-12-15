@@ -44,7 +44,7 @@ export const offersProcess = createSlice({
       state.currentOffer = undefined;
     },
 
-    clearNearbyOffersAction: (state) => {
+    clearNearbyOffers: (state) => {
       state.currentNearbyOffers = [];
     }
   },
@@ -88,4 +88,4 @@ export const offersProcess = createSlice({
   }
 });
 
-export const { setCurrentCity, setSortingType, setSelectedOfferID, clearOffers, clearCurrentOffer, clearNearbyOffersAction } = offersProcess.actions;
+export const { setCurrentCity, setSortingType, setSelectedOfferID, clearOffers, clearCurrentOffer, clearNearbyOffers } = offersProcess.actions;
