@@ -23,7 +23,10 @@ const HeaderNav = (): JSX.Element => {
 
 
   return (
-    <nav className="header__nav">
+    <nav
+      data-testid="header-nav"
+      className="header__nav"
+    >
       <ul className="header__nav-list">
         {
           authorizationStatus === AuthorizationStatus.Auth && user ? (
@@ -31,15 +34,28 @@ const HeaderNav = (): JSX.Element => {
               <li className="header__nav-item user">
                 <div className="header__nav-profile">
                   <div className="header__avatar-wrapper user__avatar-wrapper">
-                    <img className="user__avatar" width="20" height="20" src={ user.avatarUrl } alt={ user.name }/>
+                    <img
+                      data-testid="header-user-avatar"
+                      className="user__avatar"
+                      width="20"
+                      height="20"
+                      src={ user.avatarUrl }
+                      alt={ user.name }
+                    />
                   </div>
 
-                  <span className="header__user-name user__name">{ user.email }</span>
+                  <span
+                    data-testid="header-user-email"
+                    className="header__user-name user__name"
+                  >
+                    { user.email }
+                  </span>
                 </div>
               </li>
 
               <li className="header__nav-item">
                 <Link
+                  data-testid="header-nav-link"
                   className="header__nav-link"
                   to={ AppRoute.Login }
                   onClick= { handleSignOutLinkClick }
@@ -50,7 +66,11 @@ const HeaderNav = (): JSX.Element => {
             </>
           ) : (
             <li className="header__nav-item user">
-              <Link className="header__nav-link header__nav-link--profile" to={ AppRoute.Login }>
+              <Link
+                data-testid="header-nav-link"
+                className="header__nav-link header__nav-link--profile"
+                to={ AppRoute.Login }
+              >
                 <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                 <span className="header__login">Sign in</span>
               </Link>

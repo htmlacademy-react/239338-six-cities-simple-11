@@ -1,4 +1,5 @@
 import { SyntheticEvent } from 'react';
+import { useSelector, useDispatch, TypedUseSelectorHook } from 'react-redux';
 
 import { CITIES } from '../../const';
 
@@ -10,7 +11,9 @@ import { setCurrentCity } from '../../store/offers-process/offers-process';
 import { getCurrentCity } from '../../store/offers-process/selectors';
 
 
+
 const Locations = (): JSX.Element => {
+  const dispatch = useDispatch();
   const currentCity = useAppSelector(getCurrentCity);
 
 
@@ -34,6 +37,7 @@ const Locations = (): JSX.Element => {
               return (
                 <li key={ city } className="locations__item">
                   <a
+                    data-testid="locations-link"
                     className={ `locations__item-link tabs__item ${ isActive ? 'tabs__item--active' : '' }` }
                     href={ `#${ city }` }
                     onClick={ handleLocationLinkClick }

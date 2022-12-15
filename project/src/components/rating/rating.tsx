@@ -13,10 +13,14 @@ const Rating = (props: RatingProps): JSX.Element => {
 
 
   return (
-    <div className={ `${ parentClass }__rating rating` }>
+    <div
+      data-testid="rating"
+      className={ `${ parentClass }__rating rating` }
+    >
       <div className={ `${ parentClass }__stars rating__stars` }>
-        <span style=
-          {{
+        <span
+          data-testid="rating-stars"
+          style={{
             width: `${ Math.round(value) / RatingValue.MAX * 100 }%`
           }}
         >
@@ -27,7 +31,12 @@ const Rating = (props: RatingProps): JSX.Element => {
 
       {
         hasValueOutput && (
-          <span className={ `${ parentClass }__rating-value rating__value` }>{ value }</span>
+          <span
+            data-testid="rating-value-output"
+            className={ `${ parentClass }__rating-value rating__value` }
+          >
+            { value }
+          </span>
         )
       }
     </div>

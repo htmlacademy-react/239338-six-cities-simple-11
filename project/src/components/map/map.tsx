@@ -40,6 +40,7 @@ const Map = (props: MapProps): JSX.Element => {
 
   return (
     <div
+      data-testid="map"
       className={ `${ parentClass }__map map` }
       ref={ mapRef }
     />

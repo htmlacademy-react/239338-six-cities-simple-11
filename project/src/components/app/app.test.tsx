@@ -10,6 +10,8 @@ import HistoryRouter from '../history-router/history-router';
 import App from './app';
 
 
+const history = createMemoryHistory();
+
 const mockStore = configureMockStore();
 
 const store = mockStore({
@@ -31,8 +33,6 @@ const store = mockStore({
     currentReviews: []
   },
 });
-
-const history = createMemoryHistory();
 
 
 const mockApp = (

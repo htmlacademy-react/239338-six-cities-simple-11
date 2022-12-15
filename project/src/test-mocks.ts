@@ -5,6 +5,7 @@ import { RatingValue, OFFERS_SORTING_OPTIONS } from './const';
 import { User, AppUser, AppUserData } from './types/user';
 import { Offer } from './types/offers';
 import { Review } from './types/reviews';
+import { Location } from './types/location';
 
 
 export const makeMockID = (): number => datatype.number();
@@ -35,17 +36,19 @@ export const makeMockAppUserData = (): AppUserData => ({
 } as AppUserData);
 
 
+export const makeMockLocation = (): Location => ({
+  latitude: Number(address.latitude()),
+  longitude: Number(address.longitude()),
+  zoom: datatype.number(),
+});
+
 export const makeMockCity = (): string => address.city();
 
 
 export const makeMockOffer = (): Offer => ({
   bedrooms: datatype.number(),
   city: {
-    location: {
-      latitude: Number(address.latitude()),
-      longitude: Number(address.longitude()),
-      zoom: datatype.number(),
-    },
+    location: makeMockLocation(),
     name: makeMockCity()
   },
   description: lorem.paragraph(),
@@ -54,11 +57,7 @@ export const makeMockOffer = (): Offer => ({
   id: makeMockID(),
   images: [ image.imageUrl(260, 200, 'city', true), image.imageUrl(260, 200, 'city', true) ],
   isPremium: datatype.boolean(),
-  location: {
-    latitude: Number(address.latitude()),
-    longitude: Number(address.longitude()),
-    zoom: datatype.number(),
-  },
+  location: makeMockLocation(),
   maxAdults: datatype.number(),
   previewImage: image.imageUrl(),
   price: datatype.number(),

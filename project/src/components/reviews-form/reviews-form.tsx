@@ -84,6 +84,7 @@ const ReviewsForm = (): JSX.Element => {
 
   return (
     <form
+      data-testid="reviews-form"
       className="reviews__form form"
       action="#"
       method="post"
@@ -103,6 +104,7 @@ const ReviewsForm = (): JSX.Element => {
             return (
               <Fragment key={ ratingID }>
                 <input
+                  data-testid="reviews-form-rating"
                   id={ ratingID }
                   className="form__rating-input visually-hidden"
                   name={ FieldName.Rating }
@@ -124,6 +126,7 @@ const ReviewsForm = (): JSX.Element => {
       </div>
 
       <textarea
+        data-testid="reviews-form-textarea"
         id="review"
         className="reviews__textarea form__textarea"
         name={ FieldName.Comment }
@@ -138,6 +141,7 @@ const ReviewsForm = (): JSX.Element => {
         </p>
 
         <button
+          data-testid="reviews-form-submit-btn"
           className="reviews__submit form__submit button"
           type="submit"
           disabled={ isBlocked || checkIsFormInvalid(formData) }
@@ -149,5 +153,7 @@ const ReviewsForm = (): JSX.Element => {
   );
 };
 
+
+export { CommentLength, RATINGS };
 
 export default ReviewsForm;

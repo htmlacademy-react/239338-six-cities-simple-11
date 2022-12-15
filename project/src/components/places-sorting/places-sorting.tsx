@@ -77,10 +77,16 @@ const PlacesSorting = (): JSX.Element => {
 
 
   return (
-    <form className="places__sorting" action="#" method="get">
+    <form
+      data-testid="places-sorting"
+      className="places__sorting"
+      action="#"
+      method="get"
+    >
       <span className="places__sorting-caption">Sort by </span>
 
       <span
+        data-testid="places-sorting-type"
         className="places__sorting-type"
         tabIndex={ 0 }
         onClick={ handleToggleButtonClick }
@@ -93,13 +99,17 @@ const PlacesSorting = (): JSX.Element => {
         </svg>
       </span>
 
-      <ul className={ `places__options places__options--custom ${ isOpened ? 'places__options--opened' : '' }` }>
+      <ul
+        data-testid="places-sorting-list"
+        className={ `places__options places__options--custom ${ isOpened ? 'places__options--opened' : '' }` }
+      >
         {
           OFFERS_SORTING_OPTIONS.map((option) => {
             const isActive = option.type === currentSortingOption?.type;
 
             return (
               <li
+                data-testid={ option.type }
                 id={ option.type }
                 key={ option.type }
                 className={ `places__option ${ isActive ? 'places__option--active' : ''}` }

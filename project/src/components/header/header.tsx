@@ -23,11 +23,18 @@ const Header = (props: HeaderProps): JSX.Element => {
           <div className="header__left">
             {
               isMain ? (
-                <span className="header__logo-link header__logo-link--active">
+                <span
+                  data-testid="header-logo-link"
+                  className="header__logo-link header__logo-link--active"
+                >
                   <HeaderLogo/>
                 </span>
               ) : (
-                <Link className="header__logo-link" to={ AppRoute.Root }>
+                <Link
+                  data-testid="header-logo-link"
+                  className="header__logo-link"
+                  to={ AppRoute.Root}
+                >
                   <HeaderLogo/>
                 </Link>
               )
