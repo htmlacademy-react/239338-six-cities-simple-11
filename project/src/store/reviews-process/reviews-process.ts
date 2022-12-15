@@ -8,7 +8,7 @@ import { showError } from '../../utils';
 import { getReviewsAction, sendReviewAction } from '../api-action';
 
 
-export const initialState: ReviewsProcess = {
+const initialState: ReviewsProcess = {
   sendingStatus: ReviewsSendingStatus.Unknown,
   currentReviews: []
 };

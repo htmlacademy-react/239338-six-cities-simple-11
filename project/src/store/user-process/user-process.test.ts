@@ -1,14 +1,20 @@
-import { makeMockAppUser } from '../../test-mocks';
 import { AuthorizationStatus } from '../../const';
 import { UserProcess } from '../../types/state';
 
+import { makeMockAppUser } from '../../test-mocks';
+
 import { checkAuthAction, loginAction, logoutAction } from '../api-action';
 
-import { userProcess, initialState } from './user-process';
+import { userProcess } from './user-process';
 
 
 const appUser = makeMockAppUser();
 
+
+const initialState: UserProcess = {
+  authorizationStatus: AuthorizationStatus.Unknown,
+  user: undefined
+};
 
 const unauthorizedState: UserProcess = {
   authorizationStatus: AuthorizationStatus.NoAuth,

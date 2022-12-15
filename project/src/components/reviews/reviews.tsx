@@ -41,7 +41,10 @@ const Reviews = (props: ReviewsProps): JSX.Element => {
 
 
   return (
-    <section className={ `${parentClass}__reviews reviews` }>
+    <section
+      data-testid="reviews"
+      className={ `${parentClass}__reviews reviews` }
+    >
       <h2 className="reviews__title">
         Reviews &middot; <span data-testid="reviews-amount" className="reviews__amount">{ reviewsAmount }</span>
       </h2>

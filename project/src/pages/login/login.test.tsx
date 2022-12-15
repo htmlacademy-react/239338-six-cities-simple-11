@@ -26,7 +26,7 @@ const mockPassword = makeMockPassword();
 
 
 describe('Page: Login', () => {
-  it('should render "Login" when user navigate to "/login"', async () => {
+  it('should render correctly', async () => {
     history.push(AppRoute.Login);
 
     render(
@@ -38,7 +38,7 @@ describe('Page: Login', () => {
     );
 
 
-    const signInItems = screen.getAllByText(/Sign in/i);
+    const headerElement = screen.getByTestId('header');
 
     const emailLabel = screen.getByLabelText(/E-mail/i);
     const emailField = screen.getByTestId('email-field');
@@ -46,17 +46,15 @@ describe('Page: Login', () => {
     const passwordLabel = screen.getByLabelText(/Password/i);
     const passwordField = screen.getByTestId('password-field');
 
-    const linkItem = screen.getByTestId('locations-link');
+    const locationsLinkElement = screen.getByTestId('locations-link');
 
 
-    signInItems.forEach((item) => {
-      expect(item).toBeInTheDocument();
-    });
+    expect(headerElement).toBeInTheDocument();
 
     expect(emailLabel).toBeInTheDocument();
     expect(passwordLabel).toBeInTheDocument();
 
-    expect(linkItem).toBeInTheDocument();
+    expect(locationsLinkElement).toBeInTheDocument();
 
     await userEvent.type(emailField, mockEmail);
     await userEvent.type(passwordField, mockPassword);

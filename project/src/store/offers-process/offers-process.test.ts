@@ -1,8 +1,11 @@
+import { CITIES, OFFERS_SORTING_OPTIONS } from '../../const';
+import { OffersProcess } from '../../types/state';
+
 import { makeMockCity, makeMockOffer, makeMockSortingType, makeMockID } from '../../test-mocks';
 
 import { getOffersAction, getCurrentOfferAction, getNearbyOffersAction } from '../api-action';
 
-import { offersProcess, initialState, setCurrentCity, setSortingType, setSelectedOfferID, clearOffers, clearCurrentOffer, clearNearbyOffersAction } from './offers-process';
+import { offersProcess, setCurrentCity, setSortingType, setSelectedOfferID, clearOffers, clearCurrentOffer, clearNearbyOffersAction } from './offers-process';
 
 
 const sortingType = makeMockSortingType();
@@ -13,6 +16,17 @@ const offer = makeMockOffer();
 const offers = [makeMockOffer(), makeMockOffer()];
 
 const offerID = makeMockID();
+
+
+const initialState: OffersProcess = {
+  currentCity: CITIES[0],
+  sortingType: OFFERS_SORTING_OPTIONS[0].type,
+  isOffersDataLoading: false,
+  offers: [],
+  currentOffer: undefined,
+  currentNearbyOffers: [],
+  selectedOfferID: undefined
+};
 
 
 describe('Reducer: offers', () => {
@@ -84,16 +98,16 @@ describe('Reducer: offers', () => {
   });
 
   describe('getNearbyOffersAction test', () => {
-    it('should set currentOfferNearby if getNearbyOffersAction fulfilled', () => {
+    it('should set currentNearbyOffers if getNearbyOffersAction fulfilled', () => {
       const state = initialState;
 
       expect(offersProcess.reducer(state, { type: getNearbyOffersAction.fulfilled.type, payload: offers }))
         .toEqual({
           ...initialState,
-          currentOfferNearby: offers
+          currentNearbyOffers: offers
         });
     });
-    it('should do not set currentOfferNearby if getNearbyOffersAction rejected', () => {
+    it('should do not set currentNearbyOffers if getNearbyOffersAction rejected', () => {
       const state = initialState;
 
       expect(offersProcess.reducer(state, { type: getNearbyOffersAction.rejected.type }))
@@ -161,14 +175,14 @@ describe('Reducer: offers', () => {
     });
   });
 
-  describe('clearCurrentOfferNearby test', () => {
+  describe('clearCurrentNearbyOffers test', () => {
     it('should clear the existing nearby offers', () => {
       const state = initialState;
 
       expect(offersProcess.reducer(state, clearNearbyOffersAction()))
         .toEqual({
           ...initialState,
-          currentOfferNearby: []
+          currentNearbyOffers: []
         });
     });
   });

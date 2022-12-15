@@ -39,18 +39,27 @@ const Main = (): JSX.Element => {
 
 
   return (
-    <div className="page page--gray page--main" data-testid="main-page">
+    <div
+      data-testid="main-page"
+      className="page page--gray page--main"
+    >
       <Header
         isMain
       />
 
-      <main className={`page__main page__main--index ${ isEmpty ? 'page__main--index-empty' : '' }`}>
+      <main
+        data-testid="main-page-main"
+        className={`page__main page__main--index ${ isEmpty ? 'page__main--index-empty' : '' }`}
+      >
         <h1 className="visually-hidden">Cities</h1>
 
         <Locations/>
 
         <div className="cities">
-          <div className={`cities__places-container ${ isEmpty ? 'cities__places-container--empty' : '' } container`}>
+          <div
+            data-testid="main-page-places-container"
+            className={`cities__places-container ${ isEmpty ? 'cities__places-container--empty' : '' } container`}
+          >
             {
               isEmpty ? (
                 <NoPlaces

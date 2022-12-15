@@ -13,12 +13,8 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 const store = mockStore({
-  [NameSpace.Offers]: {
-
-  },
-  [NameSpace.Reviews]: {
-
-  }
+  [NameSpace.Offers]: {},
+  [NameSpace.Reviews]: {}
 });
 
 

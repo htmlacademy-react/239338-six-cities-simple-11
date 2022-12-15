@@ -1,12 +1,20 @@
-import { makeMockReview } from '../../test-mocks';
 import { ReviewsSendingStatus } from '../../const';
+import { ReviewsProcess } from '../../types/state';
+
+import { makeMockReview } from '../../test-mocks';
 
 import { getReviewsAction, sendReviewAction } from '../api-action';
 
-import { reviewsProcess, initialState, clearCurrentReviews } from './reviews-process';
+import { reviewsProcess, clearCurrentReviews } from './reviews-process';
 
 
 const reviews = [makeMockReview(), makeMockReview()];
+
+
+const initialState: ReviewsProcess = {
+  sendingStatus: ReviewsSendingStatus.Unknown,
+  currentReviews: []
+};
 
 
 describe('Reducer: reviews', () => {

@@ -13,7 +13,6 @@ import { getCurrentCity } from '../../store/offers-process/selectors';
 
 
 const Locations = (): JSX.Element => {
-  const dispatch = useDispatch();
   const currentCity = useAppSelector(getCurrentCity);
 
 
@@ -28,7 +27,10 @@ const Locations = (): JSX.Element => {
 
   return (
     <div className="tabs">
-      <section className="locations container">
+      <section
+        data-testid="locations"
+        className="locations container"
+      >
         <ul className="locations__list tabs__list">
           {
             CITIES.map((city) => {
