@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createMemoryHistory } from 'history';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 
 import { NameSpace, AppRoute } from '../../const';
@@ -110,25 +110,6 @@ describe('Component: PlaceCard', () => {
     const premiumLabelElement = screen.queryByText(/Premium/i);
 
     expect(premiumLabelElement).not.toBeInTheDocument();
-  });
-
-
-  it('should set ID of the offer on hover', () => {
-    render(
-      <Provider store={ store }>
-        <HistoryRouter history={ history }>
-          <PlaceCard
-            parentClass='mock-place-card'
-            place={ mockOffer }
-          />
-        </HistoryRouter>
-      </Provider>
-    );
-
-
-    fireEvent.mouseEnter(screen.getByTestId('place-card'));
-
-    expect(store.getActions()[0].type).toBe('OFFERS/setSelectedOfferID');
   });
 });
 

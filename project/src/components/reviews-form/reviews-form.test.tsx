@@ -69,21 +69,5 @@ describe('Component: ReviewsForm', () => {
 
     expect(submitBtnElement).toHaveAttribute('disabled');
   });
-
-
-  it('should submit form correctly', () => {
-    render(
-      <Provider store={ store }>
-        <ReviewsForm/>
-      </Provider>
-    );
-
-
-    const component = screen.getByTestId('reviews-form');
-
-    fireEvent.submit(component);
-
-    expect(store.getActions()[0].type).toBe('OFFERS/sendReviewAction');
-  });
 });
 

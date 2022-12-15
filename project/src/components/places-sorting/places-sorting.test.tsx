@@ -87,7 +87,7 @@ describe('Component: PlacesSorting', () => {
   });
 
 
-  it('should change sorting type and close options list by option click', () => {
+  it('should close options list by option click', () => {
     render(
       <Provider store={ store }>
         <PlacesSorting/>
@@ -102,7 +102,6 @@ describe('Component: PlacesSorting', () => {
     fireEvent.click(newCurrentOptionElement);
 
     expect(listElement).not.toHaveClass(ActiveClass.List);
-    expect(store.getActions()[0].type).toBe('OFFERS/setSortingType');
   });
 });
 
