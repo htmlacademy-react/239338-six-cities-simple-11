@@ -9,7 +9,10 @@ const NoPlaces = (props: NoPlacesProps): JSX.Element => {
 
   return (
     <>
-      <section className="cities__no-places">
+      <section
+        data-testid="cities-no-places"
+        className="cities__no-places"
+      >
         <div className="cities__status-wrapper tabs__content">
           <b className="cities__status">No places to stay available</b>
 

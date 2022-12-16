@@ -25,7 +25,10 @@ const Locations = (): JSX.Element => {
 
   return (
     <div className="tabs">
-      <section className="locations container">
+      <section
+        data-testid="locations"
+        className="locations container"
+      >
         <ul className="locations__list tabs__list">
           {
             CITIES.map((city) => {
@@ -34,6 +37,7 @@ const Locations = (): JSX.Element => {
               return (
                 <li key={ city } className="locations__item">
                   <a
+                    data-testid="locations-link"
                     className={ `locations__item-link tabs__item ${ isActive ? 'tabs__item--active' : '' }` }
                     href={ `#${ city }` }
                     onClick={ handleLocationLinkClick }

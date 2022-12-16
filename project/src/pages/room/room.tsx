@@ -67,7 +67,7 @@ const Room = (): JSX.Element => {
 
 
   return (
-    <div className="page">
+    <div className="page" data-testid="room-page">
       <Header/>
 
       <main className="page__main page__main--property">
@@ -76,8 +76,16 @@ const Room = (): JSX.Element => {
             <div className="property__gallery">
               {
                 images.slice(0, MAX_IMAGES_AMOUNT).map((image) => (
-                  <div key={ image } className="property__image-wrapper">
-                    <img className="property__image" src={ image } alt="Studio"/>
+                  <div
+                    key={ image }
+                    className="property__image-wrapper"
+                  >
+                    <img
+                      data-testid="property-image"
+                      className="property__image"
+                      src={ image }
+                      alt="Studio"
+                    />
                   </div>
                 ))
               }
@@ -185,5 +193,7 @@ const Room = (): JSX.Element => {
   );
 };
 
+
+export { MAX_IMAGES_AMOUNT };
 
 export default Room;

@@ -1,3 +1,6 @@
+import { RatingValue } from '../../const';
+
+
 type RatingProps = {
   parentClass: string;
   value: number;
@@ -5,19 +8,20 @@ type RatingProps = {
 }
 
 
-const MAX_VALUE = 5;
-
-
 const Rating = (props: RatingProps): JSX.Element => {
   const { parentClass, value, hasValueOutput = false } = props;
 
 
   return (
-    <div className={ `${ parentClass }__rating rating` }>
+    <div
+      data-testid="rating"
+      className={ `${ parentClass }__rating rating` }
+    >
       <div className={ `${ parentClass }__stars rating__stars` }>
-        <span style=
-          {{
-            width: `${ Math.round(value) / MAX_VALUE * 100 }%`
+        <span
+          data-testid="rating-stars"
+          style={{
+            width: `${ Math.round(value) / RatingValue.MAX * 100 }%`
           }}
         >
         </span>
@@ -27,7 +31,12 @@ const Rating = (props: RatingProps): JSX.Element => {
 
       {
         hasValueOutput && (
-          <span className={ `${ parentClass }__rating-value rating__value` }>{ value }</span>
+          <span
+            data-testid="rating-value-output"
+            className={ `${ parentClass }__rating-value rating__value` }
+          >
+            { value }
+          </span>
         )
       }
     </div>

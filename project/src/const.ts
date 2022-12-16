@@ -37,6 +37,11 @@ export enum ReviewsSendingStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum RatingValue {
+  MIN = 1,
+  MAX = 5
+}
+
 
 export const PinParam = {
   Url: {
@@ -48,6 +53,9 @@ export const PinParam = {
     Heigh: 40
   }
 } as const;
+
+
+export const AUTH_TOKEN_KEY = 'six-cities-auth-token';
 
 
 export const CITIES = [

@@ -11,6 +11,7 @@ const Loader = (): JSX.Element => {
 
   return (
     <div
+      data-testid='loader'
       className='loader'
       style={{
         display: !isDataLoading ? 'none' : ''

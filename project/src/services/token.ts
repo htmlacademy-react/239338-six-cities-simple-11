@@ -1,7 +1,7 @@
+import { AUTH_TOKEN_KEY } from '../const';
+
+
 type Token = string;
-
-
-const AUTH_TOKEN_KEY = 'six-cities-auth-token';
 
 
 export const getToken = (): Token => {

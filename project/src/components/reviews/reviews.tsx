@@ -41,14 +41,20 @@ const Reviews = (props: ReviewsProps): JSX.Element => {
 
 
   return (
-    <section className={ `${parentClass}__reviews reviews` }>
+    <section
+      data-testid="reviews"
+      className={ `${parentClass}__reviews reviews` }
+    >
       <h2 className="reviews__title">
-        Reviews &middot; <span className="reviews__amount">{ reviewsAmount }</span>
+        Reviews &middot; <span data-testid="reviews-amount" className="reviews__amount">{ reviewsAmount }</span>
       </h2>
 
       {
         reviewsAmount !== 0 && (
-          <ul className="reviews__list">
+          <ul
+            data-testid="reviews-list"
+            className="reviews__list"
+          >
             {
               reviews.slice().sort(sortReviews).slice(0, MAX_REVIEWS_AMOUNT).map((review) => (
                 <ReviewsItem
@@ -66,5 +72,7 @@ const Reviews = (props: ReviewsProps): JSX.Element => {
   );
 };
 
+
+export { MAX_REVIEWS_AMOUNT };
 
 export default Reviews;

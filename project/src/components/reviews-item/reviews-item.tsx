@@ -17,7 +17,10 @@ const ReviewsItem = (props: ReviewItemProps): JSX.Element => {
 
 
   return (
-    <li className="reviews__item">
+    <li
+      data-testid="reviews-item"
+      className="reviews__item"
+    >
       <User
         user={ user }
         parentClass='reviews'
@@ -33,7 +36,11 @@ const ReviewsItem = (props: ReviewItemProps): JSX.Element => {
           { comment }
         </p>
 
-        <time className="reviews__time" dateTime={ getFormattedDate(date, 'yyyy-MM-dd') }>
+        <time
+          data-testid="reviews-time"
+          className="reviews__time"
+          dateTime={ getFormattedDate(date, 'yyyy-MM-dd') }
+        >
           { getFormattedDate(date, 'MMMM yyyy') }
         </time>
       </div>

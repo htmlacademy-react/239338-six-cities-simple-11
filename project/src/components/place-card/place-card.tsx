@@ -39,6 +39,7 @@ const PlaceCard = (props: PlaceCardProps): JSX.Element => {
 
   return (
     <article
+      data-testid="place-card"
       className={ `${ parentClass }__card place-card`}
       onMouseEnter={ hasMouseEvents ? handlePlaceCardMouseEnter : undefined }
       onMouseLeave={ hasMouseEvents ? handlePlaceCardMouseLeave : undefined }
@@ -53,7 +54,10 @@ const PlaceCard = (props: PlaceCardProps): JSX.Element => {
 
       <div className={ `${ parentClass }__image-wrapper place-card__image-wrapper` }>
         <Link to={ `${ AppRoute.Root }offer/${ id }` }>
-          <img className="place-card__image" src={ previewImage } width="260" height="200" alt="Place"/>
+          <img
+            data-testid="place-card-image"
+            className="place-card__image" src={ previewImage } width="260" height="200" alt="Place"
+          />
         </Link>
       </div>
 

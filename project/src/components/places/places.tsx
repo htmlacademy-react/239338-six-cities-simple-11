@@ -19,7 +19,10 @@ const Places = (props: PlacesProps): JSX.Element => {
 
   return (
     <>
-      <section className="cities__places places">
+      <section
+        data-testid="cities-places"
+        className="cities__places places"
+      >
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{ pluralize(offers.length, 'place') } to stay in { currentCity }</b>
 

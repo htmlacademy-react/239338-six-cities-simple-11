@@ -8,6 +8,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { store } from './store';
 import { checkAuthAction } from './store/api-action';
 
+import browserHistory from './browser-history';
+
+import HistoryRouter from './components/history-router/history-router';
+import ScrollFix from './components/scroll-fix/scroll-fix';
+import Loader from './components/loader/loader';
 import App from './components/app/app';
 
 
@@ -21,9 +26,13 @@ store.dispatch(checkAuthAction());
 root.render(
   <React.StrictMode>
     <Provider store={ store }>
-      <ToastContainer />
+      <HistoryRouter history={ browserHistory }>
+        <ScrollFix/>
+        <Loader/>
+        <ToastContainer/>
 
-      <App/>
+        <App/>
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>,
 );

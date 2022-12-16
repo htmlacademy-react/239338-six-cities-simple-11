@@ -14,9 +14,19 @@ const User = (props: UserProps): JSX.Element => {
 
 
   return (
-    <div className={ `${ parentClass }__${ classPrefix ? `${ classPrefix }-` : '' }user user` }>
+    <div
+      data-testid="user"
+      className={ `${ parentClass }__${ classPrefix ? `${ classPrefix }-` : '' }user user` }
+    >
       <div className={ `${ parentClass }__avatar-wrapper ${ isPro ? `${ parentClass }__avatar-wrapper--pro` : '' } user__avatar-wrapper` }>
-        <img className={ `${ parentClass }__avatar user__avatar` } width="74" height="74" src={ avatarUrl } alt={ name }/>
+        <img
+          data-testid="user-avatar"
+          className={ `${ parentClass }__avatar user__avatar` }
+          width="74"
+          height="74"
+          src={ avatarUrl }
+          alt={ name }
+        />
       </div>
 
       <span className={ `${ parentClass }__user-name` }>
